@@ -1,0 +1,72 @@
+<Panel>
+	<Panel ux:Class="Cross" Width="50" Height="50" Alignment="Center" TransformOrigin="Center">
+		<Rectangle Width="2" Height="35%" Color="#fff9" />
+		<Rectangle Height="2" Width="35%" Color="#fff9" />
+	</Panel>
+
+	<Panel ux:Class="Menu" Width="230" Color="#ffff" Alignment="Left" />
+
+	<Image ux:Class="Icon" />
+
+	<Icon ux:Class="ClockIcon" File="Assets/icon_clock.png" />
+	<Icon ux:Class="TalkIcon" File="Assets/icon_talk.png" />
+	<Icon ux:Class="LocationIcon" File="Assets/icon_location.png" />
+	<Icon ux:Class="SunnyIcon" File="Assets/icon_sunny.png" />
+ 	<Icon ux:Class="SmallAvatarIcon" File="Assets/small_avatar.png" />
+	<Icon ux:Class="HamburgerIcon" File="Assets/icon_hamburger.png" />
+
+	<Text ux:Class="DefaultText" Color="#ffff">
+		<Font File="Assets/FOnts/built_titling_lt.otf" />
+	</Text>
+
+	<Text ux:Class="MutedText" Color="#fffd" >
+		<Font File="Assets/FOnts/built_titling_rg.otf" />
+	</Text>
+	
+	<Text ux:Class="StampText" Color="#ffff">
+		<Font File="Assets/FOnts/built_titling_el.otf" />
+	</Text>
+	
+	<Text ux:Class="MenuText" Color="#676565">
+		<Font File="Assets/FOnts/built_titling_rg.otf" />
+	</Text>
+
+
+	<Grid ux:Class="CalendarItem" Columns="1*,4*" >
+		<AddingAnimation>
+			<Move X="1" Duration="0.4" RelativeTo="Size" Easing="CircularInOut" DelayBack="{delay}" />
+			<Move Target="underline" X="1" Duration="0.4" RelativeTo="Size" Easing="CircularInOut" DelayBack="{lineDelay}" />
+		</AddingAnimation>
+		<RemovingAnimation>
+			<Move X="1" Duration="0.4" RelativeTo="Size" Easing="CircularInOut" DelayBack="{delay}" />
+			<Move Target="underline" X="1" Duration="0.4" RelativeTo="Size" Easing="CircularInOut" DelayBack="{lineDelay}" />
+		</RemovingAnimation>
+		<StackPanel Alignment="TopLeft" Width="40" Margin="0,15,0,0">
+			<DefaultText FontSize="35" Value="{item.time}" TextAlignment="Center" />
+			<MutedText FontSize="20" Value="{item.ampm}" TextAlignment="Center"/>
+		</StackPanel>
+		<Panel Margin="0,18">
+
+			<Panel>
+				<StackPanel Alignment="VerticalCenter">
+					<WhileTrue Value="{hasTitle}">
+						<DefaultText Value="{item.title}" FontSize="40" />
+					</WhileTrue>
+					<WhileTrue Value="{hasProject}">
+						<MutedText Value="{item.project}" FontSize="20" Margin="0,2" />
+					</WhileTrue>
+					<WhileTrue Value="{hasPeople}">
+						<WrapPanel Margin="0,8,0,0">
+							<Each Items="{item.people}">
+								<Image File="{picture}" Width="30" Height="30" Margin="5,0" />
+							</Each>
+						</WrapPanel>
+					</WhileTrue>
+				</StackPanel>
+			</Panel>
+		</Panel>
+		<WhileFalse Value="{isLast}">
+			<Rectangle ux:Name="underline" Height="1" Color="#fff3" Alignment="Bottom" Column="1" />
+		</WhileFalse>
+	</Grid>
+</Panel>

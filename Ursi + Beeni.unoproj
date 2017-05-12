@@ -1,0 +1,16 @@
+{
+  "RootNamespace": "",
+  "Packages": [
+    "Fuse",
+    "Fuse.Camera",
+    "Fuse.CameraRoll",
+    "Fuse.ImageTools",
+    "FuseJS"
+  ],
+  "Includes": [
+    "MainView.js:File",
+    "MainView.ux:UXFile",
+    "Resources.ux:UXFile",
+    "Assets/*.png:Bundle"
+  ]
+}
