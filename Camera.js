@@ -34,27 +34,35 @@ var displayImage = function(image)
     4. Display the final image
 */
 
+var response_ok = false;
+
 exports.takePicture = function()
 {
-  Camera.takePicture().then(
-    function(image) {
-      var args = { desiredWidth:320, desiredHeight:320, mode:ImageTools.SCALE_AND_CROP, performInPlace:true };
-      ImageTools.resize(image, args).then(
-        function(image) {
-          CameraRoll.publishImage(image);
-          displayImage(image);
-        }
-      ).catch(
-        function(reason) {
-          console.log("Couldn't resize image: " + reason);
-        }
-      );
-    }
-  ).catch(
-    function(reason){
-      console.log("Couldn't take picture: " + reason);
-    }
-  );
+   Camera.takePicture(150, 150).then(function(image) {
+            CameraRoll.publishImage(image);
+            return ImageTools.getBufferFromImage(image).then(function(buffer) {
+                return fetch('https://content.dropboxapi.com/2/files/upload', 
+                  { method: "POST", 
+                  headers: {"Authorization": "Bearer ig8CID6XnEwAAAAAAAAD6Jkw0ctldVWMPeG2n5ElxEtcXhL0s-LPvJRePVHJNWaM",
+                  "Dropbox-API-Arg": '{"path":"/hochzeit/logo4.png"}',
+                  "Content-type": "application/octet-stream",
+
+                  },
+                  body: buffer });
+            });
+        }).then(function(response) {
+            console.log("Got response");
+            response_ok = response.ok;
+            console.log(response_ok);
+            return response.json();
+        }).then(function(responseObject) {
+          console.log("Hier der Response:");
+          console.log(JSON.stringify(responseObject));
+        }).catch(function(e){
+            console.log("Error");
+            console.log(e);
+        });
+
 };
 
 /*
