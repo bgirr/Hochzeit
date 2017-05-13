@@ -212,8 +212,8 @@
 							</RemovingAnimation>
 							<StackPanel>
 								<MutedText Value="Bilder" FontSize="30"/>
-								<DefaultText Padding="0,0,0,80" Value="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet." TextWrapping="Wrap" FontSize="20" />
-								<Each Items="{pictures}">
+								<DefaultText Padding="0,0,0,80" Value="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Ste clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet." TextWrapping="Wrap" FontSize="20" />
+								<Each Items="{pictures.entries}">
 									<MutedText Value="Fotoname: {name}" FontSize="30"/>
 									<Image Url="{publicUrl}" ContentAlignment="Center" StretchMode="Scale9" StretchDirection="Both" MemoryPolicy="PreloadRetain" Padding="0,0,20,0"/>
 								</Each>
