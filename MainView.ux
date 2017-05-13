@@ -14,29 +14,6 @@
 		<string ux:Property="Text" />
 		<Button Text="{ReadProperty this.Text}" Padding="5,5,5,5" />
 	</Panel>
-	<ClientPanel>
-		<WhileEmpty Items="{imagePath}">
-				<Image File="Assets/cam_icon.png" StretchMode="PixelPrecise"/>
-		</WhileEmpty>
-		<WhileNotEmpty Items="{imagePath}">
-			<DockPanel Dock="Fill">
-				<Text Value="{imageName}" Dock="Top" Alignment="Center"/>
-				<Image File="{imagePath}" StretchMode="Uniform" />
-				<Text Value="{imageSize}" Dock="Bottom" Alignment="Center"/>
-			</DockPanel>
-		</WhileNotEmpty>
-		<StackPanel Dock="Bottom">
-			<Text FontSize="12" Margin="5,5,5,5">Click buttons to perform tests</Text>
-			<FatButton Text="Push 320x320 square picture to cameraroll" Clicked="{takePicture}"/>
-			<FatButton Text="Take aspect corrected 100x100 picture via buffer" Clicked="{takeSmallPicture}"/>
-			<FatButton Text="Take cropped 320x320 picture" Clicked="{takeCroppedPicture}"/>
-			<FatButton Text="Get picture from cameraroll" Clicked="{selectImage}"/>
-			<WhileNotEmpty Items="{imagePath}">
-				<FatButton Text="Reload last picture via base64" Clicked="{b64Test}"/>
-			</WhileNotEmpty>
-		</StackPanel>
-	</ClientPanel>
-
 		<StackPanel Padding="170,0,0,0">
 			<StampText Value="Ursi + Beeni" FontSize="80" />
 			<StampText Value="  14.10.2017" FontSize="80" />
@@ -118,7 +95,7 @@
 		<Panel ux:Class="WobbleButton" ux:Name="self" TransformOrigin="Center" >
 			<Cross ux:Name="cross" HitTestMode="None"/>
 
-			<ClockIcon ux:Name="icon1" Margin="40,30,0,20" Width="30" Height="30" Alignment="Left" Opacity="0" IsEnabled="false">
+			<ClockIcon ux:Name="icon1" Margin="40,30,0,20" Width="30" Height="30" Alignment="Left" Opacity="0" IsEnabled="false" Clicked="{takePicture}">
 				<Translation ux:Name="trans1" X="1.5" RelativeTo="Size" />
 				<Clicked>
 					<Toggle Target="expanded" />
