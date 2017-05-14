@@ -2,6 +2,9 @@ var Observable = require("FuseJS/Observable");
 var Camera = require("FuseJS/Camera");
 var CameraRoll = require("FuseJS/CameraRoll");
 var ImageTools = require("FuseJS/ImageTools");
+var FileSystem = require("FuseJS/FileSystem");
+
+var images = Observable();
 
 var exports = module.exports;
 
@@ -122,23 +125,76 @@ exports.takeSmallPicture = function()
 
 exports.selectImage = function()
 {
-  CameraRoll.getImage().then(
-    function(image)
-    {
-      console.log("received image: "+image.path+", "+image.width+"/"+image.height);
-      displayImage(image);
-    }
-  ).catch(
-    function(reason){
-      console.log("Couldn't get image: "+reason);
-    }
-  );
+fetch("https://content.dropboxapi.com/1/thumbnails/auto/hochzeit/logo.png",
+    { method: "GET",
+      headers: {"Authorization": "Bearer ig8CID6XnEwAAAAAAAAD6Jkw0ctldVWMPeG2n5ElxEtcXhL0s-LPvJRePVHJNWaM",
+            "size": 'xs'}
+    }).then(function(response){
+      //  buffer = ImageTools.getBufferFromImage(result).then(function(buffer) {
+              //CameraRoll.publishImage(result.body);
+              //debug_log("Hier das Log:")
+              //debug_log(String(result.status));
+              //displayImage(result.body);
+              
+              //for (var key of result.headers.keys()){
+                //debug_log(key);
+              //}
+              debug_log("Weiter mit Response");
+return response.blob();
+})
+    .then(function(myBlob){
+      debug_log("Weiter mit Blob")
+      debug_log(myBlob);
+      var objectURL = URL.createObjectURL(myBlob);
+      debug_log(objectURL);
+    })
+
+         // debug_log("und hier auch ");
+          //var objectURL = URL.createObjectURL(myBlob);
+          //debug_log(objectURL);
+          //displayImage(myBlob);
+          //CameraRoll.publishImage(myBlob);
+          //debug_log("Ja");
+
+
+
+
+        //console.log(result);
+            //});
+
+
+
+      debug_log("Zu ");
+      //var Foto = response;
+      //var img = document.createElement('img');
+      //img.src=window.URL.createObjectURL(response.fileBlob);
+      //document.body.appendChild(img);
+      //var Foto = img.src;
+      //debug_log(Foto);
+      //CameraRoll.publishImage(image);
+      //debug_log("gespeichert");
+      //var arraybuffer = ImageTools.getBufferFromImage(image);
+      //var path = FileSystem.dataDirectory + "/" + "testfile.jpg";
+      //debug_log(path);
+      //FileSystem.writeBufferToFile(path, arraybuffer);
+      //displayImage(ImageTools.getImageFromBuffer(arraybuffer));
+    
 };
+
+/*
+ var arraybuffer = ImageTools.getBufferFromImage(response);
+      if (arraybuffer) {
+        var path = FileSystem.dataDirectory + "/" + "testfile.jpg";
+        debug_log("Hier liegt das Bild" + path);
+        FileSystem.writeBufferToFile(path, arraybuffer);
+        displayImage(ImageTools.getImageFromBuffer(arraybuffer));
+        debug_log("fertig");
+
 
 /*
   Bounce the last displayed image via base64 and display the reloaded image
 */
-exports.b64Test = function()
+exports.b64Test2 = function()
 {
   ImageTools.getImageFromBase64(lastImage).then(
     function(image){

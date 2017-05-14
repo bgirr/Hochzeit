@@ -19,6 +19,35 @@
 			<StampText Value="  14.10.2017" FontSize="80" />
 		</StackPanel>
 
+
+		<ClientPanel>
+		<WhileEmpty Items="{imagePath}">
+				<Image File="assets/cam_icon.png" StretchMode="PixelPrecise"/>
+		</WhileEmpty>
+		<WhileNotEmpty Items="{imagePath}">
+			<DockPanel Dock="Fill">
+				<Text Value="{imageName}" Dock="Top" Alignment="Center"/>
+				<Image File="{imagePath}" StretchMode="Uniform" />
+				<Text Value="{imageSize}" Dock="Bottom" Alignment="Center"/>
+			</DockPanel>
+		</WhileNotEmpty>
+		<StackPanel Dock="Bottom">
+			<Text FontSize="12" Margin="5,5,5,5">Click buttons to perform tests</Text>
+			<FatButton Text="Push 320x320 square picture to cameraroll" Clicked="{takePicture}"/>
+			<FatButton Text="Take aspect corrected 100x100 picture via buffer" Clicked="{takeSmallPicture}"/>
+			<FatButton Text="Take cropped 320x320 picture" Clicked="{takeCroppedPicture}"/>
+			<FatButton Text="Get picture from cameraroll" Clicked="{selectImage}"/>
+			<WhileNotEmpty Items="{imagePath}">
+				<FatButton Text="Reload last picture via base64" Clicked="{b64Test}"/>
+			</WhileNotEmpty>
+		</StackPanel>
+	</ClientPanel>
+
+
+
+
+
+
 		<HamburgerIcon Alignment="TopLeft"  Margin="20,20,20,20" Width="20" StretchMode="Fill" Height="17" Color="#000000">
 			<Clicked>
 				<Toggle Target="hideHeadlines" />
@@ -101,7 +130,7 @@
 					<Toggle Target="expanded" />
 				</Clicked>
 			</ClockIcon>
-			<TalkIcon ux:Name="icon2" Margin="70,70,0,0" Width="30" Height="30" Alignment="TopLeft" Opacity="0" IsEnabled="false">
+			<TalkIcon ux:Name="icon2" Margin="70,70,0,0" Width="30" Height="30" Alignment="TopLeft" Opacity="0" IsEnabled="false" Clicked="{selectImage}">
 				<Translation ux:Name="trans2" X="1" Y="1" RelativeTo="Size" />
 				<Clicked>
 					<Toggle Target="expanded" />
@@ -182,7 +211,7 @@
 								<MutedText Value="Einlagen" FontSize="30" Padding="0,15,0,0"/>
 								<DefaultText Padding="0,0,0,80" Value="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet." TextWrapping="Wrap" FontSize="20" />
 								<MutedText Value="Geschenke" FontSize="30" Padding="0,15,0,0"/>
-								<DefaultText Padding="0,0,0,80" Value="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet." TextWrapping="Wrap" FontSize="20" />
+								<DefaultText Padding="0,0,0,80" Value="{Foto}" TextWrapping="Wrap" FontSize="20" />
 							</StackPanel>
 						</ScrollView>
 					</WhileTrue>
@@ -212,7 +241,8 @@
 							</RemovingAnimation>
 							<StackPanel>
 								<MutedText Value="Bilder" FontSize="30"/>
-								<DefaultText Padding="0,0,0,80" Value="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Ste clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet." TextWrapping="Wrap" FontSize="20" />
+								<DefaultText Padding="0,0,0,80" Value="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Ste clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no ssea takimata sanctus est Lorem ipsum dolore sit amet." TextWrapping="Wrap" FontSize="20" />
+								<Image Source="{Foto}" />
 								<Each Items="{pictures.entries}">
 									<MutedText Value="Fotoname: {name}" FontSize="30"/>
 									<Image Url="{publicUrl}" ContentAlignment="Center" StretchMode="Scale9" StretchDirection="Both" MemoryPolicy="PreloadRetain" Padding="0,0,20,0"/>
