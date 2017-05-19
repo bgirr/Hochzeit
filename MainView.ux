@@ -1,6 +1,6 @@
 <App>
 	<ClientPanel>
-	<ImageFill File="Assets/bg.jpeg" StretchMode="UniformToFill" WrapMode="ClampToEdge" Opacity="1.0"/>
+	<ImageFill File="Assets/oa.jpg" StretchMode="UniformToFill" WrapMode="ClampToEdge"  Opacity="1.0"/>
 
 		<Fuse.iOS.StatusBarConfig Style="Light" />
 
@@ -15,8 +15,8 @@
 		<Button Text="{ReadProperty this.Text}" Padding="5,5,5,5" />
 	</Panel>
 		<StackPanel Padding="170,0,0,0">
-			<StampText Value="Ursi + Beeni" FontSize="80" />
-			<StampText Value="  14.10.2017" FontSize="80" />
+			<StampText Value="" FontSize="80" />
+			<StampText Value="" FontSize="80" />
 		</StackPanel>
 
 		<HamburgerIcon Alignment="TopLeft"  Margin="20,20,20,20" Width="20" StretchMode="Fill" Height="17" Color="#000000">
