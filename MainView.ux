@@ -7,7 +7,6 @@
 		<ux:Include File="Resources.ux" />
 
 		<JavaScript File="MainView.js" />
-		<JavaScript File="Pictures.js" />
 		<JavaScript File="Camera.js" />
 
 		<Panel ux:Class="FatButton" Background="#FFFFFF" Margin="0,5,0,5" Text="">
@@ -197,7 +196,7 @@
 		<Panel ux:Name="self" TransformOrigin="Center" Width="300" Height="300" Alignment="BottomRight" Offset="100,100">
 			<Cross ux:Name="cross" HitTestMode="None"/>
 
-			<ClockIcon ux:Name="icon1" Margin="40,30,0,20" Width="30" Height="30" Alignment="Left" Opacity="0" IsEnabled="false" Clicked="{takePicture}">
+			<ClockIcon ux:Name="icon1" Margin="40,30,0,20" Width="30" Height="30" Alignment="Left" Opacity="0" IsEnabled="false" Clicked="{CameraRollWedding}">
 				<Translation ux:Name="trans1" X="1.5" RelativeTo="Size" />
 				<Clicked>
 					<Toggle Target="expanded" />
@@ -250,7 +249,7 @@
 				<Change trans2.Y="0" Delay="0.05" Duration="0.4" Easing="BounceOut" EasingBack="QuadraticInOut" DurationBack="0.2" DelayBack="0"/>
 				<Change trans3.Y="0" Delay="0.1" Duration="0.4" Easing="BounceOut" EasingBack="QuadraticInOut" DurationBack="0.2"  DelayBack="0"/>
 
-				<Change icon1.Opacity="0.5" Delay="0.1" Duration="0.1" Easing="QuadraticInOut" DelayBack="0"/>
+				<Change icon1.Opacity="1" Delay="0.1" Duration="0.1" Easing="QuadraticInOut" DelayBack="0"/>
 				<Change icon2.Opacity="1" Delay="0.1" Duration="0.1" Easing="QuadraticInOut" DelayBack="0"/>
 				<Change icon3.Opacity="1" Delay="0.1" Duration="0.1" Easing="QuadraticInOut" DelayBack="0"/>
 			</WhileTrue>

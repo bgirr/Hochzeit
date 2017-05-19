@@ -9,8 +9,8 @@
 	<Image ux:Class="Icon" />
 
 	<Icon ux:Class="ClockIcon" File="Assets/icon_cam.png" />
-	<Icon ux:Class="TalkIcon" File="Assets/icon_talk.png" />
-	<Icon ux:Class="LocationIcon" File="Assets/icon_location.png" />
+	<Icon ux:Class="TalkIcon" File="Assets/message.png" />
+	<Icon ux:Class="LocationIcon" File="Assets/gallery.png" />
 	<Icon ux:Class="SunnyIcon" File="Assets/icon_sunny.png" />
  	<Icon ux:Class="SmallAvatarIcon" File="Assets/small_avatar.png" />
 	<Icon ux:Class="HamburgerIcon" File="Assets/icon_hamburger.png" />
