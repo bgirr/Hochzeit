@@ -1,7 +1,11 @@
 var Observable = require("FuseJS/Observable");
+var ImageTools = require("FuseJS/ImageTools");
+var Base64 = require("FuseJS/Base64");
 var pictures = Observable();
+var Foto = Observable();
 
-fetch("https://api.dropboxapi.com/2/files/list_folder",
+
+/*fetch("https://api.dropboxapi.com/2/files/list_folder",
 	{ method: "POST", 
                   headers: {"Authorization": "Bearer ig8CID6XnEwAAAAAAAAD6Jkw0ctldVWMPeG2n5ElxEtcXhL0s-LPvJRePVHJNWaM",
                   "Content-type": "application/json",
@@ -16,9 +20,28 @@ fetch("https://api.dropboxapi.com/2/files/list_folder",
                   	debug_log("Bilder sind da");
                   	pictures.value=data;
                   	var laenge = data.entries.length;
-                  	debug_log(laenge)
+                  	debug_log(laenge);
                   })
-                  });
+                  }); */
+
+function thumbnails(){
+	pictures.value = "";
+fetch("https://weddingfun-cookingtest.rhcloud.com/images/api/")
+	.then(function(result) {
+		if (result.status !== 200) {
+			debug_log(result.status);
+		}
+	result.json().then(function(data) {
+	debug_log("Übersicht ist da!");
+	var laenge = data.length;
+	for (var i=0; i<laenge; i++) {
+	var item = data[i];
+	pictures.add(item);
+		}
+	});
+});
+
+};
 	
 	//result.json().then(function(data) {
 	//debug_log("Übersicht ist da!");
@@ -32,6 +55,7 @@ fetch("https://api.dropboxapi.com/2/files/list_folder",
 
 		module.exports = {
 		pictures: pictures,
+		thumbnails: thumbnails
 		}
 
 		//https://pixabay.com/api/?key=134183-60435312b6db97c2df70ecd93&q=yellow+flowers&image_type=photo&pretty=true
