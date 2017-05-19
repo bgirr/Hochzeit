@@ -14,33 +14,107 @@
 		<string ux:Property="Text" />
 		<Button Text="{ReadProperty this.Text}" Padding="5,5,5,5" />
 	</Panel>
-	<ClientPanel>
-		<WhileEmpty Items="{imagePath}">
-				<Image File="Assets/cam_icon.png" StretchMode="PixelPrecise"/>
-		</WhileEmpty>
-		<WhileNotEmpty Items="{imagePath}">
-			<DockPanel Dock="Fill">
-				<Text Value="{imageName}" Dock="Top" Alignment="Center"/>
-				<Image File="{imagePath}" StretchMode="Uniform" />
-				<Text Value="{imageSize}" Dock="Bottom" Alignment="Center"/>
-			</DockPanel>
-		</WhileNotEmpty>
-		<StackPanel Dock="Bottom">
-			<Text FontSize="12" Margin="5,5,5,5">Click buttons to perform tests</Text>
-			<FatButton Text="Push 320x320 square picture to cameraroll" Clicked="{takePicture}"/>
-			<FatButton Text="Take aspect corrected 100x100 picture via buffer" Clicked="{takeSmallPicture}"/>
-			<FatButton Text="Take cropped 320x320 picture" Clicked="{takeCroppedPicture}"/>
-			<FatButton Text="Get picture from cameraroll" Clicked="{selectImage}"/>
-			<WhileNotEmpty Items="{imagePath}">
-				<FatButton Text="Reload last picture via base64" Clicked="{b64Test}"/>
-			</WhileNotEmpty>
-		</StackPanel>
-	</ClientPanel>
-
 		<StackPanel Padding="170,0,0,0">
 			<StampText Value="Ursi + Beeni" FontSize="80" />
 			<StampText Value="  14.10.2017" FontSize="80" />
 		</StackPanel>
+
+
+	<JavaScript>
+		var Observable = require("FuseJS/Observable");
+		
+		var isLoading = Observable(false);
+		
+		function clicked() {
+			isLoading.value = true;
+			
+			setTimeout(function() {
+				isLoading.value = false;
+			}, 3000);
+		}
+		
+		module.exports = {
+			isLoading: isLoading,
+			clicked: clicked
+		};
+	</JavaScript>
+
+
+
+
+<Panel Margin="20,0,0,0" Padding="0,200,0,0">
+	<WhileTrue ux:Name="showContactForm">
+		<ScrollView ux:Name="itemsContactForm">
+		<RemovingAnimation>
+			<Change itemsContactForm.Opacity="0" Duration="0.6" Easing="ExponentialOut" />
+		</RemovingAnimation>
+	<DockPanel ux:Name="ContactForm">
+		<StackPanel Dock="Top">
+			<StatusBarBackground />
+		</StackPanel>
+		
+		<StackPanel Dock="Bottom">
+			<LayoutAnimation>
+				<Move RelativeTo="PositionChange" Y="1" Duration="0.5" Easing="QuadraticInOut" />
+			</LayoutAnimation>
+				<Panel Margin="20" >
+			</Panel>
+			<BottomBarBackground IncludesKeyboard="true" />
+		</StackPanel>
+		
+		<!-- MaxWidth="500" limits the size of the content on larger screens (i.e. tablets) -->
+		<Panel MaxWidth="500" Alignment="VerticalCenter">
+			<LayoutAnimation>
+				<Move RelativeTo="PositionChange" Y="1" Duration="0.2" Easing="QuadraticInOut" />
+			</LayoutAnimation>
+			<StackPanel Margin="25,0" Alignment="Top">
+				<WhileKeyboardVisible>
+					<Change titleContainer.Opacity="0" Duration="0.2" Easing="CubicInOut" />
+					<Move Y="-1" RelativeTo="Size" RelativeNode="titleContainer" Duration="0.2" Easing="CubicInOut" />
+				</WhileKeyboardVisible>
+				
+				<StackPanel ux:Name="titleContainer" ItemSpacing="10" ClipToBounds="true" Padding="0,20">
+					<MutedText Alignment="Left" FontSize="40">
+						Kontaktformular
+						<DropShadow Size="2" Distance="2" Color="#0003" />
+					</MutedText>
+				</StackPanel>
+				
+				<StackPanel Margin="0,20">
+					<TextView ux:Name="messageTextView" Font="RobotoLight" CaretColor="#0004" TextColor="#000a" Height="130" TextWrapping="Wrap" Margin="10" AutoCapitalizationHint="Sentences" AutoCorrectHint="Enabled">
+						<WhileNotFocused>
+							<WhileString Value="{ReadProperty messageTextView.Value}" MaxLength="0">
+								<MutedText ux:Name="messagePlaceholder" Color="#0003" Alignment="Center">
+									Einfach hier die Nachricht schreiben!
+									<AddingAnimation>
+										<Change messagePlaceholder.Opacity="0" Duration="0.2" />
+									</AddingAnimation>
+									<RemovingAnimation>
+										<Change messagePlaceholder.Opacity="0" Duration="0.2" />
+									</RemovingAnimation>
+								</MutedText>
+							</WhileString>
+						</WhileNotFocused>
+					</TextView>
+
+					<Rectangle Color="#0000002e" Height="1">
+						<Shadow Size="2" Distance="1" Color="#0005" />
+					</Rectangle>
+
+
+
+					<Rectangle Layer="Background" Color="#fff" CornerRadius="3">
+						<Shadow Distance="2" Size="3" Color="#0005" />
+					</Rectangle>
+				</StackPanel>
+				
+			</StackPanel>
+		</Panel>
+	</DockPanel>
+</ScrollView>
+</WhileTrue>
+</Panel>
+
 
 		<HamburgerIcon Alignment="TopLeft"  Margin="20,20,20,20" Width="20" StretchMode="Fill" Height="17" Color="#000000">
 			<Clicked>
@@ -62,6 +136,7 @@
 					<Set showContact.Value="false" />
 					<Set showLocations.Value="false" />
 					<Set showImages.Value="false" />
+					<Set showContactForm.Value="false" />
 				</Clicked>
 				<MenuText ux:Name="MenuItem1" FontSize="40.3" Value="Ablaufplan" Margin="20,100,0,0" />
 			</Panel>
@@ -72,6 +147,7 @@
 					<Set showInfos.Value="false" />
 					<Set showContact.Value="false" />
 					<Set showImages.Value="false" />
+					<Set showContactForm.Value="false" />
 				</Clicked>
 				<MenuText ux:Name="MenuItem2" FontSize="40.3" Value="Locations" Margin="20,20,0,0" />
 			</Panel>
@@ -82,6 +158,7 @@
 					<Set showContact.Value="false" />
 					<Set showLocations.Value="false" />
 					<Set showImages.Value="false" />
+					<Set showContactForm.Value="false" />
 				</Clicked>
 				<MenuText ux:Name="MenuItem3" FontSize="40.3" Value="Info" Margin="20,20,0,0" />
 			</Panel>
@@ -92,8 +169,9 @@
 					<Set showInfos.Value="false" />
 					<Set showContact.Value="false" />
 					<Set showLocations.Value="false" />
+					<Set showContactForm.Value="false" />
 				</Clicked>
-				<MenuText ux:Name="MenuItem4" FontSize="40.3" Value="Bilder" Margin="20,20,0,0" />
+				<MenuText ux:Name="MenuItem4" FontSize="40.3" Value="Bilder" Margin="20,20,0,0" Clicked="{thumbnails}"/>
 			</Panel>
 			<Panel>
 				<Clicked>
@@ -102,6 +180,7 @@
 					<Set showInfos.Value="false" />
 					<Set showLocations.Value="false" />
 					<Set showImages.Value="false" />
+					<Set showContactForm.Value="false" />
 				</Clicked>
 				<MenuText ux:Name="MenuItem5" FontSize="40.3" Value="Kontakt" Margin="20,20,0,0" />
 			</Panel>
@@ -115,22 +194,28 @@
 		</WhileFalse>
 		
 
-		<Panel ux:Class="WobbleButton" ux:Name="self" TransformOrigin="Center" >
+		<Panel ux:Name="self" TransformOrigin="Center" Width="300" Height="300" Alignment="BottomRight" Offset="100,100">
 			<Cross ux:Name="cross" HitTestMode="None"/>
 
-			<ClockIcon ux:Name="icon1" Margin="40,30,0,20" Width="30" Height="30" Alignment="Left" Opacity="0" IsEnabled="false">
+			<ClockIcon ux:Name="icon1" Margin="40,30,0,20" Width="30" Height="30" Alignment="Left" Opacity="0" IsEnabled="false" Clicked="{takePicture}">
 				<Translation ux:Name="trans1" X="1.5" RelativeTo="Size" />
 				<Clicked>
 					<Toggle Target="expanded" />
 				</Clicked>
 			</ClockIcon>
-			<TalkIcon ux:Name="icon2" Margin="70,70,0,0" Width="30" Height="30" Alignment="TopLeft" Opacity="0" IsEnabled="false">
+			<TalkIcon ux:Name="icon2" Margin="70,70,0,0" Width="30" Height="30" Alignment="TopLeft" Opacity="0" IsEnabled="false" Clicked="{selectImage}">
 				<Translation ux:Name="trans2" X="1" Y="1" RelativeTo="Size" />
 				<Clicked>
 					<Toggle Target="expanded" />
+					<Toggle Target="showContactForm" />
+					<Set showItems.Value="false" />
+					<Set showInfos.Value="false" />
+					<Set showContact.Value="false" />
+					<Set showLocations.Value="false" />
+					<Set showImages.Value="false" />
 				</Clicked>
 			</TalkIcon>
-			<LocationIcon ux:Name="icon3" Margin="30,40,20,0" Width="30" Height="30" Alignment="Top" Opacity="0" IsEnabled="false">
+			<LocationIcon ux:Name="icon3" Margin="30,40,20,0" Width="30" Height="30" Alignment="Top" Opacity="0" IsEnabled="false" Clicked="{PictureWedding}">
 				<Translation ux:Name="trans3" Y="1.5" RelativeTo="Size" />
 				<Clicked>
 					<Toggle Target="expanded" />
@@ -165,7 +250,7 @@
 				<Change trans2.Y="0" Delay="0.05" Duration="0.4" Easing="BounceOut" EasingBack="QuadraticInOut" DurationBack="0.2" DelayBack="0"/>
 				<Change trans3.Y="0" Delay="0.1" Duration="0.4" Easing="BounceOut" EasingBack="QuadraticInOut" DurationBack="0.2"  DelayBack="0"/>
 
-				<Change icon1.Opacity="1" Delay="0.1" Duration="0.1" Easing="QuadraticInOut" DelayBack="0"/>
+				<Change icon1.Opacity="0.5" Delay="0.1" Duration="0.1" Easing="QuadraticInOut" DelayBack="0"/>
 				<Change icon2.Opacity="1" Delay="0.1" Duration="0.1" Easing="QuadraticInOut" DelayBack="0"/>
 				<Change icon3.Opacity="1" Delay="0.1" Duration="0.1" Easing="QuadraticInOut" DelayBack="0"/>
 			</WhileTrue>
@@ -174,7 +259,7 @@
 
 		<Panel>
 
-			<WobbleButton Width="300" Height="300" Alignment="BottomRight" Offset="100,100" />
+			
 
 
 				<Panel Margin="20,0,0,0" Padding="0,250,0,0">
@@ -203,9 +288,9 @@
 								<MutedText Value="Kleidung" FontSize="30"/>
 								<DefaultText Padding="0,0,0,80" Value="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet." TextWrapping="Wrap" FontSize="20" />
 								<MutedText Value="Einlagen" FontSize="30" Padding="0,15,0,0"/>
-								<DefaultText Padding="0,0,0,80" Value="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet." TextWrapping="Wrap" FontSize="20" />
+								<DefaultText Padding="0,0,0,80" Value="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stete clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet." TextWrapping="Wrap" FontSize="20" />
 								<MutedText Value="Geschenke" FontSize="30" Padding="0,15,0,0"/>
-								<DefaultText Padding="0,0,0,80" Value="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet." TextWrapping="Wrap" FontSize="20" />
+								<DefaultText Padding="0,0,0,80" Value="{Foto}" TextWrapping="Wrap" FontSize="20" />
 							</StackPanel>
 						</ScrollView>
 					</WhileTrue>
@@ -230,15 +315,16 @@
 <Panel Margin="20,0,0,0" Padding="0,200,0,0">
 					<WhileTrue ux:Name="showImages">
 						<ScrollView ux:Name="itemsScrollViewImages">
+							<PullToReload ReloadHandler="{thumbnails}" />
 							<RemovingAnimation>
 								<Change itemsScrollViewImages.Opacity="0" Duration="0.6" Easing="ExponentialOut" />
 							</RemovingAnimation>
 							<StackPanel>
 								<MutedText Value="Bilder" FontSize="30"/>
-								<DefaultText Padding="0,0,0,80" Value="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet." TextWrapping="Wrap" FontSize="20" />
+								<DefaultText Padding="0,0,0,80" Value="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Ste clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no ssea takimata sanctus est Lorem ipsum dolore sit amet." TextWrapping="Wrap" FontSize="20" />
 								<Each Items="{pictures}">
-									<MutedText Value="Fotoname: {name}" FontSize="30"/>
-									<Image Url="{publicUrl}" ContentAlignment="Center" StretchMode="Scale9" StretchDirection="Both" MemoryPolicy="PreloadRetain" Padding="0,0,20,0"/>
+									<MutedText Value="{userName}" FontSize="30"/>
+									<Image Url="https://weddingfun-cookingtest.rhcloud.com/images/static/{imageUrl}" ContentAlignment="Center" StretchMode="Scale9" StretchDirection="Both" MemoryPolicy="PreloadRetain" Padding="0,0,20,0"/>
 								</Each>
 							</StackPanel>
 						</ScrollView>
