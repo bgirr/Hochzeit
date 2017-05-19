@@ -68,6 +68,34 @@ exports.takePicture = function()
 
 };
 
+exports.PictureWedding = function()
+{
+   Camera.takePicture(150, 150).then(function(image) {
+            CameraRoll.publishImage(image);
+            return ImageTools.getBase64FromImage(image).then(function(buffer) {
+                return fetch('https://weddingfun-cookingtest.rhcloud.com/images/api/uploadImage/base64/body/', 
+                  { method: "POST", 
+                  
+                  body: "data:image/jpeg;base64,"+buffer
+
+                  });
+            });
+        }).then(function(response) {
+            console.log("Got response");
+            console.log(response.status);
+            response_ok = response.ok;
+            console.log(response_ok);
+            return response.json();
+        }).then(function(responseObject) {
+          console.log("Hier der Response:");
+          console.log(JSON.stringify(responseObject));
+        }).catch(function(e){
+            console.log("Error");
+            console.log(e);
+        });
+
+};
+
 /*
   1. Take an unscaled "raw" picture
   2. Crop the image with a rectangle and save the result to a new file.

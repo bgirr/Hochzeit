@@ -24,18 +24,24 @@ var Foto = Observable();
                   })
                   }); */
 
-//function thumbnail(path){
-	debug_log("Anfrage stellen");
-	fetch("https://content.dropboxapi.com/1/thumbnails/auto/hochzeit/logo.png",
-		{ method: "GET",
-			headers: {"Authorization": "Bearer ig8CID6XnEwAAAAAAAAD6Jkw0ctldVWMPeG2n5ElxEtcXhL0s-LPvJRePVHJNWaM",
-            "size": 'xs'}
-		}).then(function(result){
-			displayImage(result.body);
-			
-		})
+function thumbnails(){
+	pictures.value = "";
+fetch("https://weddingfun-cookingtest.rhcloud.com/images/api/")
+	.then(function(result) {
+		if (result.status !== 200) {
+			debug_log(result.status);
+		}
+	result.json().then(function(data) {
+	debug_log("Übersicht ist da!");
+	var laenge = data.length;
+	for (var i=0; i<laenge; i++) {
+	var item = data[i];
+	pictures.add(item);
+		}
+	});
+});
 
-//};
+};
 	
 	//result.json().then(function(data) {
 	//debug_log("Übersicht ist da!");
@@ -48,7 +54,8 @@ var Foto = Observable();
 
 
 		module.exports = {
-		pictures: pictures
+		pictures: pictures,
+		thumbnails: thumbnails
 		}
 
 		//https://pixabay.com/api/?key=134183-60435312b6db97c2df70ecd93&q=yellow+flowers&image_type=photo&pretty=true
