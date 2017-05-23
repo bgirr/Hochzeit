@@ -16,27 +16,27 @@
 	<Icon ux:Class="HamburgerIcon" File="Assets/icon_hamburger.png" />
 
 
-	<Font ux:Global="RobotoThin" File="Assets/FOnts/built_titling_rg.otf" />
-	<Font ux:Global="RobotoLight" File="Assets/FOnts/built_titling_rg.otf" />
+	<Font ux:Global="RobotoThin" File="Assets/FOnts/Archer-Book-Pro.otf" />
+	<Font ux:Global="RobotoLight" File="Assets/FOnts/Archer-Book-Pro.otf" />
 	
-	<Text ux:Class="HeaderText" FontSize="42" Color="#fff" Font="RobotoThin" />
-	<Text ux:Class="BodyText" FontSize="18" Color="#fffa" Font="RobotoLight" />
-	<BodyText ux:Class="MuteText" Color="#eee" />
+	<Text ux:Class="HeaderText" FontSize="42" Color="#0000" Font="RobotoThin" />
+	<Text ux:Class="BodyText" FontSize="18" Color="#0000" Font="RobotoLight" />
+	<BodyText ux:Class="MuteText" Color="#0000" />
 
-	<Text ux:Class="DefaultText" Color="#ffff">
-		<Font File="Assets/FOnts/built_titling_lt.otf" />
+	<Text ux:Class="DefaultText" Color="#000000">
+		<Font File="Assets/FOnts/Archer-Book-Pro.otf" />
 	</Text>
 
-	<Text ux:Class="MutedText" Color="#fffd" >
-		<Font File="Assets/FOnts/built_titling_rg.otf" />
+	<Text ux:Class="MutedText" Color="#000000" >
+		<Font File="Assets/FOnts/Archer-Book-Pro.otf" />
 	</Text>
 	
-	<Text ux:Class="StampText" Color="#ffff">
-		<Font File="Assets/FOnts/built_titling_el.otf" />
+	<Text ux:Class="StampText" Color="#000000">
+		<Font File="Assets/FOnts/Archer-Book-Pro.otf" />
 	</Text>
 	
 	<Text ux:Class="MenuText" Color="#676565">
-		<Font File="Assets/FOnts/built_titling_rg.otf" />
+		<Font File="Assets/FOnts/Archer-Book-Pro.otf" />
 	</Text>
 
 
@@ -74,7 +74,7 @@
 			</Panel>
 		</Panel>
 		<WhileFalse Value="{isLast}">
-			<Rectangle ux:Name="underline" Height="1" Color="#fff3" Alignment="Bottom" Column="1" />
+			<Rectangle ux:Name="underline" Height="1" Color="#0000" Alignment="Bottom" Column="1" />
 		</WhileFalse>
 	</Grid>
 </Panel>

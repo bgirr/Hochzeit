@@ -8,6 +8,7 @@
 
 		<JavaScript File="MainView.js" />
 		<JavaScript File="Camera.js" />
+		<JavaScript File="main.js" />
 
 		<Panel ux:Class="FatButton" Background="#FFFFFF" Margin="0,5,0,5" Text="">
 		<string ux:Property="Text" />
@@ -196,13 +197,13 @@
 		<Panel ux:Name="self" TransformOrigin="Center" Width="300" Height="300" Alignment="BottomRight" Offset="100,100">
 			<Cross ux:Name="cross" HitTestMode="None"/>
 
-			<ClockIcon ux:Name="icon1" Margin="40,30,0,20" Width="30" Height="30" Alignment="Left" Opacity="0" IsEnabled="false" Clicked="{CameraRollWedding}">
+			<ClockIcon ux:Name="icon1" Margin="40,30,0,20" Width="30" Height="30" Alignment="Left" Opacity="0" IsEnabled="false" Clicked="{takePicture}">
 				<Translation ux:Name="trans1" X="1.5" RelativeTo="Size" />
 				<Clicked>
 					<Toggle Target="expanded" />
 				</Clicked>
 			</ClockIcon>
-			<TalkIcon ux:Name="icon2" Margin="70,70,0,0" Width="30" Height="30" Alignment="TopLeft" Opacity="0" IsEnabled="false" Clicked="{selectImage}">
+			<TalkIcon ux:Name="icon2" Margin="70,70,0,0" Width="30" Height="30" Alignment="TopLeft" Opacity="0" IsEnabled="false" Clicked="{takeOriginalPicture}">
 				<Translation ux:Name="trans2" X="1" Y="1" RelativeTo="Size" />
 				<Clicked>
 					<Toggle Target="expanded" />
@@ -214,7 +215,7 @@
 					<Set showImages.Value="false" />
 				</Clicked>
 			</TalkIcon>
-			<LocationIcon ux:Name="icon3" Margin="30,40,20,0" Width="30" Height="30" Alignment="Top" Opacity="0" IsEnabled="false" Clicked="{PictureWedding}">
+			<LocationIcon ux:Name="icon3" Margin="30,40,20,0" Width="30" Height="30" Alignment="Top" Opacity="0" IsEnabled="false" Clicked="{selectImage}">
 				<Translation ux:Name="trans3" Y="1.5" RelativeTo="Size" />
 				<Clicked>
 					<Toggle Target="expanded" />
@@ -302,9 +303,9 @@
 								<Change itemsScrollViewLocations.Opacity="0" Duration="0.6" Easing="ExponentialOut" />
 							</RemovingAnimation>
 							<StackPanel>
-								<MutedText Value="Maria unterm Kreuz" FontSize="30"/>
+								<MutedText Value="Standesamt" FontSize="30"/>
 								<DefaultText Padding="0,0,0,80" Value="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet." TextWrapping="Wrap" FontSize="20" />
-								<MutedText Value="N8Stallung" FontSize="30" Padding="0,15,0,0"/>
+								<MutedText Value="Restaurant Pfaffenwinkel" FontSize="30" Padding="0,15,0,0"/>
 								<DefaultText Padding="0,0,0,80" Value="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet." TextWrapping="Wrap" FontSize="20" />
 							</StackPanel>
 						</ScrollView>
@@ -319,7 +320,7 @@
 								<Change itemsScrollViewImages.Opacity="0" Duration="0.6" Easing="ExponentialOut" />
 							</RemovingAnimation>
 							<StackPanel>
-								<MutedText Value="Bilder" FontSize="30"/>
+								<MutedText Value="Bilder" FontSize="30" />
 								<DefaultText Padding="0,0,0,80" Value="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Ste clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no ssea takimata sanctus est Lorem ipsum dolore sit amet." TextWrapping="Wrap" FontSize="20" />
 								<Each Items="{pictures}">
 									<MutedText Value="{userName}" FontSize="30"/>

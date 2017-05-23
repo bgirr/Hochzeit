@@ -11,6 +11,6 @@ public partial class LocationIcon: Icon
     }
     void InitializeUX()
     {
-        this.File = new global::Uno.UX.BundleFileSource(import global::Uno.IO.BundleFile("../../Assets/icon_location.png"));
+        this.File = new global::Uno.UX.BundleFileSource(import global::Uno.IO.BundleFile("../../Assets/gallery.png"));
     }
 }

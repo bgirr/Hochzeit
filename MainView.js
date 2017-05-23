@@ -23,9 +23,8 @@ function Picture(){
 }
 
 var items = Observable(
-	new Item(14, "Uhr", "Kirchliche Trauung", "Maria unterm Kreuz", Observable()),
-	new Item(15, "Uhr", "Kaffee und Kuchen", "Maria unterm Kreuz", Observable()),
-	new Item(18, "Uhr", "Abendveranstaltung", "N8Stallung", [new Person("Assets/logo.png")])
+	new Item(14, "Uhr", "Trauung", "Standesamt", Observable()),
+	new Item(18, "Uhr", "Feier", "Restaurant Pfaffenwinkel", [new Person("Assets/pfaffenwinkel.png")])
 );
 
 var locations = Observable(

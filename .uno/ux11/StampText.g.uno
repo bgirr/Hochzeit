@@ -11,8 +11,8 @@ public partial class StampText: Fuse.Controls.Text
     }
     void InitializeUX()
     {
-        var temp = new global::Fuse.Font(new global::Uno.UX.BundleFileSource(import global::Uno.IO.BundleFile("../../Assets/FOnts/built_titling_el.otf")));
-        this.Color = float4(1f, 1f, 1f, 1f);
+        var temp = new global::Fuse.Font(new global::Uno.UX.BundleFileSource(import global::Uno.IO.BundleFile("../../Assets/FOnts/Archer-Book-Pro.otf")));
+        this.Color = float4(0f, 0f, 0f, 1f);
         this.Font = temp;
     }
 }

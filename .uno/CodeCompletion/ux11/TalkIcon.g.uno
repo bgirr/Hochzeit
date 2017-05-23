@@ -11,6 +11,6 @@ public partial class TalkIcon: Icon
     }
     void InitializeUX()
     {
-        this.File = new global::Uno.UX.BundleFileSource(import global::Uno.IO.BundleFile("../../../Assets/icon_talk.png"));
+        this.File = new global::Uno.UX.BundleFileSource(import global::Uno.IO.BundleFile("../../../Assets/message.png"));
     }
 }
