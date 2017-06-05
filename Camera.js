@@ -3,15 +3,26 @@ var Camera = require("FuseJS/Camera");
 var CameraRoll = require("FuseJS/CameraRoll");
 var ImageTools = require("FuseJS/ImageTools");
 var FileSystem = require("FuseJS/FileSystem");
+var Storage = require("FuseJS/Storage");
+var SAVEUSER = "localStorage.json";
+
+
+var userId = Observable("");
 
 var images = Observable();
 var pictures = Observable();
 
 var exports = module.exports;
 
-
-
 var response_ok = false;
+
+
+Storage.read(SAVEUSER).then(function(content) {
+    var data = JSON.parse(content);
+    userId.value = data.id;
+    debug_log(userName.value);
+  })
+
 
 exports.takePicture = function()
 {
@@ -49,7 +60,7 @@ exports.CameraRollWedding = function()
             return ImageTools.getBase64FromImage(image).then(function(buffer) {
                 return fetch('https://weddingfun-cookingtest.rhcloud.com/images/api/uploadImage/base64/body/', 
                   { method: "POST", 
-                  
+                  headers: {"Data-User-Id": userId},
                   body: "data:image/jpeg;base64,"+buffer
 
                   });
@@ -78,7 +89,7 @@ exports.PictureWedding = function()
             return ImageTools.getBase64FromImage(image).then(function(buffer) {
                 return fetch('https://weddingfun-cookingtest.rhcloud.com/images/api/uploadImage/base64/body/', 
                   { method: "POST", 
-                  
+                  headers: {"Data-User-Id": userId},
                   body: "data:image/jpeg;base64,"+buffer
 
                   });

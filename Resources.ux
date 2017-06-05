@@ -1,4 +1,23 @@
 <Panel>
+	
+	<Panel>
+	<float4 ux:Global="Green"      ux:Value="#14FFB5"/>
+	<float4 ux:Global="Purple"     ux:Value="#5E2E91"/>
+	<float4 ux:Global="White"      ux:Value="#FFFFFF"/>
+	<float4 ux:Global="Gray"       ux:Value="#999999"/>
+	<float4 ux:Global="TopGray"    ux:Value="#9F83BD"/>
+	<float4 ux:Global="BottomGray" ux:Value="#7E58A7"/>
+	</Panel>
+
+<Panel ux:Class="HidingPanel" ux:Name="self" Opacity="0" IsEnabled="false" HitTestMode="LocalBoundsAndChildren">
+	<WhileEnabled>
+		<Change self.Opacity="1" Duration="0.4"/>
+	</WhileEnabled>
+</Panel>
+
+
+
+
 	<Panel ux:Class="Cross" Width="50" Height="50" Alignment="Center" TransformOrigin="Center">
 		<Rectangle Width="2" Height="35%" Color="#fff9" />
 		<Rectangle Height="2" Width="35%" Color="#fff9" />

@@ -1,5 +1,17 @@
 var Observable = require("FuseJS/Observable");
 //var camera = require('FuseJS/Camera');
+var Storage = require("FuseJS/Storage");
+var SAVEUSER = "localStorage.json";
+
+var userName = Observable("");
+
+
+Storage.read(SAVEUSER).then(function(content) {
+		var data = JSON.parse(content);
+		userName.value = data.showName;
+		debug_log(userName.value);
+	})
+
 
 function Person(picture){
 	this.picture = picture;
@@ -12,6 +24,13 @@ function Item(time, ampm, title, project, people){
 	this.project = project;
 	this.people = people;
 }
+
+
+function LogOut() {
+	//Storage.deleteSync("localStorage.json");
+	router.goto("LoginPage");
+}
+
 
 function Picture(){
 	camera.takePicture(640,480).then(function(image)
@@ -50,6 +69,8 @@ var img_opacity = '0.8'
 
 module.exports =  {
 	items: itemsView,
-	img_opacity: img_opacity
+	img_opacity: img_opacity,
+	userName: userName,
+	LogOut: LogOut
 
 };
