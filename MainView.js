@@ -27,7 +27,7 @@ function Item(time, ampm, title, project, people){
 
 
 function LogOut() {
-	//Storage.deleteSync("localStorage.json");
+	Storage.deleteSync("localStorage.json");
 	router.goto("LoginPage");
 }
 
