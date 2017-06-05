@@ -1,0 +1,109 @@
+<Panel>
+	<Fuse.iOS.StatusBarConfig Style="Light" />
+	<JavaScript File="Login.js" />
+
+	<ClientPanel>
+		<ImageFill File="Assets/bg.jpeg" StretchMode="UniformToFill" WrapMode="ClampToEdge" Opacity="1.0"/>
+		<HidingPanel ux:Name="topPanel">
+			<GridLayout Rows="60,1*"/>
+			<WhileEnabled>
+				<Change navBarTrans.Y="0" Duration="0.4"/>
+			</WhileEnabled>
+			<Grid Columns="70,1*,70">
+				<Translation ux:Name="navBarTrans" RelativeTo="Size" Y="-0.2" />
+				<Panel HitTestMode="LocalBoundsAndChildren">
+					<Image File="Assets/menu.png" Width="30" Height="30"/>
+					<Clicked>
+						<Scale Factor="0.8" Duration=".15" Easing="CubicInOut" />
+						<Set state.Active="loginButtonState" />
+					</Clicked>
+				</Panel>
+				<Text Value="Feed" Color="White" FontSize="20" Alignment="VerticalCenter"/>
+				<Image File="Assets/search.png" Width="30" Height="30"/>
+			</Grid>
+			<HidingPanel ux:Name="mainPanel">
+
+			</HidingPanel>
+		</HidingPanel>
+
+		<HidingPanel ux:Name="signupForm" Width="90%" Height="45%" Offset="0%,10%">
+			<Grid RowCount="3" Margin="30,40,30,60">
+				<StackPanel>
+					<TextInput ux:Name="usernameTI" Value="{key}" PlaceholderText="Zugangscode" Opacity="1" Alignment="VerticalCenter" PlaceholderColor="#888"/>
+					<Panel Color="#888" Height="2" Width="250" Alignment="Left"/> 
+				</StackPanel>
+				<StackPanel>
+					<TextInput ux:Name="emailTI" Value="{showname}" PlaceholderText="Name" Opacity="1" Alignment="VerticalCenter" PlaceholderColor="#888"/>
+					<Panel Color="#888" Height="2" Width="250" Alignment="Left"/> 
+				</StackPanel>
+					<Text Value="{ErrorMessage}" TextColor="#f90000" />
+					<Text Value="Bitte hier den Zugangscode eintragen!" TextColor="#888"/>
+			</Grid>
+			<WhileEnabled>
+				<Change usernameTI.Opacity="1" Duration="0.4" />
+				<Change emailTI.Opacity="1"    Duration="0.4" Delay="0.15" />
+			</WhileEnabled>
+
+			<Panel>
+				<Panel ux:Name="submitButton" Width="100" Offset="0%,50%" Height="50" HitTestMode="LocalBoundsAndChildren" Clicked="{login_clicked}">
+					<Text Value="Login" Alignment="Center" Color="White"/>
+					<Clicked>
+						
+					</Clicked>
+				</Panel>
+				<Panel ux:Name="submitButtonCollapsed" Width="10" Offset="0%,50%" Height="10"/>
+			</Panel>
+		</HidingPanel>
+
+		<HidingPanel ux:Name="startPanel" Alignment="Bottom" Height="30%" Padding="15,0,15,15">
+			<GridLayout Rows="1*,15,15"/>
+			<Panel ux:Name="signupButton" Width="120" Height="50" Alignment="Top" HitTestMode="LocalBounds">
+				<Text Value="Zugangscode" Alignment="Center" Color="#F23363" HitTestMode="LocalBounds"/>
+				<Clicked>
+					<Set state.Active="signupFormState" />
+				</Clicked>
+			</Panel>
+
+		</HidingPanel>
+
+		<Panel ux:Name="addButtonPanel">
+			<HidingPanel ux:Name="addButton" Width="50" Height="50" Alignment="BottomRight" Margin="40" HitTestMode="LocalBoundsAndChildren">
+				<Text Value="+" FontSize="30" Color="White" Alignment="Center"/>
+			</HidingPanel>
+			<Rectangle ux:Name="greenRect" Color="#F23363" LayoutMaster="submitButtonCollapsed" CornerRadius="25" Opacity="0">
+				<DropShadow />
+				<WhileTrue ux:Name="showGreenRect">
+					<Change greenRect.Opacity="1" Duration="0.2"/>
+				</WhileTrue>
+			</Rectangle>
+		</Panel>
+
+		<Rectangle ux:Name="whiteRect" Color="White" LayoutMaster="signupButton" Layer="Background" CornerRadius="25"/>
+		<Attractor ux:Name="whiteRectCornerRadiusAttractor" Target="whiteRect.CornerRadius" Value="25" Type="SmoothSnap" Unit="Points"/>
+
+		<HidingPanel ux:Name="logoPanel" Alignment="Top" Height="70%" IsEnabled="true" HitTestMode="None" Layer="Background">
+			<StackPanel Alignment="Center">
+				<StackPanel ux:Name="logo" Padding="170,0,0,0">
+					<StampText Value="Ursi + Beeni" FontSize="80" />
+					<StampText Value="  14.10.2017" FontSize="80" />
+				</StackPanel>
+				
+				<StackPanel ux:Name="logoMockText">
+					<StackPanel>
+
+					</StackPanel>
+				</StackPanel>
+			</StackPanel>
+			<WhileTrue ux:Name="moveLogo">
+				<Change logoMockText.Opacity="0" Duration="0.4" />
+				<Move Target="logo" Y="-0.6" RelativeTo="Size" Duration="0.5" Delay="0.3" Easing="CubicInOut"/>
+			</WhileTrue>
+
+			<WhileKeyboardVisible>
+				<Change logoPanel.IsEnabled="false" />
+			</WhileKeyboardVisible>
+		</HidingPanel>
+
+		<ux:Include File="StateAnimation.ux" />
+	</ClientPanel>
+</Panel>
