@@ -303,31 +303,32 @@
 							</RemovingAnimation>
 
 							<StackPanel>
+
+
 								<Rectangle Margin="10" Color="White" CornerRadius="2">
-								<StackPanel>         
-									<Text Value="Kleidung" FontSize="30"/>
-									<Text Padding="0,0,0,80" Value="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet." TextWrapping="Wrap" FontSize="20" />
-								</StackPanel>
-								<DropShadow/>
+									<StackPanel>
+											<Text Value="Samstag, ab 16:00 Uhr" Color="#EEE" Margin="16, 8, 16, 16"  FontSize="14" />
+											<Text Value="Sektempfang im Restaurant Pfaffenwinkel" Margin="16, 24, 16, 0"  FontSize="24" TextWrapping="Wrap" />
+									</StackPanel>
+									<DropShadow />
 								</Rectangle>
 
-<Rectangle Margin="10" Color="White" CornerRadius="2">
-		<StackPanel>
-				<Text Value="Einlagen" Margin="16, 24, 16, 0"  FontSize="24" />
-				<Text Value="Sektempfang im Restaurant Pfaffenwinkel" Color="#EEE" Margin="16, 8, 16, 16"  FontSize="14" />
-		</StackPanel>
-		<DropShadow />
-	</Rectangle>
+								<Rectangle Margin="10" Color="White" CornerRadius="2">
+									<StackPanel>
+											<Text Value="Samstag, ab 17:00 Uhr" Color="#EEE" Margin="16, 8, 16, 16"  FontSize="14" />
+											<Text Value="Gemeinsame Fotos mit Euch und Begrüßungsspiel" Margin="16, 24, 16, 0"  FontSize="24" TextWrapping="Wrap"/>
+									</StackPanel>
+									<DropShadow />
+								</Rectangle>
 
+								<Rectangle Margin="10" Color="White" CornerRadius="2">
+									<StackPanel>
+											<Text Value="Samstag, ab 19:00 Uhr" Color="#EEE" Margin="16, 8, 16, 16"  FontSize="14" />
+											<Text Value="Eröffnung des Grillbuffets" Margin="16, 24, 16, 0"  FontSize="24" TextWrapping="Wrap"/>
+									</StackPanel>
+									<DropShadow />
+								</Rectangle>
 
-
-
-
-
-								<MutedText Value="Einlagen" FontSize="30" Padding="0,15,0,0"/>
-								<DefaultText Padding="0,0,0,80" Value="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stete clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet." TextWrapping="Wrap" FontSize="20" />
-								<MutedText Value="Geschenke" FontSize="30" Padding="0,15,0,0"/>
-								<DefaultText Padding="0,0,0,80" Value="{Foto}" TextWrapping="Wrap" FontSize="20" />
 							</StackPanel>
 						</ScrollView>
 					</WhileTrue>
