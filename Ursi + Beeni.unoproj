@@ -5,12 +5,19 @@
     "Fuse.Camera",
     "Fuse.CameraRoll",
     "Fuse.ImageTools",
-    "FuseJS"
+    "FuseJS",
+    "Fuse.Maps"
   ],
   "Includes": [
     "MainView.js:File",
     "MainView.ux:UXFile",
     "Resources.ux:UXFile",
     "Assets/*.png:Bundle"
-  ]
+  ],
+  "Android": {
+   "Geo": {
+        "ApiKey": "AIzaSyBTn02YnIduSnwerrltGOZ-LH7-F85g864"
+    }
+    }
+
 }

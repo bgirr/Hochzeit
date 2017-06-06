@@ -35,6 +35,8 @@
 	<Icon ux:Class="HamburgerIcon" File="Assets/icon_hamburger.png" />
 
 
+	<Font ux:Global="Roboto" File="Assets/Fonts/Roboto-Regular.ttf" />
+
 	<Font ux:Global="RobotoThin" File="Assets/FOnts/built_titling_rg.otf" />
 	<Font ux:Global="RobotoLight" File="Assets/FOnts/built_titling_rg.otf" />
 	

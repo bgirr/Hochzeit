@@ -12,12 +12,8 @@
 		<Panel ux:Class="FatButton" Background="#FFFFFF" Margin="0,5,0,5" Text="">
 		<string ux:Property="Text" />
 		<Button Text="{ReadProperty this.Text}" Padding="5,5,5,5" />
-	</Panel>
-		<StackPanel Padding="170,0,0,0">
-			<StampText Value="Ursi + Beeni" FontSize="80" />
-			<StampText Value="  14.10.2017" FontSize="80" />
-		</StackPanel>
-
+		</Panel>
+		
 
 	<JavaScript>
 		var Observable = require("FuseJS/Observable");
@@ -114,13 +110,23 @@
 </WhileTrue>
 </Panel>
 	
-	<HamburgerIcon Alignment="TopLeft" Margin="20,20,20,20" Width="20" StretchMode="Fill" Height="17" Color="#000000" />
+
+	<HamburgerIcon Alignment="TopLeft" Margin="20,20,20,20" Width="20" StretchMode="Fill" Height="17" Color="#ffff" >
+		<Clicked>
+				<Toggle Target="hideHeadlines" />
+				<Scale Factor="0.9" Duration="0.05" Easing="QuadraticInOut" />
+		</Clicked>
+	</HamburgerIcon>
 	<StackPanel Alignment="TopLeft" Height="80" Width="80" Color="#000000" Opacity="0">
 		<Clicked>
 				<Toggle Target="hideHeadlines" />
 				<Scale Factor="0.9" Duration="0.05" Easing="QuadraticInOut" />
 		</Clicked>
 	</StackPanel>
+	<Panel Alignment="Top" Color="#E91E63" Height="60" Layer="Background">
+		<MenuText Value="Ablauf" Color="#ffff" Alignment="Center" FontSize="40" Margin="0,10,0,0" />
+		<MenuText Value="{userName}" Color="#ffff" Alignment="CenterRight" Margin="0,10,10,0"/>
+	</Panel>
 
 			
 		<StackPanel ux:Name="MenuItem">
@@ -128,6 +134,15 @@
 				<Toggle Target="hideHeadlines" />
 				<Scale Factor="0.9" Duration="0.05" Easing="QuadraticInOut" />
 			</Clicked>
+			<Panel Color="#E91E63" Width="250" Alignment="TopLeft">
+
+			</Panel>
+			<Panel>
+				<StackPanel Padding="30,50,0,0" Background="#E91E63" Width="250" Alignment="Left">
+					<StampText Value="Ursi + Beeni" FontSize="80" />
+					<StampText Value="  14.10.2017" FontSize="40" />
+				</StackPanel>
+			</Panel>
 			<Panel>
 				<Clicked>
 					<Toggle Target="showItems" />
@@ -137,7 +152,7 @@
 					<Set showImages.Value="false" />
 					<Set showContactForm.Value="false" />
 				</Clicked>
-				<MenuText ux:Name="MenuItem1" FontSize="40.3" Value="Ablaufplan" Margin="20,100,0,0" />
+				<MenuText ux:Name="MenuItem1" FontSize="40.3" Value="Ablaufplan" Margin="20,20,0,0" />
 			</Panel>
 			<Panel>
 				<Clicked>
@@ -148,7 +163,7 @@
 					<Set showImages.Value="false" />
 					<Set showContactForm.Value="false" />
 				</Clicked>
-				<MenuText ux:Name="MenuItem2" FontSize="40.3" Value="Locations" Margin="20,20,0,0" />
+				<MenuText ux:Name="MenuItem2" FontSize="40.3" Value="Location" Margin="20,20,0,0" />
 			</Panel>
 			<Panel>
 				<Clicked>
@@ -182,9 +197,6 @@
 					<Set showContactForm.Value="false" />
 				</Clicked>
 				<MenuText ux:Name="MenuItem5" FontSize="40.3" Value="Kontakt" Margin="20,20,0,0" />
-			</Panel>
-			<Panel>
-				<MenuText Value="{userName}" FontSize="25" Margin="20,20,0,0"/>
 			</Panel>
 			<Panel Clicked="{LogOut}">
 				<MenuText Value="Ausloggen" FontSize="25" Margin="20,10,0,0" />
@@ -267,7 +279,7 @@
 			
 
 
-				<Panel Margin="20,0,0,0" Padding="0,250,0,0">
+				<Panel Margin="20,0,0,0" Padding="0,80,0,0">
 					<WhileTrue ux:Name="showItems">
 						<ScrollView ux:Name="itemsScrollView">
 							<RemovingAnimation>
@@ -283,15 +295,35 @@
 				</Panel>
 
 
-				<Panel Margin="20,0,0,0" Padding="0,200,0,0">
+				<Panel Margin="10,0,10,0" Padding="0,80,0,0">
 					<WhileTrue ux:Name="showInfos">
 						<ScrollView ux:Name="itemsScrollViewInfos">
 							<RemovingAnimation>
 								<Change itemsScrollViewInfos.Opacity="0" Duration="0.6" Easing="ExponentialOut" />
 							</RemovingAnimation>
+
 							<StackPanel>
-								<MutedText Value="Kleidung" FontSize="30"/>
-								<DefaultText Padding="0,0,0,80" Value="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet." TextWrapping="Wrap" FontSize="20" />
+								<Rectangle Margin="10" Color="White" CornerRadius="2">
+								<StackPanel>         
+									<Text Value="Kleidung" FontSize="30"/>
+									<Text Padding="0,0,0,80" Value="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet." TextWrapping="Wrap" FontSize="20" />
+								</StackPanel>
+								<DropShadow/>
+								</Rectangle>
+
+<Rectangle Margin="10" Color="White" CornerRadius="2">
+		<StackPanel>
+				<Text Value="Einlagen" Margin="16, 24, 16, 0"  FontSize="24" />
+				<Text Value="Sektempfang im Restaurant Pfaffenwinkel" Color="#EEE" Margin="16, 8, 16, 16"  FontSize="14" />
+		</StackPanel>
+		<DropShadow />
+	</Rectangle>
+
+
+
+
+
+
 								<MutedText Value="Einlagen" FontSize="30" Padding="0,15,0,0"/>
 								<DefaultText Padding="0,0,0,80" Value="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stete clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet." TextWrapping="Wrap" FontSize="20" />
 								<MutedText Value="Geschenke" FontSize="30" Padding="0,15,0,0"/>
@@ -308,16 +340,24 @@
 								<Change itemsScrollViewLocations.Opacity="0" Duration="0.6" Easing="ExponentialOut" />
 							</RemovingAnimation>
 							<StackPanel>
-								<MutedText Value="Maria unterm Kreuz" FontSize="30"/>
-								<DefaultText Padding="0,0,0,80" Value="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet." TextWrapping="Wrap" FontSize="20" />
-								<MutedText Value="N8Stallung" FontSize="30" Padding="0,15,0,0"/>
-								<DefaultText Padding="0,0,0,80" Value="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet." TextWrapping="Wrap" FontSize="20" />
+								<Rectangle Margin="10" Color="White" CornerRadius="2">
+								<StackPanel>         
+									<Text Value="Restaurant Pfaffenwinkel" FontSize="30"/>
+									<Text Padding="0,0,0,80" Value="Am Hochschloß, 82396 Pähl " TextWrapping="Wrap" FontSize="20" />
+									<NativeViewHost>
+			<MapView Latitude="59.911567" Longitude="10.741030" Zoom="10">
+				<MapMarker Latitude="59.911567" Longitude="10.741030" Label="Fuse HQ"/>
+			</MapView>
+		</NativeViewHost>
+								</StackPanel>
+								<DropShadow/>
+								</Rectangle>
 							</StackPanel>
 						</ScrollView>
 					</WhileTrue>
 				</Panel>
 
-<Panel Margin="20,0,0,0" Padding="0,200,0,0">
+<Panel Margin="20,0,0,0" Padding="0,60,0,0">
 					<WhileTrue ux:Name="showImages">
 						<ScrollView ux:Name="itemsScrollViewImages">
 							<PullToReload ReloadHandler="{thumbnails}" />
@@ -328,84 +368,18 @@
 								<MutedText Value="Bilder" FontSize="30"/>
 								<DefaultText Padding="0,0,0,80" Value="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Ste clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no ssea takimata sanctus est Lorem ipsum dolore sit amet." TextWrapping="Wrap" FontSize="20" />
 
-
-
-
-   <Panel ux:Class="Icon2">
-        <FileSource ux:Property="File" />
-        <float ux:Property="Size" />
-        <Image File="{ReadProperty File}" Color="#8e979e" Width="{ReadProperty Size}" Height="{ReadProperty Size}" />
-    </Panel>
-
-    <StackPanel ux:Class="ListItem" Background="#fff">
-        <StackPanel ux:Name="content">
-            <Panel ux:Name="header" Height="68" Padding="24,0" Background="#fffffff8">
-                <DockPanel Alignment="VerticalCenter">
-                    <Icon2 File="Assets/Icons/more.png" Size="24" Dock="Right" />
-                    <Circle Dock="Left" Width="40" Height="40">
-                        <ImageFill File="{authorFile}" />
-                    </Circle>
-                    <StackPanel Padding="16,0">
-                        <Text Value="{user.showName}" Color="#8e979e" FontSize="16" Alignment="Left" />
-                        <Text Value="{user.creationDate}" Color="#8e979e" FontSize="12" Alignment="Left" />
-                    </StackPanel>
-                </DockPanel>
-            </Panel>
-
-            <Image Height="256" Url="https://weddingfun-cookingtest.rhcloud.com/images/static/{imageUrl}" StretchMode="UniformToFill" />
-        </StackPanel>
-
-        <Panel Height="56" Padding="24,0">
-            <DockPanel Alignment="VerticalCenter">
-                <StackPanel Dock="Right" Orientation="Horizontal" ItemSpacing="16">
-                    <Icon2 File="Assets/Icons/favorite.png" Size="18" />
-                    <Icon2 File="Assets/Icons/chat.png" Size="18" />
-                </StackPanel>
-                <Text Value="{user.showName}" Color="#8e979e" FontSize="20" Alignment="CenterLeft" ClipToBounds="true" Margin="0,0,16,0" />
-            </DockPanel>
-        </Panel>
-
-        <ScrollingAnimation From="y(this)" To="y(this) + height(content)">
-            <Move Target="header" Y="1" RelativeTo="Size" RelativeNode="content" />
-        </ScrollingAnimation>
-        <ScrollingAnimation From="y(this) + height(content) - height(header)" To="y(this) + height(content)">
-            <Move Target="header" Y="-1" RelativeTo="Size" />
-        </ScrollingAnimation>
-    </StackPanel>
-
-    <Panel ux:Class="Header" Height="56">
-       
-    </Panel>
-
-    <ClientPanel>
-        <Header Dock="Top" />
-        <ScrollView Background="#f3f4f6">
-            <StackPanel ItemSpacing="8">
-                <Each Items="{pictures}">
-                    <ListItem />
-                </Each>
-            </StackPanel>
-        </ScrollView>
-    </ClientPanel>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 								<Each Items="{pictures}">
-									<MutedText Value="{user.showName}" FontSize="30"/>
-									<Image Url="https://weddingfun-cookingtest.rhcloud.com/images/static/{imageUrl}" ContentAlignment="Center" StretchMode="Scale9" StretchDirection="Both" MemoryPolicy="PreloadRetain" Padding="0,0,20,0"/>
+									<Rectangle Margin="10" Color="White" CornerRadius="2">
+										<StackPanel>
+											<Image Url="https://weddingfun-cookingtest.rhcloud.com/images/static/{imageUrl}" />
+												<Text Value="User"  Margin="16, 24, 16, 0"  FontSize="24" />
+												<Text Value="Likes" Margin="16, 8, 16, 16" FontSize="14" />
+												<StackPanel Padding="8" Orientation="Horizontal">
+
+												</StackPanel>
+										</StackPanel>
+										<DropShadow />
+									</Rectangle>
 								</Each>
 							</StackPanel>
 						</ScrollView>
