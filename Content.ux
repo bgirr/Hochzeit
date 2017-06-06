@@ -113,14 +113,14 @@
 </ScrollView>
 </WhileTrue>
 </Panel>
-
-
-		<HamburgerIcon Alignment="TopLeft"  Margin="20,20,20,20" Width="20" StretchMode="Fill" Height="17" Color="#000000">
-			<Clicked>
+	
+	<HamburgerIcon Alignment="TopLeft" Margin="20,20,20,20" Width="20" StretchMode="Fill" Height="17" Color="#000000" />
+	<StackPanel Alignment="TopLeft" Height="80" Width="80" Color="#000000" Opacity="0">
+		<Clicked>
 				<Toggle Target="hideHeadlines" />
 				<Scale Factor="0.9" Duration="0.05" Easing="QuadraticInOut" />
-			</Clicked>
-		</HamburgerIcon>
+		</Clicked>
+	</StackPanel>
 
 			
 		<StackPanel ux:Name="MenuItem">
@@ -327,6 +327,82 @@
 							<StackPanel>
 								<MutedText Value="Bilder" FontSize="30"/>
 								<DefaultText Padding="0,0,0,80" Value="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Ste clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no ssea takimata sanctus est Lorem ipsum dolore sit amet." TextWrapping="Wrap" FontSize="20" />
+
+
+
+
+   <Panel ux:Class="Icon2">
+        <FileSource ux:Property="File" />
+        <float ux:Property="Size" />
+        <Image File="{ReadProperty File}" Color="#8e979e" Width="{ReadProperty Size}" Height="{ReadProperty Size}" />
+    </Panel>
+
+    <StackPanel ux:Class="ListItem" Background="#fff">
+        <StackPanel ux:Name="content">
+            <Panel ux:Name="header" Height="68" Padding="24,0" Background="#fffffff8">
+                <DockPanel Alignment="VerticalCenter">
+                    <Icon2 File="Assets/Icons/more.png" Size="24" Dock="Right" />
+                    <Circle Dock="Left" Width="40" Height="40">
+                        <ImageFill File="{authorFile}" />
+                    </Circle>
+                    <StackPanel Padding="16,0">
+                        <Text Value="{user.showName}" Color="#8e979e" FontSize="16" Alignment="Left" />
+                        <Text Value="{user.creationDate}" Color="#8e979e" FontSize="12" Alignment="Left" />
+                    </StackPanel>
+                </DockPanel>
+            </Panel>
+
+            <Image Height="256" Url="https://weddingfun-cookingtest.rhcloud.com/images/static/{imageUrl}" StretchMode="UniformToFill" />
+        </StackPanel>
+
+        <Panel Height="56" Padding="24,0">
+            <DockPanel Alignment="VerticalCenter">
+                <StackPanel Dock="Right" Orientation="Horizontal" ItemSpacing="16">
+                    <Icon2 File="Assets/Icons/favorite.png" Size="18" />
+                    <Icon2 File="Assets/Icons/chat.png" Size="18" />
+                </StackPanel>
+                <Text Value="{user.showName}" Color="#8e979e" FontSize="20" Alignment="CenterLeft" ClipToBounds="true" Margin="0,0,16,0" />
+            </DockPanel>
+        </Panel>
+
+        <ScrollingAnimation From="y(this)" To="y(this) + height(content)">
+            <Move Target="header" Y="1" RelativeTo="Size" RelativeNode="content" />
+        </ScrollingAnimation>
+        <ScrollingAnimation From="y(this) + height(content) - height(header)" To="y(this) + height(content)">
+            <Move Target="header" Y="-1" RelativeTo="Size" />
+        </ScrollingAnimation>
+    </StackPanel>
+
+    <Panel ux:Class="Header" Height="56">
+       
+    </Panel>
+
+    <ClientPanel>
+        <Header Dock="Top" />
+        <ScrollView Background="#f3f4f6">
+            <StackPanel ItemSpacing="8">
+                <Each Items="{pictures}">
+                    <ListItem />
+                </Each>
+            </StackPanel>
+        </ScrollView>
+    </ClientPanel>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 								<Each Items="{pictures}">
 									<MutedText Value="{user.showName}" FontSize="30"/>
 									<Image Url="https://weddingfun-cookingtest.rhcloud.com/images/static/{imageUrl}" ContentAlignment="Center" StretchMode="Scale9" StretchDirection="Both" MemoryPolicy="PreloadRetain" Padding="0,0,20,0"/>
