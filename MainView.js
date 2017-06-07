@@ -4,11 +4,15 @@ var Storage = require("FuseJS/Storage");
 var SAVEUSER = "localStorage.json";
 
 var userName = Observable("");
+var userID = Observable("");
+var Headline=Observable("Ursi & Beeni");
 
 
 Storage.read(SAVEUSER).then(function(content) {
 		var data = JSON.parse(content);
 		userName.value = data.showName;
+		userID.value = data.id;
+		debug_log(userID.value);
 		debug_log(userName.value);
 	})
 
@@ -25,6 +29,69 @@ function Item(time, ampm, title, project, people){
 	this.people = people;
 }
 
+
+function likeImage(a){
+	var picture = a.data.id;
+	debug_log(picture);
+	fetch('https://weddingfun-cookingtest.rhcloud.com/images/api/heart/'+ picture +'/',
+		 { method: "POST", 
+         headers: {"Data-User-Id": userID.value, 
+     	"Content-Type": "text/plain"}})
+	.then(function(response) {
+            console.log("Got response");
+            console.log(response.status);
+            response_ok = response.ok;
+            console.log(response_ok);
+            return response.json();
+        }).then(function(responseObject) {
+          console.log("Hier der Response:");
+          console.log(JSON.stringify(responseObject));
+        }).catch(function(e){
+            console.log("Error");
+            console.log(e);
+        });
+
+}
+
+function setPage1Headline(){
+	Headline.value = "Ablaufplan";
+}
+
+function setPage2Headline(){
+	Headline.value = "Info";
+}
+
+function setPage3Headline(){
+	Headline.value = "Info";
+}
+
+function setPage4Headline(){
+	Headline.value = "Info";
+}
+
+function setPage5Headline(){
+	Headline.value = "Info";
+}
+
+function setPage6Headline(){
+	Headline.value = "Info";
+}
+
+function setPage7Headline(){
+	Headline.value = "Info";
+}
+
+function setPage8Headline(){
+	Headline.value = "Info";
+}
+
+function setPage9Headline(){
+	Headline.value = "Info";
+}
+
+function setPage10Headline(){
+	Headline.value = "Info";
+}
 
 function LogOut() {
 	Storage.deleteSync("localStorage.json");
@@ -71,6 +138,18 @@ module.exports =  {
 	items: itemsView,
 	img_opacity: img_opacity,
 	userName: userName,
-	LogOut: LogOut
+	LogOut: LogOut,
+	Headline: Headline,
+	likeImage: likeImage,
+	setPage1Headline: setPage1Headline,
+	setPage2Headline: setPage2Headline,
+	setPage3Headline: setPage3Headline,
+	setPage4Headline: setPage4Headline,
+	setPage5Headline: setPage5Headline,
+	setPage6Headline: setPage6Headline,
+	setPage7Headline: setPage7Headline,
+	setPage8Headline: setPage8Headline,
+	setPage9Headline: setPage9Headline,
+	setPage10Headline: setPage10Headline
 
 };

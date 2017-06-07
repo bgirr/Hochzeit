@@ -33,9 +33,10 @@
 	<Icon ux:Class="SunnyIcon" File="Assets/icon_sunny.png" />
  	<Icon ux:Class="SmallAvatarIcon" File="Assets/small_avatar.png" />
 	<Icon ux:Class="HamburgerIcon" File="Assets/icon_hamburger.png" />
+	<Icon ux:Class="HeartIcon" File="Assets/icon_heart.png" />
 
 
-	<Font ux:Global="Roboto" File="Assets/Fonts/Roboto-Regular.ttf" />
+	<Font ux:Global="Archer" File="Assets/Fonts/Archer-Book-Pro.otf" />
 
 	<Font ux:Global="RobotoThin" File="Assets/FOnts/built_titling_rg.otf" />
 	<Font ux:Global="RobotoLight" File="Assets/FOnts/built_titling_rg.otf" />

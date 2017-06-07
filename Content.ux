@@ -1,6 +1,6 @@
 <Panel>
 	<ClientPanel>
-	<ImageFill File="Assets/bg.jpeg" StretchMode="UniformToFill" WrapMode="ClampToEdge" Opacity="1.0"/>
+	<ImageFill File="Assets/background_osman.jpg" StretchMode="UniformToFill" WrapMode="ClampToEdge" Opacity="1.0"/>
 
 		<Fuse.iOS.StatusBarConfig Style="Light" />
 
@@ -111,7 +111,7 @@
 </Panel>
 	
 
-	<HamburgerIcon Alignment="TopLeft" Margin="20,20,20,20" Width="20" StretchMode="Fill" Height="17" Color="#ffff" >
+	<HamburgerIcon Alignment="TopLeft" Margin="20,40,20,20" Width="20" StretchMode="Fill" Height="17" Color="#ffff" >
 		<Clicked>
 				<Toggle Target="hideHeadlines" />
 				<Scale Factor="0.9" Duration="0.05" Easing="QuadraticInOut" />
@@ -123,9 +123,9 @@
 				<Scale Factor="0.9" Duration="0.05" Easing="QuadraticInOut" />
 		</Clicked>
 	</StackPanel>
-	<Panel Alignment="Top" Color="#E91E63" Height="60" Layer="Background">
-		<MenuText Value="Ablauf" Color="#ffff" Alignment="Center" FontSize="40" Margin="0,10,0,0" />
-		<MenuText Value="{userName}" Color="#ffff" Alignment="CenterRight" Margin="0,10,10,0"/>
+	<Panel Alignment="Top" Color="#E91E63" Height="80" Layer="Background">
+		<MenuText Value="{Headline}" Color="#ffff" Alignment="Center" FontSize="40" Margin="0,15,0,0" />
+		<MenuText Value="{userName}" Color="#ffff" Alignment="CenterRight" Margin="0,15,10,0"/>
 	</Panel>
 
 			
@@ -143,7 +143,9 @@
 					<StampText Value="  14.10.2017" FontSize="40" />
 				</StackPanel>
 			</Panel>
-			<Panel>
+			<ScrollView>
+				<StackPanel>
+			<Panel Clicked="{setPage1Headline}">
 				<Clicked>
 					<Toggle Target="showItems" />
 					<Set showInfos.Value="false" />
@@ -154,6 +156,7 @@
 				</Clicked>
 				<MenuText ux:Name="MenuItem1" FontSize="40.3" Value="Ablaufplan" Margin="20,20,0,0" />
 			</Panel>
+
 			<Panel>
 				<Clicked>
 					<Toggle Target="showLocations" />
@@ -165,7 +168,7 @@
 				</Clicked>
 				<MenuText ux:Name="MenuItem2" FontSize="40.3" Value="Location" Margin="20,20,0,0" />
 			</Panel>
-			<Panel>
+			<Panel Clicked="{setPage2Headline}">
 				<Clicked>
 					<Toggle Target="showInfos" />
 					<Set showItems.Value="false" />
@@ -202,8 +205,12 @@
 				<MenuText Value="Ausloggen" FontSize="25" Margin="20,10,0,0" />
 			</Panel>
 		</StackPanel>
+	</ScrollView>
+		</StackPanel>
 
-		<Panel  ux:Name="leftHeadline" Padding="30,0,0,0" Color="#ffff" Opacity="0.3" Width="250" Height="100%" Alignment="Left" />
+		<Rectangle  ux:Name="leftHeadline" Margin="0,20,0,0" Padding="30,0,0,0" Color="#ffff" Opacity="1" Width="250" Height="100%" Alignment="Left" >
+			<DropShadow />
+		</Rectangle>
 
 		<WhileFalse ux:Name="hideHeadlines" Bypass="Standard">
 			<Move Target="leftHeadline" X="-1.2" RelativeTo="Size" Duration="0.5" Easing="CircularInOut" />
@@ -295,7 +302,7 @@
 				</Panel>
 
 
-				<Panel Margin="10,0,10,0" Padding="0,80,0,0">
+				<Panel Margin="10,100,10,0" Padding="0,80,0,0">
 					<WhileTrue ux:Name="showInfos">
 						<ScrollView ux:Name="itemsScrollViewInfos">
 							<RemovingAnimation>
@@ -307,24 +314,28 @@
 
 								<Rectangle Margin="10" Color="White" CornerRadius="2">
 									<StackPanel>
-											<Text Value="Samstag, ab 16:00 Uhr" Color="#EEE" Margin="16, 8, 16, 16"  FontSize="14" />
-											<Text Value="Sektempfang im Restaurant Pfaffenwinkel" Margin="16, 24, 16, 0"  FontSize="24" TextWrapping="Wrap" />
+											<Text Value="Samstag, ab 16:00 Uhr" Font="Archer" Margin="16, 8, 16, 0"  FontSize="14" />
+										<DockPanel>
+											<Image File="Assets/Images/AJ.jpg" Height="60%" Width="60%"  Margin="0,0,10,0" Dock="Right"/>
+											<Text Value="Sektempfang im Restaurant Pfaffenwinkel" Margin="16, 0, 16, 0" Font="Archer" FontSize="24" TextWrapping="Wrap" Width="50%" Dock="Left" />
+										</DockPanel>
 									</StackPanel>
 									<DropShadow />
 								</Rectangle>
 
 								<Rectangle Margin="10" Color="White" CornerRadius="2">
 									<StackPanel>
-											<Text Value="Samstag, ab 17:00 Uhr" Color="#EEE" Margin="16, 8, 16, 16"  FontSize="14" />
-											<Text Value="Gemeinsame Fotos mit Euch und Begrüßungsspiel" Margin="16, 24, 16, 0"  FontSize="24" TextWrapping="Wrap"/>
+											<Text Value="Samstag, ab 17:00 Uhr" Font="Archer" Margin="16, 8, 16, 0"  FontSize="14" />
+
+											<Text Value="Gemeinsame Fotos mit Euch und Begrüßungsspiel" Margin="16, 0, 16, 0" Font="Archer" FontSize="24" TextWrapping="Wrap"/>
 									</StackPanel>
 									<DropShadow />
 								</Rectangle>
 
 								<Rectangle Margin="10" Color="White" CornerRadius="2">
 									<StackPanel>
-											<Text Value="Samstag, ab 19:00 Uhr" Color="#EEE" Margin="16, 8, 16, 16"  FontSize="14" />
-											<Text Value="Eröffnung des Grillbuffets" Margin="16, 24, 16, 0"  FontSize="24" TextWrapping="Wrap"/>
+											<Text Value="Samstag, ab 19:00 Uhr" Font="Archer" Margin="16, 8, 16, 0"  FontSize="14" />
+											<Text Value="Eröffnung des Grillbuffets" Margin="16, 0, 16, 0" Font="Archer" FontSize="24" TextWrapping="Wrap"/>
 									</StackPanel>
 									<DropShadow />
 								</Rectangle>
@@ -343,13 +354,13 @@
 							<StackPanel>
 								<Rectangle Margin="10" Color="White" CornerRadius="2">
 								<StackPanel>         
-									<Text Value="Restaurant Pfaffenwinkel" FontSize="30"/>
-									<Text Padding="0,0,0,80" Value="Am Hochschloß, 82396 Pähl " TextWrapping="Wrap" FontSize="20" />
+									<Text Value="Restaurant Pfaffenwinkel" FontSize="30" Font="Archer" />
+									<Text Padding="0,0,0,0" Value="Am Hochschloß, 82396 Pähl " TextWrapping="Wrap" FontSize="10" />
 									<NativeViewHost>
-			<MapView Latitude="59.911567" Longitude="10.741030" Zoom="10">
-				<MapMarker Latitude="59.911567" Longitude="10.741030" Label="Fuse HQ"/>
-			</MapView>
-		</NativeViewHost>
+										<MapView Latitude="59.911567" Longitude="10.741030" Zoom="10" Height="300">
+											<MapMarker Latitude="59.911567" Longitude="10.741030" Label="Restaurant Pfaffenwinkel"/>
+										</MapView>
+									</NativeViewHost>
 								</StackPanel>
 								<DropShadow/>
 								</Rectangle>
@@ -358,7 +369,7 @@
 					</WhileTrue>
 				</Panel>
 
-<Panel Margin="20,0,0,0" Padding="0,60,0,0">
+<Panel Margin="20,100,0,0" Padding="0,60,0,0">
 					<WhileTrue ux:Name="showImages">
 						<ScrollView ux:Name="itemsScrollViewImages">
 							<PullToReload ReloadHandler="{thumbnails}" />
@@ -366,15 +377,19 @@
 								<Change itemsScrollViewImages.Opacity="0" Duration="0.6" Easing="ExponentialOut" />
 							</RemovingAnimation>
 							<StackPanel>
-								<MutedText Value="Bilder" FontSize="30"/>
-								<DefaultText Padding="0,0,0,80" Value="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Ste clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no ssea takimata sanctus est Lorem ipsum dolore sit amet." TextWrapping="Wrap" FontSize="20" />
 
 								<Each Items="{pictures}">
 									<Rectangle Margin="10" Color="White" CornerRadius="2">
 										<StackPanel>
 											<Image Url="https://weddingfun-cookingtest.rhcloud.com/images/static/{imageUrl}" />
-												<Text Value="User"  Margin="16, 24, 16, 0"  FontSize="24" />
-												<Text Value="Likes" Margin="16, 8, 16, 16" FontSize="14" />
+											<DockPanel>
+												<Text Value="{user.showName} |   {numberOfHearts} "  Margin="16, 24, 0, 0"  FontSize="20" Font="Archer" Dock="Left"/>
+												<HeartIcon Color="#000000" Dock="Left" Height="18" Width="18" Margin="4,28,0,0"/>
+												<Panel Margin="0,28,20,0" Dock="Right">
+													<HeartIcon Color="#E91E63"  Height="18" Width="18"  Clicked="{likeImage}" Visibility="{heartByCurrentUser}" />
+													<HeartIcon Color="#000000"  Height="18" Width="18"  Clicked="{likeImage}"  />
+												</Panel>
+											</DockPanel>	
 												<StackPanel Padding="8" Orientation="Horizontal">
 
 												</StackPanel>

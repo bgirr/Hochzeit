@@ -1,7 +1,6 @@
 var Observable = require("FuseJS/Observable");
 var ImageTools = require("FuseJS/ImageTools");
 var Base64 = require("FuseJS/Base64");
-var pictures = Observable();
 var Foto = Observable();
 
 
@@ -25,7 +24,7 @@ var Foto = Observable();
                   }); */
 
 function thumbnails(){
-	pictures.value = "";
+	var pictures = Observable();
 fetch("https://weddingfun-cookingtest.rhcloud.com/images/api/")
 	.then(function(result) {
 		if (result.status !== 200) {
@@ -33,8 +32,12 @@ fetch("https://weddingfun-cookingtest.rhcloud.com/images/api/")
 		}
 	result.json().then(function(data) {
 	debug_log("Übersicht ist da!");
+	data.sort(function(a, b){return new Date(b.dateAdded) - new Date(a.dateAdded)});
 	var laenge = data.length;
 	for (var i=0; i<laenge; i++) {
+	if (data[i].heartByCurrentUser = 'false') {
+		data[i].heartByCurrentUser = 'Hidden'
+	}
 	var item = data[i];
 	pictures.add(item);
 		}
