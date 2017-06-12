@@ -30,28 +30,7 @@ function Item(time, ampm, title, project, people){
 }
 
 
-function likeImage(a){
-	var picture = a.data.id;
-	debug_log(picture);
-	fetch('https://weddingfun-cookingtest.rhcloud.com/images/api/heart/'+ picture +'/',
-		 { method: "POST", 
-         headers: {"Data-User-Id": userID.value, 
-     	"Content-Type": "text/plain"}})
-	.then(function(response) {
-            console.log("Got response");
-            console.log(response.status);
-            response_ok = response.ok;
-            console.log(response_ok);
-            return response.json();
-        }).then(function(responseObject) {
-          console.log("Hier der Response:");
-          console.log(JSON.stringify(responseObject));
-        }).catch(function(e){
-            console.log("Error");
-            console.log(e);
-        });
 
-}
 
 function setPage1Headline(){
 	Headline.value = "Ablaufplan";
@@ -140,7 +119,6 @@ module.exports =  {
 	userName: userName,
 	LogOut: LogOut,
 	Headline: Headline,
-	likeImage: likeImage,
 	setPage1Headline: setPage1Headline,
 	setPage2Headline: setPage2Headline,
 	setPage3Headline: setPage3Headline,

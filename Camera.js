@@ -11,7 +11,7 @@ var userId = Observable("");
 
 var images = Observable();
 var pictures = Observable();
-
+var favIcon = Observable("Hidden"); 
 var exports = module.exports;
 
 var response_ok = false;
@@ -113,26 +113,64 @@ exports.PictureWedding = function()
 
 
 function thumbnails(){
-  pictures.value = "";
-fetch("https://weddingfun-cookingtest.rhcloud.com/images/api/")
+fetch("https://weddingfun-cookingtest.rhcloud.com/images/api/",
+   { method: "GET", 
+                  headers: {"Data-User-Id": userId},
+                  })
   .then(function(result) {
     if (result.status !== 200) {
       debug_log(result.status);
     }
   result.json().then(function(data) {
   debug_log("Übersicht ist da!");
+  debug_log(JSON.stringify(data));
+  data.sort(function(a, b){return new Date(b.dateAdded) - new Date(a.dateAdded)});
   var laenge = data.length;
   for (var i=0; i<laenge; i++) {
+    if (data[i].heartByCurrentUser == false) {
+    data[i].heartByCurrentUser = "Hidden";
+  }
+  else {
+  data[i].heartByCurrentUser = "Visible"
+  }
   var item = data[i];
   pictures.add(item);
     }
+    debug_log(JSON.stringify(pictures));
   });
 });
-
 };
+
+
+function likeImage(a){
+  var picture = a.data.id;
+  favIcon.value = 'Visible';
+  debug_log(picture);
+  fetch('https://weddingfun-cookingtest.rhcloud.com/images/api/heart/'+ picture +'/',
+     { method: "POST", 
+         headers: {"Data-User-Id": userID.value, 
+      "Content-Type": "text/plain"}})
+  .then(function(response) {
+            console.log("Got response");
+            console.log(response.status);
+            response_ok = response.ok;
+            console.log(response_ok);
+            return response.json();
+        }).then(function(responseObject) {
+
+          console.log("Hier der Response:");
+          console.log(JSON.stringify(responseObject));
+        }).catch(function(e){
+            console.log("Error");
+            console.log(e);
+        });
+
+}
 
     module.exports = {
     pictures: pictures,
-    thumbnails: thumbnails
+    thumbnails: thumbnails,
+    likeImage: likeImage,
+    favIcon: favIcon
     }
 

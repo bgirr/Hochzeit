@@ -1,8 +1,10 @@
 var Observable = require("FuseJS/Observable");
 var ImageTools = require("FuseJS/ImageTools");
+var Storage = require("FuseJS/Storage");
+var SAVETHUMBNAILS = "localThumbnails.json";
 var Base64 = require("FuseJS/Base64");
 var Foto = Observable();
-
+var heartshown = Observable();
 
 /*fetch("https://api.dropboxapi.com/2/files/list_folder",
 	{ method: "POST", 
@@ -23,28 +25,6 @@ var Foto = Observable();
                   })
                   }); */
 
-function thumbnails(){
-	var pictures = Observable();
-fetch("https://weddingfun-cookingtest.rhcloud.com/images/api/")
-	.then(function(result) {
-		if (result.status !== 200) {
-			debug_log(result.status);
-		}
-	result.json().then(function(data) {
-	debug_log("Übersicht ist da!");
-	data.sort(function(a, b){return new Date(b.dateAdded) - new Date(a.dateAdded)});
-	var laenge = data.length;
-	for (var i=0; i<laenge; i++) {
-	if (data[i].heartByCurrentUser = 'false') {
-		data[i].heartByCurrentUser = 'Hidden'
-	}
-	var item = data[i];
-	pictures.add(item);
-		}
-	});
-});
-
-};
 	
 	//result.json().then(function(data) {
 	//debug_log("Übersicht ist da!");
@@ -58,7 +38,8 @@ fetch("https://weddingfun-cookingtest.rhcloud.com/images/api/")
 
 		module.exports = {
 		pictures: pictures,
-		thumbnails: thumbnails
+		thumbnails: thumbnails,
+		heartshown: heartshown
 		}
 
 		//https://pixabay.com/api/?key=134183-60435312b6db97c2df70ecd93&q=yellow+flowers&image_type=photo&pretty=true

@@ -8,6 +8,7 @@
 
 		<JavaScript File="MainView.js" />
 		<JavaScript File="Camera.js" />
+		<JavaScript File="music.js" />
 
 		<Panel ux:Class="FatButton" Background="#FFFFFF" Margin="0,5,0,5" Text="">
 		<string ux:Property="Text" />
@@ -138,10 +139,14 @@
 
 			</Panel>
 			<Panel>
-				<StackPanel Padding="30,50,0,0" Background="#E91E63" Width="250" Alignment="Left">
-					<StampText Value="Ursi + Beeni" FontSize="80" />
-					<StampText Value="  14.10.2017" FontSize="40" />
-				</StackPanel>
+				<Rectangle Padding="30,50,0,0" Background="#E91E63" Width="250" Alignment="Left">
+					<DropShadow/>
+					<StackPanel>
+						<StampText Value="Ursi + Beeni" FontSize="80" />
+						<StampText Value="  14.10.2017" FontSize="40" />
+					</StackPanel>
+				</Rectangle>
+
 			</Panel>
 			<ScrollView>
 				<StackPanel>
@@ -201,6 +206,18 @@
 				</Clicked>
 				<MenuText ux:Name="MenuItem5" FontSize="40.3" Value="Kontakt" Margin="20,20,0,0" />
 			</Panel>
+			<Panel>
+				<Clicked>
+					<Toggle Target="showMusics" />
+					<Set showItems.Value="false" />
+					<Set showInfos.Value="false" />
+					<Set showLocations.Value="false" />
+					<Set showImages.Value="false" />
+					<Set showContact.Value="false" />
+					<Set showContactForm.Value="false" />
+				</Clicked>
+				<MenuText ux:Name="MenuItem6" FontSize="40.3" Value="Musik" Margin="20,20,0,0" />
+			</Panel>
 			<Panel Clicked="{LogOut}">
 				<MenuText Value="Ausloggen" FontSize="25" Margin="20,10,0,0" />
 			</Panel>
@@ -208,9 +225,11 @@
 	</ScrollView>
 		</StackPanel>
 
-		<Rectangle  ux:Name="leftHeadline" Margin="0,20,0,0" Padding="30,0,0,0" Color="#ffff" Opacity="1" Width="250" Height="100%" Alignment="Left" >
+		<Rectangle  ux:Name="leftHeadline" Margin="0,250,0,0" Padding="30,0,0,0" Color="#ffff" Opacity="1" Width="250" Height="100%" Alignment="Left" >
 			<DropShadow />
 		</Rectangle>
+
+
 
 		<WhileFalse ux:Name="hideHeadlines" Bypass="Standard">
 			<Move Target="leftHeadline" X="-1.2" RelativeTo="Size" Duration="0.5" Easing="CircularInOut" />
@@ -315,10 +334,32 @@
 								<Rectangle Margin="10" Color="White" CornerRadius="2">
 									<StackPanel>
 											<Text Value="Samstag, ab 16:00 Uhr" Font="Archer" Margin="16, 8, 16, 0"  FontSize="14" />
-										<DockPanel>
-											<Image File="Assets/Images/AJ.jpg" Height="60%" Width="60%"  Margin="0,0,10,0" Dock="Right"/>
-											<Text Value="Sektempfang im Restaurant Pfaffenwinkel" Margin="16, 0, 16, 0" Font="Archer" FontSize="24" TextWrapping="Wrap" Width="50%" Dock="Left" />
-										</DockPanel>
+										<Grid Columns="2">
+											<Image File="Assets/Images/AJ.jpg"  Margin="0,0,10,10" Column="2"/>
+											<Text Alignment="Left" Value="Sektempfang im Restaurant Pfaffenwinkel" Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="20" Column="1" />
+										</Grid>
+									</StackPanel>
+									<DropShadow />
+								</Rectangle>
+
+								<Rectangle Margin="10" Color="White" CornerRadius="2">
+									<StackPanel>
+											<Text Value="Samstag, ab 17:00 Uhr" Font="Archer" Margin="16, 8, 16, 0"  FontSize="14" />
+										<Grid Columns="2">
+											<Image File="Assets/Images/EH.jpg"  Margin="0,0,10,10" Column="2"/>
+											<Text Alignment="Left" Value="Gemeinsame Fotos mit Euch und Begrüßungsspiel" Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="20" Column="1" />
+										</Grid>
+									</StackPanel>
+									<DropShadow />
+								</Rectangle>
+
+								<Rectangle Margin="10" Color="White" CornerRadius="2">
+									<StackPanel>
+											<Text Value="Samstag, ab 19:00 Uhr" Font="Archer" Margin="16, 8, 16, 0"  FontSize="14" />
+										<Grid Columns="2">
+											<Image File="Assets/Images/VG.jpg"  Margin="0,0,10,10" Column="2"/>
+											<Text Alignment="Left" Value="Eröffnung des Grillbuffets" Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="20" Column="1" />
+										</Grid>
 									</StackPanel>
 									<DropShadow />
 								</Rectangle>
@@ -383,10 +424,15 @@
 										<StackPanel>
 											<Image Url="https://weddingfun-cookingtest.rhcloud.com/images/static/{imageUrl}" />
 											<DockPanel>
-												<Text Value="{user.showName} |   {numberOfHearts} "  Margin="16, 24, 0, 0"  FontSize="20" Font="Archer" Dock="Left"/>
+												<Text Value="{user.showName} |   {numberOfHearts}"  Margin="16, 24, 0, 0"  FontSize="20" Font="Archer" Dock="Left"/>
 												<HeartIcon Color="#000000" Dock="Left" Height="18" Width="18" Margin="4,28,0,0"/>
 												<Panel Margin="0,28,20,0" Dock="Right">
-													<HeartIcon Color="#E91E63"  Height="18" Width="18"  Clicked="{likeImage}" Visibility="{heartByCurrentUser}" />
+													<HeartIcon Color="#E91E63"  Height="18" Width="18"  Clicked="{likeImage}" Visibility="{heartByCurrentUser}">
+														<Clicked>
+															
+														</Clicked>
+													</HeartIcon>
+													<HeartIcon Color="#E91E63"  Height="18" Width="18"  Clicked="{likeImage}" Visibility="{favIcon}" />
 													<HeartIcon Color="#000000"  Height="18" Width="18"  Clicked="{likeImage}"  />
 												</Panel>
 											</DockPanel>	
@@ -397,6 +443,9 @@
 										<DropShadow />
 									</Rectangle>
 								</Each>
+
+
+
 							</StackPanel>
 						</ScrollView>
 					</WhileTrue>
@@ -417,6 +466,39 @@
 				</Panel>
 
 
+
+<Panel Margin="10,100,10,0" Padding="0,80,0,0">
+					<WhileTrue ux:Name="showMusics">
+						<ScrollView ux:Name="itemsScrollViewMusics">
+							<RemovingAnimation>
+								<Change itemsScrollViewMusics.Opacity="0" Duration="0.6" Easing="ExponentialOut" />
+							</RemovingAnimation>
+
+							<StackPanel>
+
+
+								<Rectangle Margin="10" Color="White" CornerRadius="2">
+									<StackPanel>
+											<TextInput Alignment="Left" Value="{music_user_value}" PlaceholderText="Dein Wunschlied..." Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="20" Column="1" />
+									</StackPanel>
+									<DropShadow />
+								</Rectangle>
+
+								<Each Items="{music.results.trackmatches.track}">
+
+								<Rectangle Margin="10" Color="White" CornerRadius="2">
+									<StackPanel>
+											<Text Alignment="Left" Value="{name}" Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="20" Column="1" />
+									</StackPanel>
+									<DropShadow />
+								</Rectangle>
+							</Each>
+							<Button Text="Starten" Clicked="{musicList}" />
+
+							</StackPanel>
+						</ScrollView>
+					</WhileTrue>
+				</Panel>
 
 		</Panel>
 	</ClientPanel>
