@@ -9,6 +9,7 @@
 		<JavaScript File="MainView.js" />
 		<JavaScript File="Camera.js" />
 		<JavaScript File="music.js" />
+		<JavaScript File="camera_raw.js" />
 
 		<Panel ux:Class="FatButton" Background="#FFFFFF" Margin="0,5,0,5" Text="">
 		<string ux:Property="Text" />
@@ -38,7 +39,7 @@
 
 
 
-<Panel Margin="20,0,0,0" Padding="0,200,0,0">
+<Panel Margin="20,0,0,0" Padding="0,200,0,0" Layer="Background">
 	<WhileTrue ux:Name="showContactForm">
 		<ScrollView ux:Name="itemsContactForm">
 		<RemovingAnimation>
@@ -142,8 +143,8 @@
 				<Rectangle Padding="30,50,0,0" Background="#E91E63" Width="250" Alignment="Left">
 					<DropShadow/>
 					<StackPanel>
-						<StampText Value="Ursi + Beeni" FontSize="80" />
-						<StampText Value="  14.10.2017" FontSize="40" />
+						<StampText Value="Ann-Kathrin + Osman" FontSize="80" />
+						<StampText Value="  22.07.2017" FontSize="40" />
 					</StackPanel>
 				</Rectangle>
 
@@ -240,13 +241,13 @@
 		<Panel ux:Name="self" TransformOrigin="Center" Width="300" Height="300" Alignment="BottomRight" Offset="100,100">
 			<Cross ux:Name="cross" HitTestMode="None"/>
 
-			<ClockIcon ux:Name="icon1" Margin="40,30,0,20" Width="30" Height="30" Alignment="Left" Opacity="0" IsEnabled="false" Clicked="{CameraRollWedding}">
+			<ClockIcon ux:Name="icon1" Margin="40,30,0,20" Width="30" Height="30" Alignment="Left" Opacity="0" IsEnabled="false" Clicked="{selectImage}">
 				<Translation ux:Name="trans1" X="1.5" RelativeTo="Size" />
 				<Clicked>
 					<Toggle Target="expanded" />
 				</Clicked>
 			</ClockIcon>
-			<TalkIcon ux:Name="icon2" Margin="70,70,0,0" Width="30" Height="30" Alignment="TopLeft" Opacity="0" IsEnabled="false" Clicked="{selectImage}">
+			<TalkIcon ux:Name="icon2" Margin="70,70,0,0" Width="30" Height="30" Alignment="TopLeft" Opacity="0" IsEnabled="false">
 				<Translation ux:Name="trans2" X="1" Y="1" RelativeTo="Size" />
 				<Clicked>
 					<Toggle Target="expanded" />

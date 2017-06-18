@@ -13,14 +13,14 @@ var userId = Observable("");
 var images = Observable();
 var pictures = Observable();
 var favIcon = Observable("Hidden"); 
-var exports = module.exports;
+
 
 var response_ok = false;
 
 
 
 
-exports.takePicture = function()
+function takePicture ()
 {
    Camera.takePicture(150, 150).then(function(image) {
             CameraRoll.publishImage(image);
@@ -50,7 +50,7 @@ exports.takePicture = function()
 };
 
 
-exports.CameraRollWedding = function()
+function CameraRollWedding ()
 {
    CameraRoll.getImage().then(function(image) {
             return ImageTools.getBase64FromImage(image).then(function(buffer) {
@@ -78,9 +78,12 @@ exports.CameraRollWedding = function()
 };
 
 
-exports.PictureWedding = function()
+
+
+
+function PictureWedding ()
 {
-   Camera.takePicture(150, 150).then(function(image) {
+   Camera.takePicture().then(function(image) {
             CameraRoll.publishImage(image);
             return ImageTools.getBase64FromImage(image).then(function(buffer) {
                 return fetch('https://weddingfun-cookingtest.rhcloud.com/images/api/uploadImage/base64/body/', 
@@ -201,6 +204,9 @@ function likeImage(a){
     pictures: pictures,
     thumbnails: thumbnails,
     likeImage: likeImage,
-    favIcon: favIcon
+    favIcon: favIcon,
+    PictureWedding: PictureWedding,
+    CameraRollWedding: CameraRollWedding
+
     }
 

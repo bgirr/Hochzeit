@@ -10,6 +10,8 @@
   ],
   "Includes": [
     "MainView.js:File",
+    "Camera.js:File",
+    "camera_raw.js:File",
     "MainView.ux:UXFile",
     "Resources.ux:UXFile",
     "Assets/*.png:Bundle"
