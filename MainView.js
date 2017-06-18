@@ -37,7 +37,7 @@ function setPage1Headline(){
 }
 
 function setPage2Headline(){
-	Headline.value = "Info";
+	Headline.value = "Location";
 }
 
 function setPage3Headline(){
@@ -45,15 +45,15 @@ function setPage3Headline(){
 }
 
 function setPage4Headline(){
-	Headline.value = "Info";
+	Headline.value = "Bilder";
 }
 
 function setPage5Headline(){
-	Headline.value = "Info";
+	Headline.value = "Kontakt";
 }
 
 function setPage6Headline(){
-	Headline.value = "Info";
+	Headline.value = "Musik";
 }
 
 function setPage7Headline(){

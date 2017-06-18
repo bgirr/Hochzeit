@@ -162,7 +162,7 @@
 				<MenuText ux:Name="MenuItem1" FontSize="40.3" Value="Ablaufplan" Margin="20,20,0,0" />
 			</Panel>
 
-			<Panel>
+			<Panel Clicked="{setPage2Headline}">
 				<Clicked>
 					<Toggle Target="showLocations" />
 					<Set showItems.Value="false" />
@@ -173,7 +173,7 @@
 				</Clicked>
 				<MenuText ux:Name="MenuItem2" FontSize="40.3" Value="Location" Margin="20,20,0,0" />
 			</Panel>
-			<Panel Clicked="{setPage2Headline}">
+			<Panel Clicked="{setPage3Headline}">
 				<Clicked>
 					<Toggle Target="showInfos" />
 					<Set showItems.Value="false" />
@@ -184,7 +184,7 @@
 				</Clicked>
 				<MenuText ux:Name="MenuItem3" FontSize="40.3" Value="Info" Margin="20,20,0,0" />
 			</Panel>
-			<Panel>
+			<Panel Clicked="{setPage4Headline}">
 				<Clicked>
 					<Toggle Target="showImages" />
 					<Set showItems.Value="false" />
@@ -195,7 +195,7 @@
 				</Clicked>
 				<MenuText ux:Name="MenuItem4" FontSize="40.3" Value="Bilder" Margin="20,20,0,0" Clicked="{thumbnails}"/>
 			</Panel>
-			<Panel>
+			<Panel Clicked="{setPage5Headline}">
 				<Clicked>
 					<Toggle Target="showContact" />
 					<Set showItems.Value="false" />
@@ -206,7 +206,7 @@
 				</Clicked>
 				<MenuText ux:Name="MenuItem5" FontSize="40.3" Value="Kontakt" Margin="20,20,0,0" />
 			</Panel>
-			<Panel>
+			<Panel Clicked="{setPage6Headline}">
 				<Clicked>
 					<Toggle Target="showMusics" />
 					<Set showItems.Value="false" />
@@ -429,7 +429,7 @@
 												<Panel Margin="0,28,20,0" Dock="Right">
 													<HeartIcon Color="#E91E63"  Height="18" Width="18"  Clicked="{likeImage}" Visibility="{heartByCurrentUser}">
 														<Clicked>
-															
+
 														</Clicked>
 													</HeartIcon>
 													<HeartIcon Color="#E91E63"  Height="18" Width="18"  Clicked="{likeImage}" Visibility="{favIcon}" />

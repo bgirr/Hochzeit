@@ -5,6 +5,7 @@ var ImageTools = require("FuseJS/ImageTools");
 var FileSystem = require("FuseJS/FileSystem");
 var Storage = require("FuseJS/Storage");
 var SAVEUSER = "localStorage.json";
+var SAVETHUMBNAIL = "localThumbnail.json";
 
 
 var userId = Observable("");
@@ -17,11 +18,6 @@ var exports = module.exports;
 var response_ok = false;
 
 
-Storage.read(SAVEUSER).then(function(content) {
-    var data = JSON.parse(content);
-    userId.value = data.id;
-    debug_log(userName.value);
-  })
 
 
 exports.takePicture = function()
@@ -113,6 +109,14 @@ exports.PictureWedding = function()
 
 
 function thumbnails(){
+
+  Storage.read(SAVEUSER).then(function(content) {
+    var data = JSON.parse(content);
+    userID.value = data.id;
+    debug_log("UserID: " + userID.value);
+  })
+
+
 fetch("https://weddingfun-cookingtest.rhcloud.com/images/api/",
    { method: "GET", 
                   headers: {"Data-User-Id": userId},
@@ -130,12 +134,13 @@ fetch("https://weddingfun-cookingtest.rhcloud.com/images/api/",
     if (data[i].heartByCurrentUser == false) {
     data[i].heartByCurrentUser = "Hidden";
   }
-  else {
+  if (data[i].heartByCurrentUser == true)   {
   data[i].heartByCurrentUser = "Visible"
   }
   var item = data[i];
   pictures.add(item);
     }
+    Storage.write(SAVETHUMBNAIL, pictures);
     debug_log(JSON.stringify(pictures));
   });
 });
@@ -143,27 +148,52 @@ fetch("https://weddingfun-cookingtest.rhcloud.com/images/api/",
 
 
 function likeImage(a){
-  var picture = a.data.id;
-  favIcon.value = 'Visible';
-  debug_log(picture);
-  fetch('https://weddingfun-cookingtest.rhcloud.com/images/api/heart/'+ picture +'/',
+  var ImageID = a.data.id;
+  //favIcon.value = 'Visible';
+  debug_log('Schicke Request mit ImageID ' + ImageID + ' und UserID: ' + userID.value);
+
+  fetch('https://weddingfun-cookingtest.rhcloud.com/images/api/heart/'+ ImageID +'/',
      { method: "POST", 
          headers: {"Data-User-Id": userID.value, 
       "Content-Type": "text/plain"}})
   .then(function(response) {
-            console.log("Got response");
+            console.log("Favorit erfolgreich angelegt!");
             console.log(response.status);
-            response_ok = response.ok;
-            console.log(response_ok);
             return response.json();
         }).then(function(responseObject) {
+          debug_log('Das ist der FavResponse: ' + JSON.stringify(responseObject));
 
-          console.log("Hier der Response:");
-          console.log(JSON.stringify(responseObject));
+          pictures.value.heartByCurrentUser = responseObject.heartByCurrentUser;
+
+          thumbnails();
+
+        /*  for (var i=0; i<pictures.length; i++) {
+           // debug_log('Prüfe' + JSON.stringify(pictures.value.id));
+            if (pictures.value.id == responseObject.id){
+              debug_log('Change');
+              pictures.heartByCurrentUser = 'Visible'
+            }
+          }
+
+          */
+          
         }).catch(function(e){
-            console.log("Error");
-            console.log(e);
-        });
+            console.log('Es ist folgender Fehler aufgetretetn: ' + JSON.stringify(e.status));
+        }).then(function() {
+            debug_log('Hier ist die picture-Ob: ' + JSON.stringify(pictures.value));
+            Storage.read(SAVETHUMBNAIL).then(function(content){
+            debug_log('Bin in der richtigen Funktion...')
+            var data = JSON.parse(content);
+            debug_log('Hier sind alle Bilder: ' + JSON.stringify(data));
+          })
+          })
+/*Storage.read(SAVETHUMBNAIL).then(function(content) {
+    var data = JSON.parse(content);
+    debug_log("Hier der Read")
+    debug_log(JSON.stringify(data));
+    userId.value = data.id;
+    debug_log(userName.value);
+  }) */
 
 }
 
