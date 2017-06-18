@@ -9,7 +9,7 @@
 		<JavaScript File="MainView.js" />
 		<JavaScript File="Camera.js" />
 		<JavaScript File="music.js" />
-		<JavaScript File="camera_raw.js" />
+		
 
 		<Panel ux:Class="FatButton" Background="#FFFFFF" Margin="0,5,0,5" Text="">
 		<string ux:Property="Text" />
@@ -113,7 +113,7 @@
 </Panel>
 	
 
-	<HamburgerIcon Alignment="TopLeft" Margin="20,40,20,20" Width="20" StretchMode="Fill" Height="17" Color="#ffff" >
+	<HamburgerIcon Alignment="TopLeft" Margin="20,20,20,20" Width="20" StretchMode="Fill" Height="17" Color="#ffff" >
 		<Clicked>
 				<Toggle Target="hideHeadlines" />
 				<Scale Factor="0.9" Duration="0.05" Easing="QuadraticInOut" />
@@ -143,7 +143,7 @@
 				<Rectangle Padding="30,50,0,0" Background="#E91E63" Width="250" Alignment="Left">
 					<DropShadow/>
 					<StackPanel>
-						<StampText Value="Ann-Kathrin + Osman" FontSize="80" />
+						<StampText Value="Ann-Kathrin + Osman" FontSize="40" />
 						<StampText Value="  22.07.2017" FontSize="40" />
 					</StackPanel>
 				</Rectangle>
@@ -241,7 +241,7 @@
 		<Panel ux:Name="self" TransformOrigin="Center" Width="300" Height="300" Alignment="BottomRight" Offset="100,100">
 			<Cross ux:Name="cross" HitTestMode="None"/>
 
-			<ClockIcon ux:Name="icon1" Margin="40,30,0,20" Width="30" Height="30" Alignment="Left" Opacity="0" IsEnabled="false" Clicked="{selectImage}">
+			<ClockIcon ux:Name="icon1" Margin="40,30,0,20" Width="30" Height="30" Alignment="Left" Opacity="0" IsEnabled="false" Clicked="{PictureWedding}">
 				<Translation ux:Name="trans1" X="1.5" RelativeTo="Size" />
 				<Clicked>
 					<Toggle Target="expanded" />
@@ -259,7 +259,7 @@
 					<Set showImages.Value="false" />
 				</Clicked>
 			</TalkIcon>
-			<LocationIcon ux:Name="icon3" Margin="30,40,20,0" Width="30" Height="30" Alignment="Top" Opacity="0" IsEnabled="false" Clicked="{PictureWedding}">
+			<LocationIcon ux:Name="icon3" Margin="30,40,20,0" Width="30" Height="30" Alignment="Top" Opacity="0" IsEnabled="false" Clicked="{CameraRollWedding}">
 				<Translation ux:Name="trans3" Y="1.5" RelativeTo="Size" />
 				<Clicked>
 					<Toggle Target="expanded" />
@@ -334,9 +334,10 @@
 
 								<Rectangle Margin="10" Color="White" CornerRadius="2">
 									<StackPanel>
-											<Text Value="Samstag, ab 16:00 Uhr" Font="Archer" Margin="16, 8, 16, 0"  FontSize="14" />
+											
 										<Grid Columns="2">
 											<Image File="Assets/Images/AJ.jpg"  Margin="0,0,10,10" Column="2"/>
+											<Text Value="Samstag, ab 16:00 Uhr" Font="Archer" Margin="16, 8, 16, 0"  FontSize="14" Column="1"/>
 											<Text Alignment="Left" Value="Sektempfang im Restaurant Pfaffenwinkel" Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="20" Column="1" />
 										</Grid>
 									</StackPanel>
@@ -387,7 +388,7 @@
 					</WhileTrue>
 				</Panel>
 
-				<Panel Margin="20,0,0,0" Padding="0,200,0,0">
+				<Panel Margin="20,0,0,0" Padding="0,100,0,0">
 					<WhileTrue ux:Name="showLocations">
 						<ScrollView ux:Name="itemsScrollViewLocations">
 							<RemovingAnimation>
@@ -399,8 +400,8 @@
 									<Text Value="Restaurant Pfaffenwinkel" FontSize="30" Font="Archer" />
 									<Text Padding="0,0,0,0" Value="Am Hochschloß, 82396 Pähl " TextWrapping="Wrap" FontSize="10" />
 									<NativeViewHost>
-										<MapView Latitude="59.911567" Longitude="10.741030" Zoom="10" Height="300">
-											<MapMarker Latitude="59.911567" Longitude="10.741030" Label="Restaurant Pfaffenwinkel"/>
+										<MapView Latitude="47.913242" Longitude="11.184767" Zoom="10" Height="300" Layer="Background">
+											<MapMarker Latitude="47.913242" Longitude="11.184767" Label="Restaurant Pfaffenwinkel"/>
 										</MapView>
 									</NativeViewHost>
 								</StackPanel>

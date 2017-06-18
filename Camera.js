@@ -53,6 +53,7 @@ function takePicture ()
 function CameraRollWedding ()
 {
    CameraRoll.getImage().then(function(image) {
+    debug_log("Hier kommt das Foto")
             return ImageTools.getBase64FromImage(image).then(function(buffer) {
                 return fetch('https://weddingfun-cookingtest.rhcloud.com/images/api/uploadImage/base64/body/', 
                   { method: "POST", 
@@ -83,28 +84,29 @@ function CameraRollWedding ()
 
 function PictureWedding ()
 {
-   Camera.takePicture().then(function(image) {
+   Camera.takePicture(150,150).then(function(image) {
+            debug_log("Hier kommt das Bild!")
             CameraRoll.publishImage(image);
             return ImageTools.getBase64FromImage(image).then(function(buffer) {
+              debug_log("Schicke an Backend");
                 return fetch('https://weddingfun-cookingtest.rhcloud.com/images/api/uploadImage/base64/body/', 
                   { method: "POST", 
-                  headers: {"Data-User-Id": userId},
+                  headers: {"Data-User-Id": userId.value},
                   body: "data:image/jpeg;base64,"+buffer
-
                   });
             });
         }).then(function(response) {
-            console.log("Got response");
-            console.log(response.status);
+            debug_log("Verschickt");
+            debug_log(response.status);
             response_ok = response.ok;
-            console.log(response_ok);
+            debug_log(response_ok);
             return response.json();
         }).then(function(responseObject) {
-          console.log("Hier der Response:");
-          console.log(JSON.stringify(responseObject));
+          debug_log("Hier der Response:");
+          debug_log(JSON.stringify(responseObject));
         }).catch(function(e){
-            console.log("Error");
-            console.log(e);
+            debug_log("Error");
+            debug_log(e);
         });
 
 };
