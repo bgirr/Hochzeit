@@ -52,6 +52,13 @@ function takePicture ()
 
 function CameraRollWedding ()
 {
+   Storage.read(SAVEUSER).then(function(content) {
+    var data = JSON.parse(content);
+    userName.value = data.showName;
+    userID.value = data.id;
+    debug_log(userID.value);
+    debug_log(userName.value);
+  })
    CameraRoll.getImage().then(function(image) {
     debug_log("Hier kommt das Foto")
             return ImageTools.getBase64FromImage(image).then(function(buffer) {
@@ -84,6 +91,13 @@ function CameraRollWedding ()
 
 function PictureWedding ()
 {
+   Storage.read(SAVEUSER).then(function(content) {
+    var data = JSON.parse(content);
+    userName.value = data.showName;
+    userID.value = data.id;
+    debug_log(userID.value);
+    debug_log(userName.value);
+  })
    Camera.takePicture(150,150).then(function(image) {
             debug_log("Hier kommt das Bild!")
             CameraRoll.publishImage(image);
@@ -91,7 +105,7 @@ function PictureWedding ()
               debug_log("Schicke an Backend");
                 return fetch('https://weddingfun-cookingtest.rhcloud.com/images/api/uploadImage/base64/body/', 
                   { method: "POST", 
-                  headers: {"Data-User-Id": userId.value},
+                  headers: {"Data-User-Id": userId},
                   body: "data:image/jpeg;base64,"+buffer
                   });
             });

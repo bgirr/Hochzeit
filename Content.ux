@@ -388,7 +388,7 @@
 					</WhileTrue>
 				</Panel>
 
-				<Panel Margin="20,0,0,0" Padding="0,100,0,0">
+				<Panel Margin="20,0,0,0" Padding="0,180,0,0">
 					<WhileTrue ux:Name="showLocations">
 						<ScrollView ux:Name="itemsScrollViewLocations">
 							<RemovingAnimation>
