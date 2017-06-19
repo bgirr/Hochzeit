@@ -5,7 +5,7 @@ var SAVEUSER = "localStorage.json";
 
 var userName = Observable("");
 var userID = Observable("");
-var Headline=Observable("Ursi & Beeni");
+var Headline=Observable("AK8O");
 
 
 Storage.read(SAVEUSER).then(function(content) {

@@ -334,11 +334,12 @@
 
 								<Rectangle Margin="10" Color="White" CornerRadius="2">
 									<StackPanel>
-											
 										<Grid Columns="2">
-											<Image File="Assets/Images/AJ.jpg"  Margin="0,0,10,10" Column="2"/>
-											<Text Value="Samstag, ab 16:00 Uhr" Font="Archer" Margin="16, 8, 16, 0"  FontSize="14" Column="1"/>
-											<Text Alignment="Left" Value="Sektempfang im Restaurant Pfaffenwinkel" Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="20" Column="1" />
+											<Image File="Assets/Images/AJ.jpg"  Margin="0,10,10,10" Column="2"/>
+											<StackPanel Column="1" >
+												<Text Value="Samstag, ab 16:00 Uhr" Font="Archer" Margin="16, 8, 16, 0"  FontSize="14"  TextWrapping="Wrap"/>
+												<Text Alignment="Left" Value="Sektempfang im Restaurant Pfaffenwinkel" Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="20" />
+											</StackPanel>
 										</Grid>
 									</StackPanel>
 									<DropShadow />
@@ -388,7 +389,7 @@
 					</WhileTrue>
 				</Panel>
 
-				<Panel Margin="20,0,0,0" Padding="0,180,0,0">
+				<Panel Margin="20,0,0,0" Padding="0,300,0,0">
 					<WhileTrue ux:Name="showLocations">
 						<ScrollView ux:Name="itemsScrollViewLocations">
 							<RemovingAnimation>
@@ -398,9 +399,9 @@
 								<Rectangle Margin="10" Color="White" CornerRadius="2">
 								<StackPanel>         
 									<Text Value="Restaurant Pfaffenwinkel" FontSize="30" Font="Archer" />
-									<Text Padding="0,0,0,0" Value="Am Hochschloß, 82396 Pähl " TextWrapping="Wrap" FontSize="10" />
-									<NativeViewHost>
-										<MapView Latitude="47.913242" Longitude="11.184767" Zoom="10" Height="300" Layer="Background">
+									<Text Padding="0,0,0,50" Value="Am Hochschloß, 82396 Pähl " TextWrapping="Wrap" FontSize="10" />
+									<NativeViewHost Layer="Background">
+										<MapView Latitude="47.913242" Longitude="11.184767" Zoom="10" Height="300">
 											<MapMarker Latitude="47.913242" Longitude="11.184767" Label="Restaurant Pfaffenwinkel"/>
 										</MapView>
 									</NativeViewHost>

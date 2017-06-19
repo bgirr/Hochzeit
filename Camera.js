@@ -9,6 +9,7 @@ var SAVETHUMBNAIL = "localThumbnail.json";
 
 
 var userId = Observable("");
+var UserID = Observable("");
 
 var images = Observable();
 var pictures = Observable();
@@ -18,6 +19,14 @@ var favIcon = Observable("Hidden");
 var response_ok = false;
 
 
+Storage.read(SAVEUSER).then(function(content) {
+    var data = JSON.parse(content);
+    userName.value = data.showName;
+    userID.value = data.id;
+    var ID = data.id;
+    debug_log(userID.value);
+    debug_log(userName.value);
+  })
 
 
 function takePicture ()
@@ -61,10 +70,11 @@ function CameraRollWedding ()
   })
    CameraRoll.getImage().then(function(image) {
     debug_log("Hier kommt das Foto")
+    debug_log(ID);
             return ImageTools.getBase64FromImage(image).then(function(buffer) {
                 return fetch('https://weddingfun-cookingtest.rhcloud.com/images/api/uploadImage/base64/body/', 
                   { method: "POST", 
-                  headers: {"Data-User-Id": userId},
+                  headers: {"Data-User-Id": userID.value},
                   body: "data:image/jpeg;base64,"+buffer
 
                   });
@@ -79,8 +89,8 @@ function CameraRollWedding ()
           console.log("Hier der Response:");
           console.log(JSON.stringify(responseObject));
         }).catch(function(e){
-            console.log("Error");
-            console.log(e);
+            debug_log("Error");
+            debug_log(e);
         });
 
 };
@@ -90,8 +100,7 @@ function CameraRollWedding ()
 
 
 function PictureWedding ()
-{
-   Storage.read(SAVEUSER).then(function(content) {
+{   Storage.read(SAVEUSER).then(function(content) {
     var data = JSON.parse(content);
     userName.value = data.showName;
     userID.value = data.id;
@@ -105,7 +114,7 @@ function PictureWedding ()
               debug_log("Schicke an Backend");
                 return fetch('https://weddingfun-cookingtest.rhcloud.com/images/api/uploadImage/base64/body/', 
                   { method: "POST", 
-                  headers: {"Data-User-Id": userId},
+                  headers: {"Data-User-Id": userID.value},
                   body: "data:image/jpeg;base64,"+buffer
                   });
             });
@@ -138,7 +147,7 @@ function thumbnails(){
 
 fetch("https://weddingfun-cookingtest.rhcloud.com/images/api/",
    { method: "GET", 
-                  headers: {"Data-User-Id": userId},
+                  headers: {"Data-User-Id": userID},
                   })
   .then(function(result) {
     if (result.status !== 200) {
@@ -173,7 +182,7 @@ function likeImage(a){
 
   fetch('https://weddingfun-cookingtest.rhcloud.com/images/api/heart/'+ ImageID +'/',
      { method: "POST", 
-         headers: {"Data-User-Id": userID.value, 
+         headers: {"Data-User-Id": userID, 
       "Content-Type": "text/plain"}})
   .then(function(response) {
             console.log("Favorit erfolgreich angelegt!");
