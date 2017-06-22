@@ -2,7 +2,7 @@
 
 	<Router ux:Name="router" />
 
-	<JavaScript File="Login.js" />
+	<JavaScript File="Camera.js" />
 	<ux:Include File="Resources.ux" />
 
 	<Navigator DefaultPath="firstPage">

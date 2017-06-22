@@ -6,27 +6,39 @@ var FileSystem = require("FuseJS/FileSystem");
 var Storage = require("FuseJS/Storage");
 var SAVEUSER = "localStorage.json";
 var SAVETHUMBNAIL = "localThumbnail.json";
+var SAVEPAGE = "localPage.txt"
+var saveData = Observable("");
+var savePage = Observable("");
+var pictures = Observable();
 
+key = Observable("");
+showname = Observable("");
+userID = Observable("");
+ErrorMessage = Observable("");
+defaultPage = Observable("secondPage")
 
-var userId = Observable("");
-var UserID = Observable("");
+ErrorMessage.value = "";
+
 
 var images = Observable();
-var pictures = Observable();
 var favIcon = Observable("Hidden"); 
 
 
 var response_ok = false;
 
 
-Storage.read(SAVEUSER).then(function(content) {
+function getuserID () {
+    Storage.read(SAVEUSER).then(function(content) {
     var data = JSON.parse(content);
     userName.value = data.showName;
     userID.value = data.id;
-    var ID = data.id;
-    debug_log(userID.value);
-    debug_log(userName.value);
+    if(data.id == ""){
+      debug_log("Hier gibt es keine ID");
+    }
+    debug_log('Die UserID ist: ' + userID.value);
+    debug_log('Der UserName ist: ' + userName.value);
   })
+}
 
 
 function takePicture ()
@@ -51,6 +63,7 @@ function takePicture ()
         }).then(function(responseObject) {
           console.log("Hier der Response:");
           console.log(JSON.stringify(responseObject));
+          thumbnails();
         }).catch(function(e){
             console.log("Error");
             console.log(e);
@@ -61,16 +74,8 @@ function takePicture ()
 
 function CameraRollWedding ()
 {
-   Storage.read(SAVEUSER).then(function(content) {
-    var data = JSON.parse(content);
-    userName.value = data.showName;
-    userID.value = data.id;
-    debug_log(userID.value);
-    debug_log(userName.value);
-  })
+  getuserID();
    CameraRoll.getImage().then(function(image) {
-    debug_log("Hier kommt das Foto")
-    debug_log(ID);
             return ImageTools.getBase64FromImage(image).then(function(buffer) {
                 return fetch('https://weddingfun-cookingtest.rhcloud.com/images/api/uploadImage/base64/body/', 
                   { method: "POST", 
@@ -88,11 +93,14 @@ function CameraRollWedding ()
         }).then(function(responseObject) {
           console.log("Hier der Response:");
           console.log(JSON.stringify(responseObject));
+          var item = responseObject;
+          pictures[0].add(item);          
+          debug_log("Neues Bild ist hier!");
         }).catch(function(e){
             debug_log("Error");
             debug_log(e);
         });
-
+      
 };
 
 
@@ -100,13 +108,8 @@ function CameraRollWedding ()
 
 
 function PictureWedding ()
-{   Storage.read(SAVEUSER).then(function(content) {
-    var data = JSON.parse(content);
-    userName.value = data.showName;
-    userID.value = data.id;
-    debug_log(userID.value);
-    debug_log(userName.value);
-  })
+{   
+  getuserID();
    Camera.takePicture(150,150).then(function(image) {
             debug_log("Hier kommt das Bild!")
             CameraRoll.publishImage(image);
@@ -125,8 +128,11 @@ function PictureWedding ()
             debug_log(response_ok);
             return response.json();
         }).then(function(responseObject) {
+          var item = responseObject;
+          pictures[0].add(item);
           debug_log("Hier der Response:");
           debug_log(JSON.stringify(responseObject));
+          thumbnails();
         }).catch(function(e){
             debug_log("Error");
             debug_log(e);
@@ -143,8 +149,7 @@ function thumbnails(){
     userID.value = data.id;
     debug_log("UserID: " + userID.value);
   })
-
-
+  
 fetch("https://weddingfun-cookingtest.rhcloud.com/images/api/",
    { method: "GET", 
                   headers: {"Data-User-Id": userID},
@@ -155,8 +160,9 @@ fetch("https://weddingfun-cookingtest.rhcloud.com/images/api/",
     }
   result.json().then(function(data) {
   debug_log("Übersicht ist da!");
-  debug_log(JSON.stringify(data));
+  //debug_log(JSON.stringify(data));
   data.sort(function(a, b){return new Date(b.dateAdded) - new Date(a.dateAdded)});
+  var laenge = 0;
   var laenge = data.length;
   for (var i=0; i<laenge; i++) {
     if (data[i].heartByCurrentUser == false) {
@@ -167,9 +173,10 @@ fetch("https://weddingfun-cookingtest.rhcloud.com/images/api/",
   }
   var item = data[i];
   pictures.add(item);
+  //pictures.sort(function(a, b){return new Date(b.dateAdded) - new Date(a.dateAdded)});
     }
-    Storage.write(SAVETHUMBNAIL, pictures);
-    debug_log(JSON.stringify(pictures));
+    //Storage.write(SAVETHUMBNAIL, pictures);
+    //debug_log(JSON.stringify(pictures));
   });
 });
 };
@@ -225,13 +232,121 @@ function likeImage(a){
 
 }
 
+
+
+
+Storage.read(SAVEUSER).then(function(content) {
+    var data = JSON.parse(content);
+    savePage.value = data.startPage;
+    if (savePage.value == 'registered') {
+      router.goto("firstPage");
+    }
+
+  })
+
+
+
+
+
+function read_file () {
+  debug_log("Versuche zu lesen!");
+  Storage.read(SAVEUSER).then(function(content) {
+    var data = JSON.parse(content);
+    saveData.value = data.id;
+    savePage.value = data.startPage;
+    debug_log(savePage.value);
+    debug_log(saveData.value);
+  })
+
+
+};
+
+
+function login_clicked()
+{ debug_log("Hier rein");
+  ErrorMessage.value = "";
+  var bodyText = '{"key": "' + key.value + '", "showName": "' + showname.value + '"}';
+  //"{key" + key.value + ", showName: " + showname.value + "}";
+
+  debug_log(bodyText);
+
+  fetch('https://weddingfun-cookingtest.rhcloud.com/users/api/registerUser/', 
+                  {method: "POST", 
+                  headers: {
+                  "Content-type": "application/json",
+                  },
+                  body: bodyText
+                  })
+
+  .then(function(resp) {
+        if (resp.status == 200) {
+            console.log('OK');
+            return resp.json();
+        } else {
+
+          
+            console.log('Network failure: ' + resp.status);
+            ErrorMessage.value = "Es ist ein Fehler aufgetreten! Grund:" + JSON.stringify(resp.body);
+            //Fehlermeldung anzeigen 
+        }
+    })
+    .then(function(json) {
+        console.log('JSON:');
+        userID.value = json.id;
+        //debug_log(userID);
+        //var userValue =  '{"key": "' + userID + '"}';
+        var userValue = JSON.stringify(json);
+        //debug_log(userValue);
+        Storage.write(SAVEUSER, userValue);
+        //debug_log(userValue);
+        var userPage = 'firstPage';
+        //debug_log(userPage);
+        Storage.write(SAVEPAGE, userPage)
+        debug_log('Die ID ist: ' + userID.value);
+        router.goto("firstPage");
+          //Response ID abspeichern
+      //Username abspeichern
+      //Seite auf SinglePage wechslen
+
+    })
+   
+/*    .catch(function(err) {
+        console.log('Error');
+        console.log("Fehlergrund: " + JSON.stringify(err));
+    });
+*/
+}
+
+
+  function login (responseObject) {
+          console.log("Hier der Response:");
+          console.log(JSON.stringify(responseObject));
+          userID.value = responseObject.id;
+          debug_log(userID.value);
+      router.goto("firstPage");
+    };
+
+
+  function switch_page () {
+    debug_log("geklickt");
+router.goto("firstPage");
+  };
+
+
     module.exports = {
     pictures: pictures,
     thumbnails: thumbnails,
     likeImage: likeImage,
     favIcon: favIcon,
     PictureWedding: PictureWedding,
-    CameraRollWedding: CameraRollWedding
+    CameraRollWedding: CameraRollWedding,
+    login_clicked: login_clicked,
+    key: key,
+    showname: showname,
+    defaultPage: defaultPage,
+    ErrorMessage: ErrorMessage,
+    read_file: read_file,
+    switch_page: switch_page
 
     }
 

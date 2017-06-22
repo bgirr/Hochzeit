@@ -400,7 +400,7 @@
 								<StackPanel>         
 									<Text Value="Restaurant Pfaffenwinkel" FontSize="30" Font="Archer" />
 									<Text Padding="0,0,0,50" Value="Am Hochschloß, 82396 Pähl " TextWrapping="Wrap" FontSize="10" />
-									<NativeViewHost Layer="Background">
+									<NativeViewHost>
 										<MapView Latitude="47.913242" Longitude="11.184767" Zoom="10" Height="300">
 											<MapMarker Latitude="47.913242" Longitude="11.184767" Label="Restaurant Pfaffenwinkel"/>
 										</MapView>

@@ -72,16 +72,18 @@ function login_clicked()
     .then(function(json) {
         console.log('JSON:');
         userID = json.id;
-        debug_log(userID);
+        userID.value = json.id;
+        //debug_log(userID);
 
         //var userValue =  '{"key": "' + userID + '"}';
         var userValue = JSON.stringify(json);
-        debug_log(userValue);
+        //debug_log(userValue);
         Storage.write(SAVEUSER, userValue);
- 		debug_log(userValue);
+ 		//debug_log(userValue);
  		var userPage = 'firstPage';
- 		debug_log(userPage);
+ 		//debug_log(userPage);
  		Storage.write(SAVEPAGE, userPage)
+    debug_log('Die ID ist: ' + userID.value);
     router.goto("firstPage");
         	//Response ID abspeichern
 			//Username abspeichern
