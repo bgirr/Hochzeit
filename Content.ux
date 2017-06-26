@@ -483,6 +483,7 @@
 								<Rectangle Margin="10" Color="White" CornerRadius="2">
 									<StackPanel>
 											<TextInput Alignment="Left" Value="{music_user_value}" PlaceholderText="Dein Wunschlied..." Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="20" Column="1" />
+											<Button Text="Starten" Clicked="{musicList}" />
 									</StackPanel>
 									<DropShadow />
 								</Rectangle>
@@ -490,13 +491,36 @@
 								<Each Items="{music.results.trackmatches.track}">
 
 								<Rectangle Margin="10" Color="White" CornerRadius="2">
-									<StackPanel>
-											<Text Alignment="Left" Value="{name}" Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="20" Column="1" />
-									</StackPanel>
+								<StackPanel>
+									<Grid Columns="auto, 1*">
+										<Circle  Column="1" Alignment="CenterLeft" Height="30" Width="30" Margin="20,0,0,0">
+											 <ImageFill Url="{imageNew}" />
+										</Circle>
+										<StackPanel Column="2">
+											<Image Url="{imageNew}" />
+											<Text Dock="Left" Value="{imageNew} - " Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="20" Alignment="CenterLeft"/>
+											<Text Dock="Left" Value="{artist} - " Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="20" Alignment="CenterLeft"/>
+											<Text Dock="Left" Value="{name}" Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="20" Alignment="CenterLeft"/>
+										</StackPanel>
+									</Grid>
+									<DockPanel>
+												<Text Value="{image.size} |   {numberOfHearts}"  Margin="16, 24, 0, 0"  FontSize="20" Font="Archer" Dock="Left"/>
+												<HeartIcon Color="#000000" Dock="Left" Height="18" Width="18" Margin="4,28,0,0"/>
+												<Panel Margin="0,28,20,0" Dock="Right">
+													<HeartIcon Color="#E91E63"  Height="18" Width="18"  Clicked="{likeImage}" Visibility="{heartByCurrentUser}">
+														<Clicked>
+
+														</Clicked>
+													</HeartIcon>
+													<HeartIcon Color="#E91E63"  Height="18" Width="18"  Clicked="{likeImage}" Visibility="{favIcon}" />
+													<HeartIcon Color="#000000"  Height="18" Width="18"  Clicked="{likeImage}"  />
+												</Panel>
+									</DockPanel>
+								</StackPanel>	
 									<DropShadow />
 								</Rectangle>
 							</Each>
-							<Button Text="Starten" Clicked="{musicList}" />
+							
 
 							</StackPanel>
 						</ScrollView>
