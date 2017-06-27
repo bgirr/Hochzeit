@@ -17,6 +17,9 @@ userID = Observable("");
 ErrorMessage = Observable("");
 defaultPage = Observable("secondPage")
 
+var UploadMessage = Observable("");
+var UploadMessageVisible = Observable("Hidden");
+
 ErrorMessage.value = "";
 
 
@@ -89,6 +92,7 @@ function CameraRollWedding ()
             console.log(response.status);
             response_ok = response.ok;
             console.log(response_ok);
+            UploadMessageDone();
             return response.json();
         }).then(function(responseObject) {
           console.log("Hier der Response:");
@@ -97,15 +101,36 @@ function CameraRollWedding ()
           pictures[0].add(item);          
           debug_log("Neues Bild ist hier!");
         }).catch(function(e){
+            UploadMessageError();
             debug_log("Error");
             debug_log(e);
         });
       
 };
 
+function UploadMessage () {
+  UploadMessage.value = "Foto wird hochgeladen...";
+  UploadMessageVisible.value = "Visible";
+}
 
 
+function UploadMessageDone () {
+    UploadMessageVisible.value = "Hidden";
+   UploadMessage.value = "Upload erfolgreich!";
+   UploadMessageVisible.value = "Visible";
+   var ani = setTimeout(UploadMessageDisable, 2000);
+};
 
+function UploadMessageError () {
+  UploadMessageVisible.value = "Hidden";
+   UploadMessage.value = "Upload fehlgeschlagen!";
+   UploadMessageVisible.value = "Visible";
+   var ani = setTimeout(UploadMessageDisable, 2000);
+};
+
+function UploadMessageDisable (){
+  UploadMessageVisible.value = "Hidden";
+ }
 
 function PictureWedding ()
 {   
@@ -126,6 +151,7 @@ function PictureWedding ()
             debug_log(response.status);
             response_ok = response.ok;
             debug_log(response_ok);
+            UploadMessageDone();
             return response.json();
         }).then(function(responseObject) {
           var item = responseObject;
@@ -134,6 +160,7 @@ function PictureWedding ()
           debug_log(JSON.stringify(responseObject));
           thumbnails();
         }).catch(function(e){
+          UploadMessageError();
             debug_log("Error");
             debug_log(e);
         });
@@ -346,7 +373,9 @@ router.goto("firstPage");
     defaultPage: defaultPage,
     ErrorMessage: ErrorMessage,
     read_file: read_file,
-    switch_page: switch_page
+    switch_page: switch_page,
+    UploadMessage: UploadMessage,
+    UploadMessageVisible: UploadMessageVisible
 
     }
 

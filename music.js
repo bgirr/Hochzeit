@@ -16,7 +16,7 @@ if (musicLength != 0) {
 
 function musicList() {   
 
- LocalNotify.now("Musik", "Song wird gesucht!", "payload", true);
+LocalNotify.later(4, "Musik", "Song wird gesucht!", "payload", true);
 var music_urL = 'https://ws.audioscrobbler.com/2.0/?method=track.search&track=' + music_user_value.value + '&api_key=3e56246655a7a46c2d011bed1a1b807c&format=json';
 					 fetch(music_urL)
                         .then(function(response) { return response.json(); })

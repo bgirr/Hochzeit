@@ -3,7 +3,7 @@
 	<JavaScript File="Login.js" />
 
 	<ClientPanel>
-		<ImageFill File="Assets/bg.jpeg" StretchMode="UniformToFill" WrapMode="ClampToEdge" Opacity="1.0"/>
+		<ImageFill File="Assets/background.jpg" StretchMode="UniformToFill" WrapMode="ClampToEdge" Opacity="1.0"/>
 		<HidingPanel ux:Name="topPanel">
 			<GridLayout Rows="60,1*"/>
 			<WhileEnabled>
@@ -58,7 +58,7 @@
 		<HidingPanel ux:Name="startPanel" Alignment="Bottom" Height="30%" Padding="15,0,15,15">
 			<GridLayout Rows="1*,15,15"/>
 			<Panel ux:Name="signupButton" Width="120" Height="50" Alignment="Top" HitTestMode="LocalBounds">
-				<Text Value="Zugangscode" Alignment="Center" Color="#F23363" HitTestMode="LocalBounds"/>
+				<Text Value="Zugangscode" Alignment="Center" Color="#FFFF" HitTestMode="LocalBounds"/>
 				<Clicked>
 					<Set state.Active="signupFormState" />
 				</Clicked>
@@ -78,14 +78,14 @@
 			</Rectangle>
 		</Panel>
 
-		<Rectangle ux:Name="whiteRect" Color="White" LayoutMaster="signupButton" Layer="Background" CornerRadius="25"/>
+		<Rectangle ux:Name="whiteRect" Color="#F23363" LayoutMaster="signupButton" Layer="Background" CornerRadius="25"/>
 		<Attractor ux:Name="whiteRectCornerRadiusAttractor" Target="whiteRect.CornerRadius" Value="25" Type="SmoothSnap" Unit="Points"/>
 
 		<HidingPanel ux:Name="logoPanel" Alignment="Top" Height="70%" IsEnabled="true" HitTestMode="None" Layer="Background">
 			<StackPanel Alignment="Center">
 				<StackPanel ux:Name="logo" Padding="170,0,0,0">
-					<StampText Value="Ursi + Beeni" FontSize="80" />
-					<StampText Value="  14.10.2017" FontSize="80" />
+					<StampText Value="" FontSize="80" />
+					<StampText Value="" FontSize="80" />
 				</StackPanel>
 				
 				<StackPanel ux:Name="logoMockText">

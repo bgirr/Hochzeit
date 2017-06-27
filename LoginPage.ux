@@ -1,5 +1,5 @@
 <Panel>
-	<ImageFill File="Assets/bg.jpeg" StretchMode="UniformToFill" WrapMode="ClampToEdge" Opacity="1.0"/>
+	<ImageFill File="Assets/AK8O.jpg" StretchMode="UniformToFill" WrapMode="ClampToEdge" Opacity="1.0"/>
 	<DockPanel>
 		<JavaScript File="Login.js" />
 		<Text ux:Class="WhiteText" TextColor="#ffffff" />

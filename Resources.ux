@@ -58,7 +58,7 @@
 	</Text>
 	
 	<Text ux:Class="MenuText" Color="#676565">
-		<Font File="Assets/FOnts/built_titling_rg.otf" />
+		<Font File="Assets/FOnts/ArcherPro-Book_0.otf" />
 	</Text>
 
 
