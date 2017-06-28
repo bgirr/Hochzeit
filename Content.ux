@@ -557,24 +557,22 @@
 
 								<Rectangle Margin="10" Color="White" CornerRadius="2">
 									<StackPanel>
-											<TextInput Alignment="Left" Value="{music_user_value}" PlaceholderText="Dein Wunschlied..." Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="20" Column="1" />
-											<Button Text="Starten" Clicked="{musicList}" />
+											<FloatingLabel PlaceholderText="Dein Wunschlied..." Value="{music_user_value}" Margin="20, 10, 20, 0" Column="1" />
+											<FlatButton BtnText="Suchen" BtnTextColor="#F23363" Clicked="{musicList}" Alignment="Center"/>
 									</StackPanel>
 									<DropShadow />
 								</Rectangle>
 
-								<Each Items="{music.results.trackmatches.track}">
+								<Each Items="{music_JSON.results.trackmatches.track}">
 
 								<Rectangle Margin="10" Color="White" CornerRadius="2">
 								<StackPanel>
 									<Grid Columns="auto, 1*">
-										<Circle  Column="1" Alignment="CenterLeft" Height="30" Width="30" Margin="20,0,0,0">
+										<Circle  Column="1" Alignment="CenterLeft" Height="50" Width="50" Margin="20,0,0,0">
 											 <ImageFill Url="{imageNew}" />
 										</Circle>
 										<StackPanel Column="2">
-											<Image Url="{imageNew}" />
-											<Text Dock="Left" Value="{imageNew} - " Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="20" Alignment="CenterLeft"/>
-											<Text Dock="Left" Value="{artist} - " Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="20" Alignment="CenterLeft"/>
+											<Text Dock="Left" Value="{artist} - " Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="10" Alignment="CenterLeft"/>
 											<Text Dock="Left" Value="{name}" Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="20" Alignment="CenterLeft"/>
 										</StackPanel>
 									</Grid>

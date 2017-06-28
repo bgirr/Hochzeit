@@ -29,20 +29,17 @@
 		<HidingPanel ux:Name="signupForm" Width="90%" Height="45%" Offset="0%,10%">
 			<Grid RowCount="3" Margin="30,40,30,60">
 				<StackPanel>
-					<TextInput ux:Name="usernameTI" Value="{key}" PlaceholderText="Zugangscode" Opacity="1" Alignment="VerticalCenter" PlaceholderColor="#888"/>
-					<Panel Color="#888" Height="2" Width="250" Alignment="Left"/> 
+					<FloatingLabel PlaceholderText="Zugangscode" Value="{key}" Margin="20, 10, 20, 0" />
+					<FloatingLabel PlaceholderText="Name" Value="{showname}" Margin="20, 10, 20, 0" />
+
 				</StackPanel>
 				<StackPanel>
-					<TextInput ux:Name="emailTI" Value="{showname}" PlaceholderText="Name" Opacity="1" Alignment="VerticalCenter" PlaceholderColor="#888"/>
-					<Panel Color="#888" Height="2" Width="250" Alignment="Left"/> 
+
 				</StackPanel>
-					<Text Value="{ErrorMessage}" TextColor="#f90000" />
-					<Text Value="Bitte hier den Zugangscode eintragen!" TextColor="#888"/>
+					<Text Value="{ErrorMessage}" TextColor="#f90000" Font="MainFont" Alignment="Center"/>
+					<Text Value="Bitte hier den Zugangscode eintragen!" TextColor="#888" Font="MainFont" Alignment="Center" />
 			</Grid>
-			<WhileEnabled>
-				<Change usernameTI.Opacity="1" Duration="0.4" />
-				<Change emailTI.Opacity="1"    Duration="0.4" Delay="0.15" />
-			</WhileEnabled>
+
 
 			<Panel>
 				<Panel ux:Name="submitButton" Width="100" Offset="0%,50%" Height="50" HitTestMode="LocalBoundsAndChildren" Clicked="{login_clicked}">
@@ -57,8 +54,8 @@
 
 		<HidingPanel ux:Name="startPanel" Alignment="Bottom" Height="30%" Padding="15,0,15,15">
 			<GridLayout Rows="1*,15,15"/>
-			<Panel ux:Name="signupButton" Width="120" Height="50" Alignment="Top" HitTestMode="LocalBounds">
-				<Text Value="Zugangscode" Alignment="Center" Color="#FFFF" HitTestMode="LocalBounds"/>
+			<Panel ux:Name="signupButton" Width="120" Height="50" Alignment="Top"  HitTestMode="LocalBounds">
+				<Text Value="Zugangscode" Alignment="Center" Color="#F23363"  HitTestMode="LocalBounds"/>
 				<Clicked>
 					<Set state.Active="signupFormState" />
 				</Clicked>
@@ -78,7 +75,7 @@
 			</Rectangle>
 		</Panel>
 
-		<Rectangle ux:Name="whiteRect" Color="#F23363" LayoutMaster="signupButton" Layer="Background" CornerRadius="25"/>
+		<Rectangle ux:Name="whiteRect" Color="#ffff" LayoutMaster="signupButton" Layer="Background" CornerRadius="25"/>
 		<Attractor ux:Name="whiteRectCornerRadiusAttractor" Target="whiteRect.CornerRadius" Value="25" Type="SmoothSnap" Unit="Points"/>
 
 		<HidingPanel ux:Name="logoPanel" Alignment="Top" Height="70%" IsEnabled="true" HitTestMode="None" Layer="Background">

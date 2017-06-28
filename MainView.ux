@@ -5,6 +5,7 @@
 	<JavaScript File="Camera.js" />
 	<ux:Include File="Resources.ux" />
 
+	<Font File="Assets/FOnts/built_titling_rg.otf" ux:Global="MainFont" />
 	<Navigator DefaultPath="firstPage">
 
 	<Page ux:Template="firstPage">

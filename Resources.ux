@@ -15,6 +15,59 @@
 	</WhileEnabled>
 </Panel>
 
+<DockPanel ux:Class="FloatingLabel">
+<string ux:Property="PlaceholderText" />
+<string ux:Property="Value" />	
+<int ux:Property="MaxLength" />
+<TextInputHint ux:Property="InputHint" />	
+<Panel Dock="Top">
+		<!--Rectangle Fill="#FFFFFF" Height="20"/-->
+		<Text ux:Name="labeltop" Value="{Property PlaceholderText}" Color="#F23363" Visibility="Hidden" Font="MainFont" FontSize="18"/>
+	</Panel>
+<Panel Dock="Bottom">
+	
+	<TextInput ux:Name="input" Background="#FAFAFA" Value="{Property this.Value}" Width="100%" MaxLength="{Property this.MaxLength}" InputHint="{Property this.InputHint}" Font="MainFont" FontSize="22" >
+
+		<Text ux:Name="label" Value="{Property PlaceholderText}" Color="#F23363" Font="MainFont" FontSize="22" />
+		<Rectangle ux:Name="bottomLine" Fill="#9E9E9E" Height="5%" Alignment="Bottom" Layer="Background"/> 
+
+		<WhileContainsText>
+			<Change labeltop.Visibility="Visible" />
+			<Move X="0" Y="-1" Target="labeltop" />
+			<Change label.Visibility = "Hidden" />
+		</WhileContainsText>
+
+		<WhileFocused>
+		<Change bottomLine.Fill="#F23363" />
+		<Change label.Color="#F23363" />
+		<Change label.FontSize="18" />
+		<Move X="0" Y="-22" Target="label" Duration="0.3" />	
+	</WhileFocused>
+
+	</TextInput>
+	
+</Panel>
+
+</DockPanel>
+
+
+<WrapPanel ux:Class="FlatButton">
+
+	<string ux:Property="BtnText" />
+	<float4 ux:Property="BtnTextColor" />
+
+	    <Rectangle ux:Name="btn" Height="36" CornerRadius="2" Dock="Left" Padding="16,0" Margin="16">
+
+			<WhileHovering>
+				<Change btn.Color="#00000012" Duration="0.2" />
+			</WhileHovering>
+
+			<Text Value="{Property this.BtnText}" Color="{Property this.BtnTextColor}" FontSize="14"  Alignment="CenterLeft"/>
+			
+		</Rectangle>
+
+</WrapPanel>
+
 
 
 
@@ -100,4 +153,3 @@
 		</WhileFalse>
 	</Grid>
 </Panel>
-
