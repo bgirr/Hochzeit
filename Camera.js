@@ -65,7 +65,7 @@ fetch("https://weddingfun-cookingtest.rhcloud.com/songs/api/withUser/",
   debug_log("Übersicht ist da!");
   debug_log(JSON.stringify(data));
   data.sort(function(a, b){return new Date(b.dateAdded) - new Date(a.dateAdded)});
- var laenge = 0;
+  var laenge = 0;
   var laenge = data.length;
 
   for (var i=0; i<laenge; i++) {
@@ -406,9 +406,9 @@ function thumbnails(){
     debug_log("UserID: " + userID.value);
   })
   
-fetch("https://weddingfun-cookingtest.rhcloud.com/images/api/",
+fetch("https://weddingfun-cookingtest.rhcloud.com/images/api/withUser/",
    { method: "GET", 
-                  headers: {"Data-User-Id": userID},
+                  headers: {"Data-User-Id": userID.value},
                   })
   .then(function(result) {
     if (result.status !== 200) {
@@ -417,8 +417,9 @@ fetch("https://weddingfun-cookingtest.rhcloud.com/images/api/",
   pictures.replaceAll([]);
   result.json().then(function(data) {
   debug_log("Übersicht ist da!");
-  //debug_log(JSON.stringify(data));
+  debug_log(JSON.stringify(data));
   data.sort(function(a, b){return new Date(b.dateAdded) - new Date(a.dateAdded)});
+  
   var laenge = 0;
   var laenge = data.length;
 
@@ -433,99 +434,61 @@ fetch("https://weddingfun-cookingtest.rhcloud.com/images/api/",
   }
   var item = data[i];
   pictures.add(item);
-  //pictures.sort(function(a, b){return new Date(b.dateAdded) - new Date(a.dateAdded)});
-    }
-    Storage.write("thumbnails.json", pictures);
-    debug_log('Nach dem Speichern.... ' + JSON.stringify(pictures));
-    Storage.read("thumbnails.json") .then(function(contents) {
-        console.log('Hier der Inhalt:' + JSON.stringify(contents));
-    }, function(error) {
-        console.log('Hier der Fehler: ' + error);
-    });
-  });
-});
-};
 
+  };
+});
+});
+}
 
 function likeImage(a){
-  var ImageID = a.data.id;
+
+var ImageID = a.data.id;
   debug_log(JSON.stringify(a.data));
-  
+
   debug_log('Schicke Request mit ImageID ' + ImageID + ' und UserID: ' + userID.value);
 
   fetch('https://weddingfun-cookingtest.rhcloud.com/images/api/heart/'+ ImageID +'/',
      { method: "POST", 
          headers: {"Data-User-Id": userID.value, 
       "Content-Type": "text/plain"}})
-  .then(function(response) {
+ .then(function(response) {
             console.log("Favorit erfolgreich angelegt!");
             console.log(response.status);
    /*         if (response.status == 200) {
               pictures[a.data.id].heartByCurrentUser = "Visible"
             } */
-
-            Storage.read("thumbnails.json").then(function(content){
-            console.log('Hier sind die Bilder -------------' + JSON.parse(content));
-          })
             return response.json();
         }).then(function(responseObject) {
           debug_log('Das ist der FavResponse: ' + JSON.stringify(responseObject));
           debug_log(JSON.stringify(responseObject.id));
-
-
-
-
-          var laenge = pictures.length;
-          debug_log('Länge: ' + laenge);
-          var text = pictures.value;
-
-          debug_log('Eine ID: ' + JSON.stringify(text));
-          debug_log(text.id);
-          for (var i=0; i<=laenge; i++) {
-            debug_log(text[i]);
-            debug_log('Prüfe..............' + i);
-            if (pictures[i].id == responseObject.id) {
-            debug_log('Überschreibe.................');
-            pictures[i].Color = "#E91E63"
-            debug_log(pictures[i]);
-          }}
-
-         
-
           thumbnails();
-
-        /*  for (var i=0; i<pictures.length; i++) {
-           // debug_log('Prüfe' + JSON.stringify(pictures.value.id));
-            if (pictures.value.id == responseObject.id){
-              debug_log('Change');
-              pictures.heartByCurrentUser = 'Visible'
-            }
-          }
-
-          */
-          
-        })/*.catch(function(e){
-            console.log('Es ist folgender Fehler aufgetretetn: ' + JSON.stringify(e.status));
-        })*/
-
-        /*.then(function() {
-            debug_log('Hier ist die picture-Ob: ' + JSON.stringify(pictures.value));
-            Storage.read(SAVETHUMBNAIL).then(function(content){
-            debug_log('Bin in der richtigen Funktion...')
-            var data = JSON.parse(content);
-            debug_log('Hier sind alle Bilder: ' + JSON.stringify(data));
-          })
-          }) */
-/*Storage.read(SAVETHUMBNAIL).then(function(content) {
-    var data = JSON.parse(content);
-    debug_log("Hier der Read")
-    debug_log(JSON.stringify(data));
-    userId.value = data.id;
-    debug_log(userName.value);
-  }) */
-
+});
 }
 
+function dislikeImage(a){
+
+var ImageID = a.data.id;
+  debug_log(JSON.stringify(a.data));
+
+  debug_log('Schicke Request mit ImageID ' + ImageID + ' und UserID: ' + userID.value);
+
+  fetch('https://weddingfun-cookingtest.rhcloud.com/images/api/heart/'+ ImageID +'/',
+     { method: "DELETE", 
+         headers: {"Data-User-Id": userID.value, 
+      "Content-Type": "text/plain"}})
+ .then(function(response) {
+            console.log("FavIcon entfernt!");
+            console.log(response.status);
+   /*         if (response.status == 200) {
+              pictures[a.data.id].heartByCurrentUser = "Visible"
+            } */
+            return response.json();
+        }).then(function(responseObject) {
+          debug_log('Das ist der FavResponse: ' + JSON.stringify(responseObject));
+          debug_log(JSON.stringify(responseObject.id));
+          thumbnails();
+});
+}
 
 
 
@@ -551,9 +514,25 @@ function read_file () {
     debug_log(savePage.value);
     debug_log(saveData.value);
   })
-
-
 };
+
+
+ function quizQuestion () {
+  fetch('https://weddingfun-cookingtest.rhcloud.com/game/api/activeQuestion/',
+    {method: "GET",
+    headers: {"Data-User-Id": userID.value, 
+      "Content-Type": "text/plain"}
+  })
+ }
+
+
+ function teamUser () {
+    fetch('https://weddingfun-cookingtest.rhcloud.com/game/api/teamOfUser/',
+    {method: "GET",
+    headers: {"Data-User-Id": userID.value, 
+      "Content-Type": "text/plain"}
+  })
+ }
 
 
 function login_clicked()
@@ -652,7 +631,8 @@ router.goto("firstPage");
     selectedMusic: selectedMusic,
     selectMusic: selectMusic,
     likeMusic: likeMusic,
-    dislikeMusic: dislikeMusic
+    dislikeMusic: dislikeMusic,
+    dislikeImage: dislikeImage
 
     }
 
