@@ -627,7 +627,7 @@
 										</Circle>
 										<DockPanel Column="2">
 											<StackPanel>
-												<Text Dock="Left" Value="{artist} - " Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="10" Alignment="CenterLeft"/>
+												<Text Dock="Left" Value="{artist} - " Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="15" Alignment="CenterLeft"/>
 												<Text Dock="Left" Value="{name}" Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="20" Alignment="CenterLeft"/>
 											</StackPanel>
 											<MiniFloatingButton BtnColor="#F23363" BtnIcon="&#xE145;" BtnTextColor="#ffff" Dock="Right" Clicked="{addMusic}"/>
