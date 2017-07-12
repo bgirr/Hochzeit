@@ -203,6 +203,33 @@ function likeMusic(a) {
 });
 }
 
+
+function dislikeMusic(a) {
+  var MusicID = a.data.id;
+  debug_log(JSON.stringify(a.data));
+
+  debug_log('Schicke Request mit MusicID ' + MusicID + ' und UserID: ' + userID.value);
+
+  fetch('https://weddingfun-cookingtest.rhcloud.com/songs/api/heart/'+ MusicID +'/',
+     { method: "DELETE", 
+         headers: {"Data-User-Id": userID.value, 
+      "Content-Type": "text/plain"}})
+ .then(function(response) {
+            console.log("Favorit erfolgreich angelegt!");
+            console.log(response.status);
+   /*         if (response.status == 200) {
+              pictures[a.data.id].heartByCurrentUser = "Visible"
+            } */
+            return response.json();
+        }).then(function(responseObject) {
+          debug_log('Das ist der FavResponse: ' + JSON.stringify(responseObject));
+          debug_log(JSON.stringify(responseObject.id));
+          selectedMusic();
+});
+}
+
+
+
 function MusicMessage () {
   UploadMessageVisible.value = "Hidden";
   UploadMessage.value = "Titel wird gesucht...";
@@ -624,7 +651,8 @@ router.goto("firstPage");
     addMusic: addMusic,
     selectedMusic: selectedMusic,
     selectMusic: selectMusic,
-    likeMusic: likeMusic
+    likeMusic: likeMusic,
+    dislikeMusic: dislikeMusic
 
     }
 

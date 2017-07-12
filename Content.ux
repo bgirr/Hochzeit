@@ -559,7 +559,7 @@
 												<Text Value="   {numberOfHearts}"  Margin="16, 24, 0, 0"  FontSize="20" Font="Archer" Dock="Left"/>
 												<HeartIcon Color="#000000" Dock="Left" Height="18" Width="18" Margin="4,28,0,0"/>
 												<Panel Margin="0,28,20,0" Dock="Right">
-													<HeartIcon Color="{Color}"  Height="18" Width="18"  Clicked="{likeImage}" Visibility="{heartByCurrentUser}" />
+													<HeartIcon Color="{Color}"  Height="18" Width="18"  Clicked="{dislikeMusic}" Visibility="{heartByCurrentUser}" />
 													<HeartIcon Color="{Color}"  Height="18" Width="18"  Clicked="{likeMusic}"  />
 												</Panel>
 											</DockPanel>	
