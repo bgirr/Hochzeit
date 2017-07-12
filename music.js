@@ -8,9 +8,12 @@ var music_urL = 'https://ws.audioscrobbler.com/2.0/?method=track.search&track=' 
 //https://ws.audioscrobbler.com/2.0/?method=track.search&track=as&api_key=3e56246655a7a46c2d011bed1a1b807c&format=json
 var musicLength = music_user_value.length;
 
+var UploadMessage = Observable("");
+var UploadMessageVisible = Observable("Hidden");
 
 
 music_user_value.onValueChanged(function () {
+        MusicMessage();
         musicList();
 });
 
@@ -20,6 +23,7 @@ var music_urL = 'https://ws.audioscrobbler.com/2.0/?method=track.search&track=' 
 					 fetch(music_urL)
                         .then(function(response) { return response.json(); })
                         .then(function(responseObject) { 
+                            MusicMessageDone ();
                             music.value = responseObject;
                             var laenge =  responseObject.results.trackmatches.track.length;
                             debug_log('Anzahl Suchergebnisse: ' +laenge);
@@ -47,6 +51,25 @@ var music_urL = 'https://ws.audioscrobbler.com/2.0/?method=track.search&track=' 
 
                         });
 }
+
+
+
+function MusicMessage () {
+  UploadMessage.value = "Titel wird gesucht...";
+  UploadMessageVisible.value = "Visible";
+}
+
+
+function MusicMessageDone () {
+    UploadMessageVisible.value = "Hidden";
+};
+
+function MusicMessageError () {
+  UploadMessageVisible.value = "Hidden";
+   UploadMessage.value = "Keine Internetverbindung!";
+   UploadMessageVisible.value = "Visible";
+   var ani = setTimeout(UploadMessageDisable, 2000);
+};
 
 module.exports = {
 	music: music,

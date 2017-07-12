@@ -26,7 +26,7 @@
 	</Panel>
 <Panel Dock="Bottom">
 	
-	<TextInput ux:Name="input" Background="#FAFAFA" Value="{Property this.Value}" Width="100%" MaxLength="{Property this.MaxLength}" InputHint="{Property this.InputHint}" Font="MainFont" FontSize="22" >
+	<TextInput ux:Name="input" Value="{Property this.Value}" Width="100%" MaxLength="{Property this.MaxLength}" InputHint="{Property this.InputHint}" Font="MainFont" FontSize="22" >
 
 		<Text ux:Name="label" Value="{Property PlaceholderText}" Color="#F23363" Font="MainFont" FontSize="22" />
 		<Rectangle ux:Name="bottomLine" Fill="#9E9E9E" Height="5%" Alignment="Bottom" Layer="Background"/> 
@@ -49,6 +49,25 @@
 </Panel>
 
 </DockPanel>
+
+<WrapPanel ux:Class="MiniFloatingButton" >
+	
+	<string ux:Property="BtnIcon" />
+	<float4 ux:Property="BtnTextColor" />
+	<float4 ux:Property="BtnColor" />
+
+	<Circle ux:Name="btn" Height="40" Width="40" Color="{Property this.BtnColor}" Margin="16">
+		<Rectangle Width="2" Height="35%" Color="#fff9" />
+		<Rectangle Height="2" Width="35%" Color="#fff9" />
+		<Clicked>
+
+		</Clicked>
+	</Circle>
+	<DropShadow />
+	
+</WrapPanel>
+
+
 
 
 <WrapPanel ux:Class="FlatButton">
@@ -81,7 +100,7 @@
 	<Image ux:Class="Icon" />
 
 	<Icon ux:Class="ClockIcon" File="Assets/icon_cam.png" />
-	<Icon ux:Class="TalkIcon" File="Assets/message.png" />
+	<Icon ux:Class="TalkIcon" File="Assets/icon_music.png" />
 	<Icon ux:Class="LocationIcon" File="Assets/gallery.png" />
 	<Icon ux:Class="SunnyIcon" File="Assets/icon_sunny.png" />
  	<Icon ux:Class="SmallAvatarIcon" File="Assets/small_avatar.png" />
@@ -107,7 +126,11 @@
 	</Text>
 	
 	<Text ux:Class="StampText" Color="#ffff">
-		<Font File="Assets/FOnts/built_titling_el.otf" />
+		<Font File="Assets/FOnts/Font2_AK8O.ttf" />
+	</Text>
+
+	<Text ux:Class="MainText" Color="#ffff">
+		<Font File="Assets/FOnts/Font1_AK8O.ttf" />
 	</Text>
 	
 	<Text ux:Class="MenuText" Color="#676565">

@@ -10,6 +10,7 @@ var SAVEPAGE = "localPage.txt"
 var saveData = Observable("");
 var savePage = Observable("");
 var pictures = Observable();
+var selectMusic = Observable();
 
 key = Observable("");
 showname = Observable("");
@@ -25,6 +26,206 @@ ErrorMessage.value = "";
 
 var images = Observable();
 var favIcon = Observable("Hidden"); 
+
+
+var music_user_value = Observable("");
+var music = Observable(""); 
+var music_image = Observable("");
+var music_JSON = Observable();
+var music_urL = 'https://ws.audioscrobbler.com/2.0/?method=track.search&track=' + music_user_value.value + '&api_key=3e56246655a7a46c2d011bed1a1b807c&format=json';
+
+var musicLength = music_user_value.length;
+
+
+
+music_user_value.onValueChanged(function () {
+        musicList();
+});
+
+
+function selectedMusic(){
+
+  Storage.read(SAVEUSER).then(function(content) {
+    var data = JSON.parse(content);
+    userID.value = data.id;
+    debug_log("UserID: " + userID.value);
+  })
+  
+fetch("https://weddingfun-cookingtest.rhcloud.com/songs/api/withUser/",
+   { method: "GET", 
+                  headers: {"Data-User-Id": userID.value},
+                  })
+  .then(function(result) {
+    debug_log("Hier kommt gleich ein Ergebnis...");
+    if (result.status !== 200) {
+      debug_log(result.status);
+    }
+  selectMusic.replaceAll([]);
+  result.json().then(function(data) {
+  debug_log("Übersicht ist da!");
+  debug_log(JSON.stringify(data));
+  data.sort(function(a, b){return new Date(b.dateAdded) - new Date(a.dateAdded)});
+ var laenge = 0;
+  var laenge = data.length;
+
+  for (var i=0; i<laenge; i++) {
+    if (data[i].heartByCurrentUser == false) {
+    data[i].Color = "#000000"
+    data[i].heartByCurrentUser = "Hidden";
+  }
+  if (data[i].heartByCurrentUser == true)   {
+  data[i].Color = "#E91E63" 
+  data[i].heartByCurrentUser = "Visible"
+  }
+  var item = data[i];
+  selectMusic.add(item);
+  //pictures.sort(function(a, b){return new Date(b.dateAdded) - new Date(a.dateAdded)});
+    }
+    //Storage.write(SAVETHUMBNAIL, pictures);
+    //debug_log(JSON.stringify(pictures));
+  });
+});
+};
+
+
+
+function musicList() {
+
+    Storage.read(SAVEUSER).then(function(content) {
+    var data = JSON.parse(content);
+    userID.value = data.id;
+    debug_log("UserID: " + userID.value);
+  })
+
+var music_urL = 'https://ws.audioscrobbler.com/2.0/?method=track.search&track=' + music_user_value.value + '&api_key=3e56246655a7a46c2d011bed1a1b807c&format=json';
+           fetch(music_urL)
+                        .then(function(response) { 
+                           if (response.status !== 200) {
+                               debug_log(result.status);
+                             }
+                          return response.json(); })
+                        .then(function(responseObject) { 
+                            music.value = responseObject;
+                            var laenge =  responseObject.results.trackmatches.track.length;
+                            debug_log('Anzahl Suchergebnisse: ' +laenge);
+                            //json_object = JSON.parse(responseObject);
+                            for (var i=0; i<laenge; i++) {
+                              //var item = responseObject.results.trackmatches.track[i];
+                              //music.add(item);
+                              //json_object.results.trackmatches.track[i].imageNew.add(music.value.results.trackmatches.track[i].image[2]["#text"];);
+                              //imageNew = 'Test';
+                              responseObject.results.trackmatches.track[i].imageNew = responseObject.results.trackmatches.track[i].image[2]["#text"];
+                              //music.value.results.trackmatches.track[i].add(imageNew); 
+                              //debug_log(music.value.results.trackmatches.track[1].imageNew);
+                              debug_log('Die Image-URL ist: ' + music.value.results.trackmatches.track[i].imageNew);
+                              //music.add(image);
+                            }
+                            
+                            debug_log(JSON.stringify(responseObject));
+                            debug_log("Hier ist die Musik");
+                            
+                            music_JSON.value = responseObject;
+                           // music.value = JSON.stringify(json_object); 
+                            //debug_log(JSON.stringify(music.value.results.trackmatches.track[1].image[2]["#text"]));
+                            //music.value = responseObject.music.results.trackmatches.track;
+                              //JSON.parse(music.value);
+
+                        });
+}
+
+
+function addMusic(b){
+  debug_log('Das kommt aus der ux: ' + JSON.stringify(b.data));
+  var music_mbid = b.data.mbid;
+  var music_name = b.data.name;
+  var music_artist = b.data.artist;
+  var music_imageUrl = b.data.imageNew;
+  debug_log('User: ' + userID.value);
+  //var bodyText = '{"key": "' + key.value + '", "showName": "' + showname.value + '"}';
+  var body_Music = '{"name":"' + music_name +'", "artist": "' + music_artist + '", "imageUrl": "' + music_imageUrl + '", "mbid":"' + music_mbid + '"}'
+    fetch('http://weddingfun-cookingtest.rhcloud.com/songs/api/addSongWish/',
+     { method: "POST", 
+         headers: {"Data-User-Id": userID.value, 
+        "Content-Type": "application/json"},
+          body: body_Music
+        })
+  .then(function(response) {
+            console.log("Musik erfolgreich angelegt!");
+            console.log(response.status);
+            if (response.status == 200){
+              MusicMessageDone();
+            }
+            return response.json();
+        }).then(function(responseObject) {
+          debug_log('Das ist der Response: ' + JSON.stringify(responseObject));
+
+
+        /*  for (var i=0; i<pictures.length; i++) {
+           // debug_log('Prüfe' + JSON.stringify(pictures.value.id));
+            if (pictures.value.id == responseObject.id){
+              debug_log('Change');
+              pictures.heartByCurrentUser = 'Visible'
+            }
+          }
+
+          */
+          
+        }).catch(function(e){
+            console.log('Es ist folgender Fehler aufgetretetn: ' + JSON.stringify(e.status));
+        }).then(function() {
+          //Meldung wieder ausblenden hier
+          debug_log('Fertig'); 
+          })
+}
+
+
+function likeMusic(a) {
+  var MusicID = a.data.id;
+  debug_log(JSON.stringify(a.data));
+
+  debug_log('Schicke Request mit MusicID ' + MusicID + ' und UserID: ' + userID.value);
+
+  fetch('https://weddingfun-cookingtest.rhcloud.com/songs/api/heart/'+ MusicID +'/',
+     { method: "POST", 
+         headers: {"Data-User-Id": userID.value, 
+      "Content-Type": "text/plain"}})
+ .then(function(response) {
+            console.log("Favorit erfolgreich angelegt!");
+            console.log(response.status);
+   /*         if (response.status == 200) {
+              pictures[a.data.id].heartByCurrentUser = "Visible"
+            } */
+            return response.json();
+        }).then(function(responseObject) {
+          debug_log('Das ist der FavResponse: ' + JSON.stringify(responseObject));
+          debug_log(JSON.stringify(responseObject.id));
+          selectedMusic();
+});
+}
+
+function MusicMessage () {
+  UploadMessageVisible.value = "Hidden";
+  UploadMessage.value = "Titel wird gesucht...";
+  UploadMessageVisible.value = "Visible";
+  var ani = setTimeout(UploadMessageDisable, 2000);
+} 
+
+
+function MusicMessageDone () {
+    UploadMessageVisible.value = "Hidden";
+    UploadMessage.value = "Titel wurde hinzugefügt";
+    UploadMessageVisible.value = "Visible";
+    var ani = setTimeout(UploadMessageDisable, 2000);
+};
+
+function MusicMessageError () {
+  UploadMessageVisible.value = "Hidden";
+   UploadMessage.value = "Keine Internetverbindung!";
+   UploadMessageVisible.value = "Visible";
+   var ani = setTimeout(UploadMessageDisable, 2000);
+};
+
+
 
 
 var response_ok = false;
@@ -174,6 +375,7 @@ function thumbnails(){
   Storage.read(SAVEUSER).then(function(content) {
     var data = JSON.parse(content);
     userID.value = data.id;
+    debug_log("USER: " + userID.value);
     debug_log("UserID: " + userID.value);
   })
   
@@ -185,25 +387,34 @@ fetch("https://weddingfun-cookingtest.rhcloud.com/images/api/",
     if (result.status !== 200) {
       debug_log(result.status);
     }
+  pictures.replaceAll([]);
   result.json().then(function(data) {
   debug_log("Übersicht ist da!");
   //debug_log(JSON.stringify(data));
   data.sort(function(a, b){return new Date(b.dateAdded) - new Date(a.dateAdded)});
   var laenge = 0;
   var laenge = data.length;
+
   for (var i=0; i<laenge; i++) {
     if (data[i].heartByCurrentUser == false) {
+    data[i].Color = "#000000"
     data[i].heartByCurrentUser = "Hidden";
   }
   if (data[i].heartByCurrentUser == true)   {
+  data[i].Color = "#E91E63" 
   data[i].heartByCurrentUser = "Visible"
   }
   var item = data[i];
   pictures.add(item);
   //pictures.sort(function(a, b){return new Date(b.dateAdded) - new Date(a.dateAdded)});
     }
-    //Storage.write(SAVETHUMBNAIL, pictures);
-    //debug_log(JSON.stringify(pictures));
+    Storage.write("thumbnails.json", pictures);
+    debug_log('Nach dem Speichern.... ' + JSON.stringify(pictures));
+    Storage.read("thumbnails.json") .then(function(contents) {
+        console.log('Hier der Inhalt:' + JSON.stringify(contents));
+    }, function(error) {
+        console.log('Hier der Fehler: ' + error);
+    });
   });
 });
 };
@@ -211,21 +422,48 @@ fetch("https://weddingfun-cookingtest.rhcloud.com/images/api/",
 
 function likeImage(a){
   var ImageID = a.data.id;
-  //favIcon.value = 'Visible';
+  debug_log(JSON.stringify(a.data));
+  
   debug_log('Schicke Request mit ImageID ' + ImageID + ' und UserID: ' + userID.value);
 
   fetch('https://weddingfun-cookingtest.rhcloud.com/images/api/heart/'+ ImageID +'/',
      { method: "POST", 
-         headers: {"Data-User-Id": userID, 
+         headers: {"Data-User-Id": userID.value, 
       "Content-Type": "text/plain"}})
   .then(function(response) {
             console.log("Favorit erfolgreich angelegt!");
             console.log(response.status);
+   /*         if (response.status == 200) {
+              pictures[a.data.id].heartByCurrentUser = "Visible"
+            } */
+
+            Storage.read("thumbnails.json").then(function(content){
+            console.log('Hier sind die Bilder -------------' + JSON.parse(content));
+          })
             return response.json();
         }).then(function(responseObject) {
           debug_log('Das ist der FavResponse: ' + JSON.stringify(responseObject));
+          debug_log(JSON.stringify(responseObject.id));
 
-          pictures.value.heartByCurrentUser = responseObject.heartByCurrentUser;
+
+
+
+          var laenge = pictures.length;
+          debug_log('Länge: ' + laenge);
+          var text = pictures.value;
+
+          debug_log('Eine ID: ' + JSON.stringify(text));
+          debug_log(text.id);
+          for (var i=0; i<=laenge; i++) {
+            debug_log(text[i]);
+            debug_log('Prüfe..............' + i);
+            if (pictures[i].id == responseObject.id) {
+            debug_log('Überschreibe.................');
+            pictures[i].Color = "#E91E63"
+            debug_log(pictures[i]);
+          }}
+
+         
 
           thumbnails();
 
@@ -239,16 +477,18 @@ function likeImage(a){
 
           */
           
-        }).catch(function(e){
+        })/*.catch(function(e){
             console.log('Es ist folgender Fehler aufgetretetn: ' + JSON.stringify(e.status));
-        }).then(function() {
+        })*/
+
+        /*.then(function() {
             debug_log('Hier ist die picture-Ob: ' + JSON.stringify(pictures.value));
             Storage.read(SAVETHUMBNAIL).then(function(content){
             debug_log('Bin in der richtigen Funktion...')
             var data = JSON.parse(content);
             debug_log('Hier sind alle Bilder: ' + JSON.stringify(data));
           })
-          })
+          }) */
 /*Storage.read(SAVETHUMBNAIL).then(function(content) {
     var data = JSON.parse(content);
     debug_log("Hier der Read")
@@ -375,7 +615,16 @@ router.goto("firstPage");
     read_file: read_file,
     switch_page: switch_page,
     UploadMessage: UploadMessage,
-    UploadMessageVisible: UploadMessageVisible
+    UploadMessageVisible: UploadMessageVisible,
+    music: music,
+    music_JSON: music_JSON,
+    musicList: musicList,
+    music_user_value: music_user_value,
+    music_image: music_image,
+    addMusic: addMusic,
+    selectedMusic: selectedMusic,
+    selectMusic: selectMusic,
+    likeMusic: likeMusic
 
     }
 

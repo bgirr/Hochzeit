@@ -49,7 +49,7 @@ function setPage4Headline(){
 }
 
 function setPage5Headline(){
-	Headline.value = "Kontakt";
+	Headline.value = "Quiz";
 }
 
 function setPage6Headline(){

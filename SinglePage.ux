@@ -201,7 +201,7 @@
 					<Set showImages.Value="false" />
 					<Set showContactForm.Value="false" />
 				</Clicked>
-				<MenuText ux:Name="MenuItem5" FontSize="40.3" Value="Kontakt" Margin="20,20,0,0" />
+				<MenuText ux:Name="MenuItem5" FontSize="40.3" Value="Quiz" Margin="20,20,0,0" />
 			</Panel>
 		</StackPanel>
 
