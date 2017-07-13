@@ -190,7 +190,7 @@
 					<Set showLocations.Value="false" />
 					<Set showContactForm.Value="false" />
 				</Clicked>
-				<MenuText ux:Name="MenuItem4" FontSize="40.3" Value="Bilder" Margin="20,20,0,0" Clicked="{thumbnails}"/>
+				<MenuText ux:Name="MenuItem4" FontSize="40.3" Value="Fotos" Margin="20,20,0,0" Clicked="{thumbnails}"/>
 			</Panel>
 			<Panel>
 				<Clicked>

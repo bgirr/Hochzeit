@@ -45,7 +45,7 @@ function setPage3Headline(){
 }
 
 function setPage4Headline(){
-	Headline.value = "Bilder";
+	Headline.value = "Alle Fotos";
 }
 
 function setPage5Headline(){
@@ -53,7 +53,7 @@ function setPage5Headline(){
 }
 
 function setPage6Headline(){
-	Headline.value = "Musik";
+	Headline.value = "Alle Lieder";
 }
 
 function setPage7Headline(){

@@ -126,7 +126,7 @@
 		</Clicked>
 	</StackPanel>
 	<Panel Alignment="Top" Color="#E91E63" Height="80" Layer="Background">
-		<MenuText Value="{Headline}" Color="#ffff" Alignment="Center" FontSize="40" Margin="0,15,0,0" />
+		<MenuText Value="{Headline}" Color="#ffff" Alignment="Center" FontSize="20" Margin="0,15,0,0" />
 		<MenuText Value="{userName}" Color="#ffff" Alignment="CenterRight" Margin="0,15,10,0"/>
 	</Panel>
 
@@ -163,7 +163,7 @@
 					<Set showMusics.Value="false" />
 					<Set showSelectMusic.Value="false" />
 				</Clicked>
-				<MenuText ux:Name="MenuItem1" FontSize="40.3" Value="Ablaufplan" Margin="20,20,0,0" />
+				<MenuText ux:Name="MenuItem1" FontSize="20.3" Value="Ablaufplan" Margin="20,20,0,0" />
 			</Panel>
 
 			<Panel Clicked="{setPage2Headline}" Dock="Top">
@@ -177,7 +177,7 @@
 					<Set showMusics.Value="false" />
 					<Set showSelectMusic.Value="false" />
 				</Clicked>
-				<MenuText ux:Name="MenuItem2" FontSize="40.3" Value="Location" Margin="20,20,0,0" />
+				<MenuText ux:Name="MenuItem2" FontSize="20.3" Value="Location" Margin="20,20,0,0" />
 			</Panel>
 			<Panel Clicked="{setPage3Headline}" Dock="Top">
 				<Clicked>
@@ -190,7 +190,7 @@
 					<Set showMusics.Value="false" />
 					<Set showSelectMusic.Value="false" />
 				</Clicked>
-				<MenuText ux:Name="MenuItem3" FontSize="40.3" Value="Info" Margin="20,20,0,0" />
+				<MenuText ux:Name="MenuItem3" FontSize="20.3" Value="Info" Margin="20,20,0,0" />
 			</Panel>
 			<Panel Clicked="{setPage4Headline}" Dock="Top">
 				<Clicked>
@@ -203,7 +203,7 @@
 					<Set showMusics.Value="false" />
 					<Set showSelectMusic.Value="false" />
 				</Clicked>
-				<MenuText ux:Name="MenuItem4" FontSize="40.3" Value="Fotos" Margin="20,20,0,0" Clicked="{thumbnails}"/>
+				<MenuText ux:Name="MenuItem4" FontSize="20.3" Value="Fotos" Margin="20,20,0,0" Clicked="{thumbnails}"/>
 			</Panel>
 			<Panel Clicked="{setPage5Headline}" Dock="Top">
 				<Clicked>
@@ -216,7 +216,7 @@
 					<Set showMusics.Value="false" />
 					<Set showSelectMusic.Value="false" />
 				</Clicked>
-				<MenuText ux:Name="MenuItem5" FontSize="40.3" Value="Quiz" Margin="20,20,0,0" />
+				<MenuText ux:Name="MenuItem5" FontSize="20.3" Value="Quiz" Margin="20,20,0,0" />
 			</Panel>
 			<Panel Clicked="{setPage6Headline}" Dock="Top">
 				<Clicked>
@@ -229,10 +229,10 @@
 					<Set showContactForm.Value="false" />
 					<Set showMusics.Value="false" />
 				</Clicked>
-				<MenuText ux:Name="MenuItem6" FontSize="40.3" Value="Musik" Margin="20,20,0,0" Clicked="{selectedMusic}"/>
+				<MenuText ux:Name="MenuItem6" FontSize="20.3" Value="Musik" Margin="20,20,0,0" Clicked="{selectedMusic}"/>
 			</Panel>
 			<Panel Clicked="{LogOut}" Dock="Top">
-				<MenuText Value="Ausloggen" FontSize="25" Margin="20,10,0,0" />
+				<MenuText Value="Ausloggen" FontSize="12.5" Margin="20,10,0,0" />
 			</Panel>
 		</DockPanel>
 	</ScrollView>
@@ -332,9 +332,8 @@
 										<Grid Columns="2">
 											<Image File="Assets/Images/pfaffenwinkel.png"  Margin="0,10,10,10" Column="2"/>
 											<StackPanel Column="1" >
-												<Text Alignment="Left" Value="Empfang im Restaurant Pfaffenwinkel" Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="20" />
 												<Text Value="Samstag, ab 16:00 Uhr" Font="Archer" Margin="16, 8, 16, 0"  FontSize="14"  TextWrapping="Wrap"/>
-												
+												<Text Alignment="Left" Value="Empfang im Restaurant Pfaffenwinkel" Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="20" />
 											</StackPanel>
 										</Grid>
 									</StackPanel>
@@ -471,7 +470,7 @@
 					</WhileTrue>
 				</Panel>
 
-				<Panel Margin="20,0,0,0" Padding="0,130,0,0">
+				<Panel Margin="20,0,0,0" Padding="0,200,0,0">
 					<WhileTrue ux:Name="showLocations">
 						<ScrollView ux:Name="itemsScrollViewLocations">
 							<RemovingAnimation>
@@ -479,16 +478,20 @@
 							</RemovingAnimation>
 							<StackPanel>
 								<Rectangle Margin="10" Color="White" CornerRadius="2">
-								<StackPanel Layer="Background">         
-									<Text Value="Restaurant Pfaffenwinkel" FontSize="30" Font="Archer" />
-									<Text Padding="0,10,0,0" Value="Am Hochschloß, 82396 Pähl " TextWrapping="Wrap" FontSize="10" />
-									<Text Padding="0,5,0,20" Value="82396 Pähl " TextWrapping="Wrap" FontSize="10" />
-									<NativeViewHost Layer="Underlay">
-										<MapView Latitude="47.913242" Longitude="11.184767" Zoom="10" Height="300">
-											<MapMarker Latitude="47.913242" Longitude="11.184767" Label="Restaurant Pfaffenwinkel"/>
-										</MapView>
-									</NativeViewHost>
-								</StackPanel>
+								<DockPanel>    
+									<DockPanel>     
+										<Text Value="Restaurant Pfaffenwinkel" FontSize="30" Font="Archer" />
+										<Text Padding="0,10,0,0" Value="Am Hochschloß, 82396 Pähl " TextWrapping="Wrap" FontSize="10" />
+										<Text Padding="0,5,0,20" Value="82396 Pähl " TextWrapping="Wrap" FontSize="10" />
+									</DockPanel>
+									<Panel>
+										<NativeViewHost>
+											<MapView Latitude="47.913242" Longitude="11.184767" Zoom="10" Height="350">
+												<MapMarker Latitude="47.913242" Longitude="11.184767" Label="Restaurant Pfaffenwinkel"/>
+											</MapView>
+										</NativeViewHost>
+									</Panel>
+								</DockPanel>
 								<DropShadow/>
 								</Rectangle>
 							</StackPanel>

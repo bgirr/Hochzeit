@@ -192,6 +192,7 @@ function likeMusic(a) {
  .then(function(response) {
             console.log("Favorit erfolgreich angelegt!");
             console.log(response.status);
+
    /*         if (response.status == 200) {
               pictures[a.data.id].heartByCurrentUser = "Visible"
             } */
@@ -199,6 +200,8 @@ function likeMusic(a) {
         }).then(function(responseObject) {
           debug_log('Das ist der FavResponse: ' + JSON.stringify(responseObject));
           debug_log(JSON.stringify(responseObject.id));
+          music_user_value="";
+          musicList();
           selectedMusic();
 });
 }

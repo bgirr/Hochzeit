@@ -36,14 +36,13 @@
 				<StackPanel>
 
 				</StackPanel>
-					<Text Value="{ErrorMessage}" TextColor="#f90000" Font="MainFont" Alignment="Center"/>
-					<Text Value="Bitte hier den Zugangscode eintragen!" TextColor="#888" Font="MainFont" Alignment="Center" />
+					<Text Value="{ErrorMessage}" TextColor="#f90000" Alignment="Center"  Font="Archer" />
 			</Grid>
 
 
 			<Panel>
 				<Panel ux:Name="submitButton" Width="100" Offset="0%,50%" Height="50" HitTestMode="LocalBoundsAndChildren" Clicked="{login_clicked}">
-					<Text Value="Login" Alignment="Center" Color="White"/>
+					<Text Value="Login" Alignment="Center" Color="White" Font="Archer" />
 					<Clicked>
 						
 					</Clicked>
@@ -54,8 +53,8 @@
 
 		<HidingPanel ux:Name="startPanel" Alignment="Bottom" Height="30%" Padding="15,0,15,15">
 			<GridLayout Rows="1*,15,15"/>
-			<Panel ux:Name="signupButton" Width="120" Height="50" Alignment="Top"  HitTestMode="LocalBounds">
-				<Text Value="Zugangscode" Alignment="Center" Color="#F23363"  HitTestMode="LocalBounds"/>
+			<Panel ux:Name="signupButton" Width="220" Height="50" Alignment="Top"  HitTestMode="LocalBounds">
+				<Text Value="Zugangscode eingeben" TextWrapping="Wrap" Alignment="Center" Color="#F23363"  HitTestMode="LocalBounds"  Font="Archer" />
 				<Clicked>
 					<Set state.Active="signupFormState" />
 				</Clicked>
@@ -65,7 +64,7 @@
 
 		<Panel ux:Name="addButtonPanel">
 			<HidingPanel ux:Name="addButton" Width="50" Height="50" Alignment="BottomRight" Margin="40" HitTestMode="LocalBoundsAndChildren">
-				<Text Value="+" FontSize="30" Color="White" Alignment="Center"/>
+				<Text Value="+" FontSize="30" Color="White" Alignment="Center"  Font="Archer" />
 			</HidingPanel>
 			<Rectangle ux:Name="greenRect" Color="#F23363" LayoutMaster="submitButtonCollapsed" CornerRadius="25" Opacity="0">
 				<DropShadow />
@@ -81,8 +80,8 @@
 		<HidingPanel ux:Name="logoPanel" Alignment="Top" Height="70%" IsEnabled="true" HitTestMode="None" Layer="Background">
 			<StackPanel Alignment="Center">
 				<StackPanel ux:Name="logo" Padding="170,0,0,0">
-					<StampText Value="" FontSize="80" />
-					<StampText Value="" FontSize="80" />
+					<Text Value="" FontSize="80"  Font="Archer" />
+					<Text Value="" FontSize="80"  Font="Archer" />
 				</StackPanel>
 				
 				<StackPanel ux:Name="logoMockText">
