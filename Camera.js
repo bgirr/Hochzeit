@@ -367,7 +367,7 @@ function UploadMessageDisable (){
 function PictureWedding ()
 {   
   getuserID();
-   Camera.takePicture(150,150).then(function(image) {
+   Camera.takePicture().then(function(image) {
             debug_log("Hier kommt das Bild!")
             CameraRoll.publishImage(image);
             return ImageTools.getBase64FromImage(image).then(function(buffer) {
