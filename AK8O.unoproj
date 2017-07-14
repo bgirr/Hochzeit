@@ -20,6 +20,9 @@
    "Geo": {
         "ApiKey": "AIzaSyBTn02YnIduSnwerrltGOZ-LH7-F85g864"
     }
-    }
+    },
+    "iOS": {
+    "DevelopmentTeam": "99HQ4DRG6N"
+  }
 
 }

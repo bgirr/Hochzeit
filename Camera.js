@@ -383,7 +383,11 @@ function PictureWedding ()
             debug_log(response.status);
             response_ok = response.ok;
             debug_log(response_ok);
-            UploadMessageDone();
+            if (response.status == 200){
+            UploadMessageDone();}
+            if (response.status >= 300){
+              UploadMessageError();
+            }
             return response.json();
         }).then(function(responseObject) {
           var item = responseObject;
@@ -392,7 +396,6 @@ function PictureWedding ()
           debug_log(JSON.stringify(responseObject));
           thumbnails();
         }).catch(function(e){
-          UploadMessageError();
             debug_log("Error");
             debug_log(e);
         });
