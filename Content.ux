@@ -216,7 +216,7 @@
 					<Set showMusics.Value="false" />
 					<Set showSelectMusic.Value="false" />
 				</Clicked>
-				<MenuText ux:Name="MenuItem5" FontSize="20.3" Value="Quiz" Margin="20,20,0,0" />
+				<MenuText ux:Name="MenuItem5" FontSize="20.3" Value="Quiz" Margin="20,20,0,0" Clicked={quizQuestion}/>
 			</Panel>
 			<Panel Clicked="{setPage6Headline}" Dock="Top">
 				<Clicked>
@@ -590,12 +590,29 @@
 								<StackPanel>
 								<Rectangle Margin="10" Color="White" CornerRadius="2">
 									<StackPanel>
-											<StackPanel Column="1" >
-												<Text Alignment="Left" Value="Das Quiz wird während der Hochzeitsfeier freigeschaltet..." Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="20" />
-											</StackPanel>
+										<StackPanel Column="1" >
+											<Text Alignment="Left" Value="{question.questionText}" Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="20" />
+										</StackPanel>
 									</StackPanel>
+								</Rectangle>
+									<DropShadow />
+									<Each Items="{question.responseOptionsList}">
+								<Rectangle Margin="0,10,0,10" Color="White" CornerRadius="2">
+								<StackPanel>
+									<Grid Columns="10, auto">
+										<Text  Column="1" Alignment="Center" Height="50" Width="50" Value="{label}" FontSize="40" Margin="20,10,0,10" />
+											<StackPanel Margin="0,10,0,12" Column="2">
+												<Text Dock="Left" Value="{responseText}" Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="20" Alignment="CenterLeft"/>
+											</StackPanel>
+									</Grid>
+												<StackPanel Padding="8" Orientation="Horizontal">
+
+												</StackPanel>
+								</StackPanel>	
 									<DropShadow />
 								</Rectangle>
+								</Each>
+								<StackPanel Padding="30" Orientation="Horizontal" />
 							</StackPanel>
 						</ScrollView>
 					</WhileTrue>

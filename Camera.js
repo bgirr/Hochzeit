@@ -10,6 +10,7 @@ var SAVEPAGE = "localPage.txt"
 var saveData = Observable("");
 var savePage = Observable("");
 var pictures = Observable();
+var question = Observable();
 var selectMusic = Observable();
 
 key = Observable("");
@@ -520,7 +521,40 @@ function read_file () {
 };
 
 
+
+
+//setInterval(quizQuestion() , 3000);
+
  function quizQuestion () {
+  debug_log('Ja');
+debug_log('Value: ' + question.value);
+GetQuestion();
+}
+
+function GetQuestion() {
+ Storage.read(SAVEUSER).then(function(content) {
+    var data = JSON.parse(content);
+    userID.value = data.id;
+    debug_log("USER: " + userID.value);
+    debug_log("UserID: " + userID.value);
+  })
+  
+fetch("https://weddingfun-cookingtest.rhcloud.com/game/api/activeQuestion/",
+   { method: "GET", 
+                  headers: {'Content-Type': "text/plain",
+                  "Data-User-Id": userID.value},
+                  })
+  .then(function(result) {
+    if (result.status !== 200) {
+      debug_log(result.status);
+    }
+  result.json().then(function(data) {
+  debug_log("Übersicht ist da!");
+  debug_log('Daten: ' + JSON.stringify(data));
+  question.value = data;
+});
+});
+
   fetch('https://weddingfun-cookingtest.rhcloud.com/game/api/activeQuestion/',
     {method: "GET",
     headers: {"Data-User-Id": userID.value, 
@@ -635,7 +669,9 @@ router.goto("firstPage");
     selectMusic: selectMusic,
     likeMusic: likeMusic,
     dislikeMusic: dislikeMusic,
-    dislikeImage: dislikeImage
+    dislikeImage: dislikeImage,
+    quizQuestion: quizQuestion,
+    question: question
 
     }
 
