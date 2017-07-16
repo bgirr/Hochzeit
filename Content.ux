@@ -428,7 +428,7 @@
 												<Text Alignment="Left" Value="München ⇒ Pähl" Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="20" />
 												<Text Value="Shuttle-Fahrt von München Zentrum (z.B. Wahl zwischen Ost- und Hauptbahnhof) um 15:15 Uhr direkt zum Restaurant Pfaffenwinkel. Für alle, die mit der S-Bahn fahren, werden wir auch sicherstellen, dass am S-Bahnhof Tutzing ausreichend Taxis sind. " Font="Archer" Margin="16, 8, 16, 0"  FontSize="14"  TextWrapping="Wrap"/>
 												<Text Alignment="Left" Value="Pähl ⇒ München:" Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="20" />
-												<Text Value="Shuttle-Fahrten vom Restaurant nach München Zentrum (z.B. Wahl zwischen Ost- und Hauptbahnhof). Idealerweise organisiert Ihr Euch spontan in Fahrgemeinschaften und wir rufen dann ein Shuttle." Font="Archer" Margin="16, 8, 16, 0"  FontSize="14"  TextWrapping="Wrap"/>
+												<Text Value="Shuttle-Fahrten vom Restaurant nach München Zentrum (z.B. Wahl zwischen Ost- und Hauptbahnhof). Idealerweise organisiert Ihr Euch spontan in Fahrgemeinschaften und wir rufen dann ein Shuttle." Font="Archer" Margin="16, 8, 16, 3"  FontSize="14"  TextWrapping="Wrap"/>
 											</StackPanel>
 									</StackPanel>
 									<DropShadow />
@@ -438,7 +438,7 @@
 									<StackPanel>
 											<StackPanel>
 												<Text Alignment="Left" Value="Spiele und Programm" Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="35" />
-												<Text Value="Wir möchten vor allem einen gemütlichen und lustigen Abend mit Euch verbringen und haben selbst ein paar kleine Spiele vorbereitet. Ihr müsst nichts mitbringen – nur gute Laune ; )" Font="Archer" Margin="16, 8, 16, 0"  FontSize="14"  TextWrapping="Wrap"/>
+												<Text Value="Wir möchten vor allem einen gemütlichen und lustigen Abend mit Euch verbringen und haben selbst ein paar kleine Spiele vorbereitet. Ihr müsst nichts mitbringen – nur gute Laune ; )" Font="Archer" Margin="16, 8, 16, 3"  FontSize="14"  TextWrapping="Wrap"/>
 											</StackPanel>
 									</StackPanel>
 									<DropShadow />
@@ -448,23 +448,19 @@
 									<StackPanel>
 										<Text Alignment="Left" Value="Geschenke" Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="35" />
 										<Text Value="Wir haben zwei besondere Gäste dabei, die die Frage nach dem Geschenk vielleicht vereinfachen. Jeder kann, wenn er möchte diese beiden Gäste füttern." Font="Archer" Margin="16, 8, 16, 0"  FontSize="14"  TextWrapping="Wrap"/>
-										<Grid Columns="2">
-											<Image File="Assets/Images/grillbuffet.png"  Margin="0,10,10,10" Column="2"/>
+										<Image File="Assets/Images/rudi_bruno.png"  Margin="0,10,10,10" Column="2"/>
 											<StackPanel Column="1" >
-												<Text Value="Rudi Rundreise" Font="Archer" Margin="16, 8, 16, 0"  FontSize="20"  TextWrapping="Wrap"/>
+												<Text Value="Rudi Rundreise" Font="Archer" Margin="16, 8, 16, 3"  FontSize="20"  TextWrapping="Wrap"/>
 												<Text Alignment="Left" Value="der Gönner unserer Flitterwochen." Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="14" />
 											</StackPanel>
-										</Grid>
-										<Grid Columns="2">
-											<Image File="Assets/Images/grillbuffet.png"  Margin="0,10,10,10" Column="2"/>
 											<StackPanel Column="1" >
 												<Text Value="Bruno Benefiz" Font="Archer" Margin="16, 8, 16, 0"  FontSize="20"  TextWrapping="Wrap"/>
-												<Text Alignment="Left" Value="dder Unterstützer von Unicef, Wikipedia, Ärzte ohne Grenzen, Studieren ohne Grenzen." Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="14" />
+												<Text Alignment="Left" Value="der Unterstützer von Unicef, Wikipedia, Ärzte ohne Grenzen, Studieren ohne Grenzen." Margin="16, 5, 0, 3" Font="Archer" TextWrapping="Wrap" FontSize="14" />
 											</StackPanel>
-										</Grid>
 									</StackPanel>
 									<DropShadow />
 								</Rectangle>
+								<Panel Height="80"/>
 							</StackPanel>
 						</ScrollView>
 					</WhileTrue>
@@ -501,7 +497,7 @@
 
 <Panel Margin="20,100,0,0" Padding="0,60,0,0">
 					<WhileTrue ux:Name="showImages">
-						<ScrollView ux:Name="itemsScrollViewImages">
+						<ScrollView ux:Name="itemsScrollViewImages" KeepFocusInView="true">
 							<PullToReload ReloadHandler="{thumbnails}" />
 							<RemovingAnimation>
 								<Change itemsScrollViewImages.Opacity="0" Duration="0.6" Easing="ExponentialOut" />
@@ -513,12 +509,15 @@
 										<StackPanel>
 											<Image Url="https://weddingfun-cookingtest.rhcloud.com/images/static/{imageUrl}" />
 											<DockPanel>
-												<Text Value="{user.showName} |   {numberOfHearts}"  Margin="16, 24, 0, 0"  FontSize="20" Font="Archer" Dock="Left"/>
+												<Text Value="{user.showName} |   {numberOfHearts}"  Margin="16, 28, 0, 0"  FontSize="20" Font="Archer" Dock="Left"/>
 												<HeartIcon Color="#000000" Dock="Left" Height="18" Width="18" Margin="4,28,0,0"/>
 												<Panel Margin="0,28,20,0" Dock="Right">
-
-													<HeartIcon Color="{Color}"  Height="18" Width="18" Clicked="{dislikeImage}"  Visibility="{heartByCurrentUser}" />
-													<HeartIcon Color="{Color}"  Height="18" Width="18"  Clicked="{likeImage}"  />
+													<Panel  Height="30" Width="30" Clicked="{dislikeImage}" Visibility="{heartByCurrentUser}">
+														<HeartIcon Color="{Color}"  Height="18" Width="18" />
+													</Panel>
+													<Panel  Height="30" Width="30" Clicked="{likeImage}" >
+														<HeartIcon Color="{Color}"  Height="18" Width="18"   />
+													</Panel>
 												</Panel>
 											</DockPanel>	
 												<StackPanel Padding="8" Orientation="Horizontal">
@@ -539,7 +538,7 @@
 
 <Panel Margin="20,100,0,0" Padding="0,60,0,0">
 					<WhileTrue ux:Name="showSelectMusic">
-						<ScrollView ux:Name="itemsScrollViewSelectMusic">
+						<ScrollView ux:Name="itemsScrollViewSelectMusic" KeepFocusInView="true"> 
 							<PullToReload ReloadHandler="{selectedMusic}" />
 							<RemovingAnimation>
 								<Change itemsScrollViewSelectMusic.Opacity="0" Duration="0.6" Easing="ExponentialOut" />
@@ -559,11 +558,15 @@
 											</StackPanel>
 									</Grid>
 											<DockPanel>
-												<Text Value="   {numberOfHearts}"  Margin="16, 0, 0, 0"  FontSize="20" Font="Archer" Dock="Left"/>
+												<Text Value="   {numberOfHearts}"  Margin="16, 9, 0, 0"  FontSize="20" Font="Archer" Dock="Left"/>
 												<HeartIcon Color="#000000" Dock="Left" Height="18" Width="18" Margin="4,4,0,0"/>
 												<Panel Margin="0,4,20,0" Dock="Right">
-													<HeartIcon Color="{Color}"  Height="18" Width="18"  Clicked="{dislikeMusic}" Visibility="{heartByCurrentUser}" />
-													<HeartIcon Color="{Color}"  Height="18" Width="18"  Clicked="{likeMusic}"  />
+													<Panel Height="40" Width="40" Clicked="{dislikeMusic}" Visibility="{heartByCurrentUser}">
+														<HeartIcon Color="{Color}"  Height="18" Width="18"  />
+													</Panel>
+													<Panel Clicked="{likeMusic}" Height="40" Width="40">
+														<HeartIcon Color="{Color}"  Height="18" Width="18" />
+													</Panel>
 												</Panel>
 											</DockPanel>	
 												<StackPanel Padding="8" Orientation="Horizontal">
@@ -584,6 +587,7 @@
 <Panel Margin="10,0,0,10" Padding="0,160,0,0">
 					<WhileTrue ux:Name="showContact">
 						<ScrollView ux:Name="itemsScrollViewContacts">
+							<PullToReload ReloadHandler="{quizQuestion}" />
 							<RemovingAnimation>
 								<Change itemsScrollViewContacts.Opacity="0" Duration="0.6" Easing="ExponentialOut" />
 							</RemovingAnimation>
@@ -591,13 +595,14 @@
 								<Rectangle Margin="10" Color="White" CornerRadius="2">
 									<StackPanel>
 										<StackPanel Column="1" >
-											<Text Alignment="Left" Value="{question.questionText}" Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="20" />
+											<Text Alignment="Left" Value="{question.questionText}" Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="30" />
+											<Text Alignment="Left" Value="Gewählte Antwort: {question.responseOfCurrentUser}" Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="20" Visibility="{answerVisible}"/>
 										</StackPanel>
 									</StackPanel>
 								</Rectangle>
 									<DropShadow />
 									<Each Items="{question.responseOptionsList}">
-								<Rectangle Margin="0,10,0,10" Color="White" CornerRadius="2">
+								<Rectangle Margin="0,10,0,10" Color="White" CornerRadius="2" Clicked="{answerQuestion}" Visibility="{questionVisible}">
 								<StackPanel>
 									<Grid Columns="10, auto">
 										<Text  Column="1" Alignment="Center" Height="50" Width="50" Value="{label}" FontSize="40" Margin="20,10,0,10" />

@@ -12,6 +12,10 @@ var savePage = Observable("");
 var pictures = Observable();
 var question = Observable();
 var selectMusic = Observable();
+var QuestionID = Observable();
+var answerID = Observable();
+var answerVisible = Observable();
+var questionVisible = Observable();
 
 key = Observable("");
 showname = Observable("");
@@ -364,6 +368,12 @@ function UploadMessageDisable (){
   UploadMessageVisible.value = "Hidden";
  }
 
+
+function isLoading () {
+  UploadMessage.value = "Wird aktualisiert...";
+  UploadMessageVisible.value = "Visible";
+}
+
 function PictureWedding ()
 {   
   getuserID();
@@ -449,7 +459,7 @@ fetch("https://weddingfun-cookingtest.rhcloud.com/images/api/withUser/",
 
 function likeImage(a){
 
-var ImageID = a.data.id;
+  var ImageID = a.data.id;
   debug_log(JSON.stringify(a.data));
 
   debug_log('Schicke Request mit ImageID ' + ImageID + ' und UserID: ' + userID.value);
@@ -555,6 +565,16 @@ fetch("https://weddingfun-cookingtest.rhcloud.com/game/api/activeQuestion/",
   debug_log("Übersicht ist da!");
   debug_log('Daten: ' + JSON.stringify(data));
   question.value = data;
+  QuestionID.value = data.id;
+  debug_log('Fragenummer: ' + QuestionID.value);
+  if (data.alreadyCounted == true) {
+    answerVisible.value = "Visible";
+    questionVisible.value = "Hidden";
+  }
+  else {
+    answerVisible.value = "Hidden";
+    questionVisible.value = "Visible";
+  }
 });
 });
 
@@ -563,6 +583,49 @@ fetch("https://weddingfun-cookingtest.rhcloud.com/game/api/activeQuestion/",
     headers: {"Data-User-Id": userID.value, 
       "Content-Type": "text/plain"}
   })
+ }
+
+ function answerQuestion(a) {
+
+  debug_log(JSON.stringify(a.data));
+  
+  if (a.data.label == "A") {
+    answerID.value = "0";
+    debug_log('Schicke Antwort: ' + answerID.value);
+  }
+    if (a.data.label == "B") {
+    answerID.value = "1";
+    debug_log('Schicke Antwort: ' + answerID.value);  
+  }
+    if (a.data.label == "C") {
+    answerID.value = "2";
+    debug_log('Schicke Antwort: ' + answerID.value);
+  }
+    if (a.data.label == "D") {
+    answerID.value = "3";
+    debug_log('Schicke Antwort: ' + answerID.value);
+  }
+   
+  //debug_log('Schicke Request mit ImageID ' + ImageID + ' und UserID: ' + userID.value);
+
+  fetch('https://weddingfun-cookingtest.rhcloud.com/game/api/response/'+ QuestionID.value +'/',
+     { method: "POST", 
+         headers: {"Data-User-Id": userID.value, 
+      "Content-Type": "text/plain",
+      "Data-Response-Index": answerID.value}})
+ .then(function(response) {
+            console.log("Favorit erfolgreich angelegt!");
+            console.log(response.status);
+   /*         if (response.status == 200) {
+              pictures[a.data.id].heartByCurrentUser = "Visible"
+            }  */
+            question.replaceAll([]);
+            //question.value = '{"questionText":"Was ist ein Chapter Lead?"}';
+            return response.json();
+        }).then(function(responseObject) {
+          debug_log('Das ist der AnswerResponse: ' + JSON.stringify(responseObject));
+          debug_log(JSON.stringify(responseObject.id));
+}); 
  }
 
 
@@ -674,7 +737,9 @@ router.goto("firstPage");
     dislikeMusic: dislikeMusic,
     dislikeImage: dislikeImage,
     quizQuestion: quizQuestion,
-    question: question
-
+    question: question,
+    answerQuestion: answerQuestion,
+    answerVisible: answerVisible,
+    questionVisible: questionVisible,
+    isLoading: isLoading
     }
-
