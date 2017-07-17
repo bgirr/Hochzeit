@@ -545,16 +545,20 @@ function read_file () {
 //setInterval(quizQuestion() , 3000);
 
 function disableQuestion() {
-  debug_log('Disable geht...')
-  checkQuestions.value == false;
-  clearInterval(myvar);
+  debug_log('Disable Funktion...');
+  if(checkQuestions.value === true) {
+    debug_log("--------------------Stoppen-------------------");
+    clearInterval(myvar);
+    checkQuestions.value = false;}
+    debug_log("++++++++++++++++PRÜFEN+++++++++" + checkQuestions.value);
 }
 
 function quizQuestion () {
   teamUser();
  myvar = setInterval(function(){ 
   debug_log("Prüfe ob ich Frage holen soll...")
-if (checkQuestions.value == true) {
+if (checkQuestions.value === true) {
+  debug_log("Hole die Frage vom Backend....")
 GetQuestion();  
 } }, 3000); 
 
@@ -675,6 +679,7 @@ fetch("https://weddingfun-cookingtest.rhcloud.com/game/api/activeQuestion/",
       .then(function(response){
         debug_log('Inhalt aus Team des Users: ' + JSON.stringify(response._bodyText));
         if (response._bodyText === "") {
+          question.replaceAll([]);
           debug_log("Hole mir die möglichen Teams.......");
            fetch('https://weddingfun-cookingtest.rhcloud.com/game/api/team/')
            .then(function(response){
@@ -703,17 +708,20 @@ fetch("https://weddingfun-cookingtest.rhcloud.com/game/api/activeQuestion/",
     var teamId = a.data.id;
     debug_log('Choosen team: ' + teamId);
     fetch('https://weddingfun-cookingtest.rhcloud.com/game/api/team/join/' + teamId + '/',
-    {method: "POST",
+    {method: "PUT",
     headers: {
       "Data-User-Id": userID.value,
        "Content-Type": "text/plain"
     }}).then(function(response){
       debug_log(response.status);
       debug_log('Hier der Response: ' + response._bodyText);
-      if(response.status >= "299") {
+      if(response.status <= 299) {
         chooseTeam.value = 'Hidden';
         checkQuestions.value = true;
         quizQuestion();
+      }
+      else{
+        teamUser();
       }
     })
   };
@@ -721,6 +729,7 @@ fetch("https://weddingfun-cookingtest.rhcloud.com/game/api/activeQuestion/",
 
 function LogOut() {
   disableQuestion();
+  userID.value="";
   Storage.deleteSync("localStorage.json");
   router.goto("LoginPage");
 };
