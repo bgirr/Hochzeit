@@ -72,11 +72,6 @@ function setPage10Headline(){
 	Headline.value = "Info";
 }
 
-function LogOut() {
-	Storage.deleteSync("localStorage.json");
-	router.goto("LoginPage");
-}
-
 
 function Picture(){
 	camera.takePicture(640,480).then(function(image)
@@ -117,7 +112,6 @@ module.exports =  {
 	items: itemsView,
 	img_opacity: img_opacity,
 	userName: userName,
-	LogOut: LogOut,
 	Headline: Headline,
 	setPage1Headline: setPage1Headline,
 	setPage2Headline: setPage2Headline,

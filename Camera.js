@@ -16,6 +16,9 @@ var QuestionID = Observable();
 var answerID = Observable();
 var answerVisible = Observable();
 var questionVisible = Observable();
+var checkQuestions = Observable();
+var teams = Observable();
+var chooseTeam = Observable();
 
 key = Observable("");
 showname = Observable("");
@@ -50,6 +53,7 @@ music_user_value.onValueChanged(function () {
 
 function selectedMusic(){
 
+  disableQuestion();
   Storage.read(SAVEUSER).then(function(content) {
     var data = JSON.parse(content);
     userID.value = data.id;
@@ -416,6 +420,8 @@ function PictureWedding ()
 
 function thumbnails(){
 
+  disableQuestion();
+
   Storage.read(SAVEUSER).then(function(content) {
     var data = JSON.parse(content);
     userID.value = data.id;
@@ -538,13 +544,25 @@ function read_file () {
 
 //setInterval(quizQuestion() , 3000);
 
- function quizQuestion () {
-  debug_log('Ja');
-debug_log('Value: ' + question.value);
-GetQuestion();
+function disableQuestion() {
+  debug_log('Disable geht...')
+  checkQuestions.value == false;
+  clearInterval(myvar);
+}
+
+function quizQuestion () {
+  teamUser();
+ myvar = setInterval(function(){ 
+  debug_log("Prüfe ob ich Frage holen soll...")
+if (checkQuestions.value == true) {
+GetQuestion();  
+} }, 3000); 
+
 }
 
 function GetQuestion() {
+  chooseTeam.value = 'Hidden';
+  teams.replaceAll([]);
  Storage.read(SAVEUSER).then(function(content) {
     var data = JSON.parse(content);
     userID.value = data.id;
@@ -567,13 +585,13 @@ fetch("https://weddingfun-cookingtest.rhcloud.com/game/api/activeQuestion/",
   question.value = data;
   QuestionID.value = data.id;
   debug_log('Fragenummer: ' + QuestionID.value);
-  if (data.alreadyCounted == true) {
-    answerVisible.value = "Visible";
-    questionVisible.value = "Hidden";
-  }
-  else {
+  if (data.responseOfCurrentUser == null) {
     answerVisible.value = "Hidden";
     questionVisible.value = "Visible";
+  }
+  else {
+    answerVisible.value = "Visible";
+    questionVisible.value = "Hidden";
   }
 });
 });
@@ -605,6 +623,22 @@ fetch("https://weddingfun-cookingtest.rhcloud.com/game/api/activeQuestion/",
     answerID.value = "3";
     debug_log('Schicke Antwort: ' + answerID.value);
   }
+      if (a.data.label == "E") {
+    answerID.value = "4";
+    debug_log('Schicke Antwort: ' + answerID.value);
+  }
+      if (a.data.label == "F") {
+    answerID.value = "5";
+    debug_log('Schicke Antwort: ' + answerID.value);
+  }
+      if (a.data.label == "G") {
+    answerID.value = "6";
+    debug_log('Schicke Antwort: ' + answerID.value);
+  }
+        if (a.data.label == "H") {
+    answerID.value = "7";
+    debug_log('Schicke Antwort: ' + answerID.value);
+  }
    
   //debug_log('Schicke Request mit ImageID ' + ImageID + ' und UserID: ' + userID.value);
 
@@ -614,29 +648,82 @@ fetch("https://weddingfun-cookingtest.rhcloud.com/game/api/activeQuestion/",
       "Content-Type": "text/plain",
       "Data-Response-Index": answerID.value}})
  .then(function(response) {
-            console.log("Favorit erfolgreich angelegt!");
+            console.log("Antwort abgegeben!");
             console.log(response.status);
    /*         if (response.status == 200) {
               pictures[a.data.id].heartByCurrentUser = "Visible"
             }  */
             question.replaceAll([]);
             //question.value = '{"questionText":"Was ist ein Chapter Lead?"}';
+            GetQuestion();
             return response.json();
         }).then(function(responseObject) {
           debug_log('Das ist der AnswerResponse: ' + JSON.stringify(responseObject));
           debug_log(JSON.stringify(responseObject.id));
 }); 
+
  }
 
 
  function teamUser () {
+    teams.replaceAll([]);
+    debug_log("Prüfe das Team des Users.......");
     fetch('https://weddingfun-cookingtest.rhcloud.com/game/api/teamOfUser/',
     {method: "GET",
     headers: {"Data-User-Id": userID.value, 
-      "Content-Type": "text/plain"}
-  })
- }
+      "Content-Type": "text/plain"}})
+      .then(function(response){
+        debug_log('Inhalt aus Team des Users: ' + JSON.stringify(response._bodyText));
+        if (response._bodyText === "") {
+          debug_log("Hole mir die möglichen Teams.......");
+           fetch('https://weddingfun-cookingtest.rhcloud.com/game/api/team/')
+           .then(function(response){
+            debug_log('Mögliche Teams: ' + JSON.stringify(response._bodyText));
+            return response.json();
+           }).then(function(responseObject) {
+            debug_log('Mögliche Teams: ' + JSON.stringify(responseObject));
+            var length = responseObject.length;
+            debug_log('Länge ist: ' + length);
+            for (i=0; i<length; i++){
+              var item = responseObject[i];
+              teams.add(item);
+            }
+            chooseTeam.value = 'Visible';
+            debug_log('Hier die Teams: ' + teams.value);
+           })
+      } else{
+        chooseTeam.value = 'Hidden';
+        checkQuestions.value = true;
+      }})
 
+  };
+
+  function setTeam(a) {
+    debug_log(JSON.stringify(a.data));
+    var teamId = a.data.id;
+    debug_log('Choosen team: ' + teamId);
+    fetch('https://weddingfun-cookingtest.rhcloud.com/game/api/team/join/' + teamId + '/',
+    {method: "POST",
+    headers: {
+      "Data-User-Id": userID.value,
+       "Content-Type": "text/plain"
+    }}).then(function(response){
+      debug_log(response.status);
+      debug_log('Hier der Response: ' + response._bodyText);
+      if(response.status >= "299") {
+        chooseTeam.value = 'Hidden';
+        checkQuestions.value = true;
+        quizQuestion();
+      }
+    })
+  };
+
+
+function LogOut() {
+  disableQuestion();
+  Storage.deleteSync("localStorage.json");
+  router.goto("LoginPage");
+};
 
 function login_clicked()
 { debug_log("Hier rein");
@@ -741,5 +828,11 @@ router.goto("firstPage");
     answerQuestion: answerQuestion,
     answerVisible: answerVisible,
     questionVisible: questionVisible,
-    isLoading: isLoading
+    isLoading: isLoading,
+    quizQuestion: quizQuestion,
+    disableQuestion: disableQuestion,
+    teams: teams,
+    setTeam: setTeam,
+    LogOut: LogOut,
+    chooseTeam: chooseTeam
     }

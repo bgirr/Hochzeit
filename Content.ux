@@ -163,7 +163,7 @@
 					<Set showMusics.Value="false" />
 					<Set showSelectMusic.Value="false" />
 				</Clicked>
-				<MenuText ux:Name="MenuItem1" FontSize="20.3" Value="Ablaufplan" Margin="20,20,0,0" />
+				<MenuText ux:Name="MenuItem1" FontSize="20.3" Value="Ablaufplan" Margin="20,20,0,0" Clicked="{disableQuestion}"/>
 			</Panel>
 
 			<Panel Clicked="{setPage2Headline}" Dock="Top">
@@ -177,7 +177,7 @@
 					<Set showMusics.Value="false" />
 					<Set showSelectMusic.Value="false" />
 				</Clicked>
-				<MenuText ux:Name="MenuItem2" FontSize="20.3" Value="Location" Margin="20,20,0,0" />
+				<MenuText ux:Name="MenuItem2" FontSize="20.3" Value="Location" Margin="20,20,0,0" Clicked="{disableQuestion}" />
 			</Panel>
 			<Panel Clicked="{setPage3Headline}" Dock="Top">
 				<Clicked>
@@ -190,7 +190,7 @@
 					<Set showMusics.Value="false" />
 					<Set showSelectMusic.Value="false" />
 				</Clicked>
-				<MenuText ux:Name="MenuItem3" FontSize="20.3" Value="Info" Margin="20,20,0,0" />
+				<MenuText ux:Name="MenuItem3" FontSize="20.3" Value="Info" Margin="20,20,0,0" Clicked="{disableQuestion}" />
 			</Panel>
 			<Panel Clicked="{setPage4Headline}" Dock="Top">
 				<Clicked>
@@ -216,7 +216,7 @@
 					<Set showMusics.Value="false" />
 					<Set showSelectMusic.Value="false" />
 				</Clicked>
-				<MenuText ux:Name="MenuItem5" FontSize="20.3" Value="Quiz" Margin="20,20,0,0" Clicked={quizQuestion}/>
+				<MenuText ux:Name="MenuItem5" FontSize="20.3" Value="Quiz" Margin="20,20,0,0" Clicked="{quizQuestion}"/>
 			</Panel>
 			<Panel Clicked="{setPage6Headline}" Dock="Top">
 				<Clicked>
@@ -597,6 +597,7 @@
 										<StackPanel Column="1" >
 											<Text Alignment="Left" Value="{question.questionText}" Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="30" />
 											<Text Alignment="Left" Value="Gewählte Antwort: {question.responseOfCurrentUser}" Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="20" Visibility="{answerVisible}"/>
+											<Text Alignment="TopCenter" Value="Wähle ein Team" Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="30" Visibility="{chooseTeam}" />
 										</StackPanel>
 									</StackPanel>
 								</Rectangle>
@@ -608,6 +609,22 @@
 										<Text  Column="1" Alignment="Center" Height="50" Width="50" Value="{label}" FontSize="40" Margin="20,10,0,10" />
 											<StackPanel Margin="0,10,0,12" Column="2">
 												<Text Dock="Left" Value="{responseText}" Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="20" Alignment="CenterLeft"/>
+											</StackPanel>
+									</Grid>
+												<StackPanel Padding="8" Orientation="Horizontal">
+
+												</StackPanel>
+								</StackPanel>	
+									<DropShadow />
+								</Rectangle>
+								</Each>
+								<Each Items="{teams}">
+								<Rectangle Margin="0,10,0,10" CornerRadius="2" Clicked="{setTeam}" Color="{teamColor}">
+								<StackPanel>
+									<Grid Columns="10, auto">
+										<Text  Column="1" Alignment="Center" Height="50" Width="50" Value="{label}" FontSize="40" Margin="20,10,0,10" />
+											<StackPanel Margin="0,10,0,12" Column="2" >
+												<Text Dock="Left" Value="{teamName}" Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" TextColor="#ffffff" FontSize="20" Alignment="CenterLeft"/>
 											</StackPanel>
 									</Grid>
 												<StackPanel Padding="8" Orientation="Horizontal">
