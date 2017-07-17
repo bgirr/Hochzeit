@@ -586,7 +586,7 @@
 
 <Panel Margin="10,0,0,10" Padding="0,160,0,0">
 					<WhileTrue ux:Name="showContact">
-						<ScrollView ux:Name="itemsScrollViewContacts">
+						<ScrollView ux:Name="itemsScrollViewContacts" KeepFocusInView="true">
 							<PullToReload ReloadHandler="{quizQuestion}" />
 							<RemovingAnimation>
 								<Change itemsScrollViewContacts.Opacity="0" Duration="0.6" Easing="ExponentialOut" />
