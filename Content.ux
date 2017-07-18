@@ -125,10 +125,18 @@
 				<Scale Factor="0.9" Duration="0.05" Easing="QuadraticInOut" />
 		</Clicked>
 	</StackPanel>
-	<Panel Alignment="Top" Color="#E91E63" Height="80" Layer="Background">
+	<StackPanel Alignment="Top" Layer="Background">
+	<Panel  Color="#E91E63" Height="75" >
 		<MenuText Value="{Headline}" Color="#ffff" Alignment="Center" FontSize="20" Margin="0,15,0,0" />
 		<MenuText Value="{userName}" Color="#ffff" Alignment="CenterRight" Margin="0,15,10,0"/>
 	</Panel>
+	<Panel ux:Name="panel1" Color="#E91E63" Height="5" Width="100%">
+		<Busy ux:Name="isBusy" IsActive="false" />
+			<WhileBusy>
+				<Cycle Target="panel1.Width" Low="0" High="120" Frequency="0.5" Waveform="Sawtooth"/>
+			</WhileBusy>
+	</Panel>
+	</StackPanel>
 
 			
 		<StackPanel ux:Name="MenuItem">
@@ -143,12 +151,11 @@
 				<Rectangle Padding="10,50,0,0" Background="#E91E63" Width="250" Alignment="Left">
 					<DropShadow/>
 					<StackPanel>
-						<StampText Value="Ann-Kathrin" FontSize="50" Alignment="Center" />
-						<StampText Value="&amp; Osman" FontSize="50" Alignment="Center" />
+						<StampText Value="Ann-Kathrin" FontSize="45" Alignment="Center" />
+						<StampText Value="&amp; Osman" FontSize="45" Alignment="Center" />
 						<MainText Value="  22.07.2017" FontSize="30" Alignment="Center" />
 					</StackPanel>
 				</Rectangle>
-
 			</Panel>
 			<ScrollView>
 				<DockPanel>

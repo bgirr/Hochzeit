@@ -374,8 +374,7 @@ function UploadMessageDisable (){
 
 
 function isLoading () {
-  UploadMessage.value = "Wird aktualisiert...";
-  UploadMessageVisible.value = "Visible";
+    isBusy.activate();
 }
 
 function PictureWedding ()
@@ -421,7 +420,7 @@ function PictureWedding ()
 function thumbnails(){
 
   disableQuestion();
-
+  isLoading ();
   Storage.read(SAVEUSER).then(function(content) {
     var data = JSON.parse(content);
     userID.value = data.id;
@@ -457,7 +456,7 @@ fetch("https://weddingfun-cookingtest.rhcloud.com/images/api/withUser/",
   }
   var item = data[i];
   pictures.add(item);
-
+  isBusy.deactivate();
   };
 });
 });
