@@ -14,16 +14,7 @@
 				</Clicked>
 				<MenuText ux:Name="MenuItem1" FontSize="20.3" Value="Ablaufplan" Margin="20,100,0,0" />
 			</Panel>
-			<Panel>
-				<Clicked>
-					<Toggle Target="showLocations" />
-					<Set showItems.Value="false" />
-					<Set showInfos.Value="false" />
-					<Set showContact.Value="false" />
-					<Set showImages.Value="false" />
-				</Clicked>
-				<MenuText ux:Name="MenuItem2" FontSize="20.3" Value="Locations" Margin="20,20,0,0" />
-			</Panel>
+			
 			<Panel>
 				<Clicked>
 					<Toggle Target="showInfos" />

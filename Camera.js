@@ -289,7 +289,7 @@ function getuserID () {
 
 function takePicture ()
 {
-   Camera.takePicture().then(function(image) {
+   Camera.takePicture(1920,1080).then(function(image) {
             CameraRoll.publishImage(image);
             return ImageTools.getBufferFromImage(image).then(function(buffer) {
                 return fetch('https://content.dropboxapi.com/2/files/upload', 
@@ -322,7 +322,7 @@ function CameraRollWedding ()
 {
   getuserID();
   isLoading();
-   CameraRoll.getImage().then(function(image) {
+   CameraRoll.getImage(1920,1080).then(function(image) {
             return ImageTools.getBase64FromImage(image).then(function(buffer) {
                 return fetch('https://weddingfun-cookingtest.rhcloud.com/images/api/uploadImage/base64/body/', 
                   { method: "POST", 
@@ -551,8 +551,9 @@ function dislikeImage(a){
 Storage.read(SAVEUSER).then(function(content) {
     var data = JSON.parse(content);
     savePage.value = data.startPage;
-    if (savePage.value == 'registered') {
-      router.goto("firstPage");
+    debug_log("Startwert: " + savePage.value);
+    if (savePage.value != 'registered') {
+      router.goto("LoginPage");
     }
 
   })
@@ -644,7 +645,8 @@ fetch("https://weddingfun-cookingtest.rhcloud.com/game/api/activeQuestion/",
  function answerQuestion(a) {
 
   debug_log(JSON.stringify(a.data));
-  
+  isLoading();
+
   if (a.data.label == "A") {
     answerID.value = "0";
     debug_log('Schicke Antwort: ' + answerID.value);
@@ -694,10 +696,12 @@ fetch("https://weddingfun-cookingtest.rhcloud.com/game/api/activeQuestion/",
             question.replaceAll([]);
             //question.value = '{"questionText":"Was ist ein Chapter Lead?"}';
             GetQuestion();
+             isBusy.deactivate();
             return response.json();
         }).then(function(responseObject) {
           debug_log('Das ist der AnswerResponse: ' + JSON.stringify(responseObject));
           debug_log(JSON.stringify(responseObject.id));
+           isBusy.deactivate();
 }); 
 
  }
