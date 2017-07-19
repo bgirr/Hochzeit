@@ -516,15 +516,15 @@
 										<StackPanel>
 											<Image Url="https://weddingfun-cookingtest.rhcloud.com/images/static/{imageUrl}" />
 											<DockPanel>
-												<Text Value="{user.showName} |   {numberOfHearts}"  Margin="16, 28, 0, 0"  FontSize="20" Font="Archer" Dock="Left"/>
-												<HeartIcon Color="#000000" Dock="Left" Height="18" Width="18" Margin="4,28,0,0"/>
+												<Text Value="{user.showName} |   {numberOfHearts}"  Margin="16, 33, 0, 0"  FontSize="20" Font="Archer" Dock="Left"/>
+												<HeartIcon Color="#000000" Dock="Left" Height="40" Width="40" Margin="4,28,0,0"/>
 												<Panel Margin="0,28,20,0" Dock="Right">
-													<Panel  Height="30" Width="30" Clicked="{dislikeImage}" Visibility="{heartByCurrentUser}">
-														<HeartIcon Color="{Color}"  Height="18" Width="18" />
-													</Panel>
-													<Panel  Height="30" Width="30" Clicked="{likeImage}" >
-														<HeartIcon Color="{Color}"  Height="18" Width="18"   />
-													</Panel>
+													<Rectangle  Height="40" Width="40" Clicked="{dislikeImage}" Visibility="{heartByCurrentUser}">
+														<HeartIconFilled Color="{Color}"  />
+													</Rectangle>
+													<Rectangle  Height="40" Width="40" Clicked="{likeImage}" >
+														<HeartIcon Color="{Color}"  />
+													</Rectangle>
 												</Panel>
 											</DockPanel>	
 												<StackPanel Padding="8" Orientation="Horizontal">
@@ -565,14 +565,14 @@
 											</StackPanel>
 									</Grid>
 											<DockPanel>
-												<Text Value="   {numberOfHearts}"  Margin="16, 9, 0, 0"  FontSize="20" Font="Archer" Dock="Left"/>
-												<HeartIcon Color="#000000" Dock="Left" Height="18" Width="18" Margin="4,4,0,0"/>
+												<Text Value="   {numberOfHearts}"  Margin="16, 8, 0, 0"  FontSize="22" Font="Archer" Dock="Left"/>
+												<HeartIcon Color="#000000" Dock="Left" Height="40" Width="40" Margin="4,4,0,0"/>
 												<Panel Margin="0,4,20,0" Dock="Right">
 													<Panel Height="40" Width="40" Clicked="{dislikeMusic}" Visibility="{heartByCurrentUser}">
-														<HeartIcon Color="{Color}"  Height="18" Width="18"  />
+														<HeartIconFilled Color="{Color}"   />
 													</Panel>
 													<Panel Clicked="{likeMusic}" Height="40" Width="40">
-														<HeartIcon Color="{Color}"  Height="18" Width="18" />
+														<HeartIcon Color="{Color}"  />
 													</Panel>
 												</Panel>
 											</DockPanel>	

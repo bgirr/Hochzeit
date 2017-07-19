@@ -59,7 +59,7 @@ function selectedMusic(){
     userID.value = data.id;
     debug_log("UserID: " + userID.value);
   })
-  
+ isLoading(); 
 fetch("https://weddingfun-cookingtest.rhcloud.com/songs/api/withUser/",
    { method: "GET", 
                   headers: {"Data-User-Id": userID.value},
@@ -88,6 +88,7 @@ fetch("https://weddingfun-cookingtest.rhcloud.com/songs/api/withUser/",
   }
   var item = data[i];
   selectMusic.add(item);
+  isBusy.deactivate();
   //pictures.sort(function(a, b){return new Date(b.dateAdded) - new Date(a.dateAdded)});
     }
     //Storage.write(SAVETHUMBNAIL, pictures);
@@ -105,7 +106,6 @@ function musicList() {
     userID.value = data.id;
     debug_log("UserID: " + userID.value);
   })
-
 var music_urL = 'https://ws.audioscrobbler.com/2.0/?method=track.search&track=' + music_user_value.value + '&api_key=3e56246655a7a46c2d011bed1a1b807c&format=json';
            fetch(music_urL)
                         .then(function(response) { 
@@ -134,6 +134,7 @@ var music_urL = 'https://ws.audioscrobbler.com/2.0/?method=track.search&track=' 
                             debug_log("Hier ist die Musik");
                             
                             music_JSON.value = responseObject;
+                            isBusy.deactivate();
                            // music.value = JSON.stringify(json_object); 
                             //debug_log(JSON.stringify(music.value.results.trackmatches.track[1].image[2]["#text"]));
                             //music.value = responseObject.music.results.trackmatches.track;
@@ -193,7 +194,7 @@ function likeMusic(a) {
   debug_log(JSON.stringify(a.data));
 
   debug_log('Schicke Request mit MusicID ' + MusicID + ' und UserID: ' + userID.value);
-
+  isLoading();
   fetch('https://weddingfun-cookingtest.rhcloud.com/songs/api/heart/'+ MusicID +'/',
      { method: "POST", 
          headers: {"Data-User-Id": userID.value, 
@@ -210,6 +211,7 @@ function likeMusic(a) {
           debug_log('Das ist der FavResponse: ' + JSON.stringify(responseObject));
           debug_log(JSON.stringify(responseObject.id));
           music_user_value="";
+          isBusy.deactivate();
           musicList();
           selectedMusic();
 });
@@ -221,7 +223,7 @@ function dislikeMusic(a) {
   debug_log(JSON.stringify(a.data));
 
   debug_log('Schicke Request mit MusicID ' + MusicID + ' und UserID: ' + userID.value);
-
+  isLoading();
   fetch('https://weddingfun-cookingtest.rhcloud.com/songs/api/heart/'+ MusicID +'/',
      { method: "DELETE", 
          headers: {"Data-User-Id": userID.value, 
@@ -236,6 +238,7 @@ function dislikeMusic(a) {
         }).then(function(responseObject) {
           debug_log('Das ist der FavResponse: ' + JSON.stringify(responseObject));
           debug_log(JSON.stringify(responseObject.id));
+          isBusy.deactivate();
           selectedMusic();
 });
 }
@@ -286,7 +289,7 @@ function getuserID () {
 
 function takePicture ()
 {
-   Camera.takePicture(150, 150).then(function(image) {
+   Camera.takePicture().then(function(image) {
             CameraRoll.publishImage(image);
             return ImageTools.getBufferFromImage(image).then(function(buffer) {
                 return fetch('https://content.dropboxapi.com/2/files/upload', 
@@ -318,12 +321,13 @@ function takePicture ()
 function CameraRollWedding ()
 {
   getuserID();
+  isLoading();
    CameraRoll.getImage().then(function(image) {
             return ImageTools.getBase64FromImage(image).then(function(buffer) {
                 return fetch('https://weddingfun-cookingtest.rhcloud.com/images/api/uploadImage/base64/body/', 
                   { method: "POST", 
                   headers: {"Data-User-Id": userID.value},
-                  body: "data:image/jpeg;base64,"+buffer
+                  body: "data:image/jpeg;base64,"+ buffer
 
                   });
             });
@@ -332,7 +336,14 @@ function CameraRollWedding ()
             console.log(response.status);
             response_ok = response.ok;
             console.log(response_ok);
-            UploadMessageDone();
+             if (response.status == 200){
+              UploadMessageDone();
+              isBusy.deactivate();
+              }
+            if (response.status >= 300){
+              UploadMessageError();
+              isBusy.deactivate();
+            }
             return response.json();
         }).then(function(responseObject) {
           console.log("Hier der Response:");
@@ -341,7 +352,6 @@ function CameraRollWedding ()
           pictures[0].add(item);          
           debug_log("Neues Bild ist hier!");
         }).catch(function(e){
-            UploadMessageError();
             debug_log("Error");
             debug_log(e);
         });
@@ -377,6 +387,10 @@ function isLoading () {
     isBusy.activate();
 }
 
+function stopLoading() {
+   isBusy.deactivate();
+}
+
 function PictureWedding ()
 {   
   getuserID();
@@ -385,21 +399,25 @@ function PictureWedding ()
             CameraRoll.publishImage(image);
             return ImageTools.getBase64FromImage(image).then(function(buffer) {
               debug_log("Schicke an Backend");
+              isLoading ();
                 return fetch('https://weddingfun-cookingtest.rhcloud.com/images/api/uploadImage/base64/body/', 
                   { method: "POST", 
                   headers: {"Data-User-Id": userID.value},
-                  body: "data:image/jpeg;base64,"+buffer
+                  body: "data:image/jpeg;base64,"+ buffer
                   });
-            });
+            });    
         }).then(function(response) {
             debug_log("Verschickt");
             debug_log(response.status);
             response_ok = response.ok;
             debug_log(response_ok);
             if (response.status == 200){
-            UploadMessageDone();}
+              UploadMessageDone();
+              isBusy.deactivate();
+              }
             if (response.status >= 300){
               UploadMessageError();
+              isBusy.deactivate();
             }
             return response.json();
         }).then(function(responseObject) {
@@ -468,7 +486,7 @@ function likeImage(a){
   debug_log(JSON.stringify(a.data));
 
   debug_log('Schicke Request mit ImageID ' + ImageID + ' und UserID: ' + userID.value);
-
+  isLoading();
   fetch('https://weddingfun-cookingtest.rhcloud.com/images/api/heart/'+ ImageID +'/',
      { method: "POST", 
          headers: {"Data-User-Id": userID.value, 
@@ -479,6 +497,14 @@ function likeImage(a){
    /*         if (response.status == 200) {
               pictures[a.data.id].heartByCurrentUser = "Visible"
             } */
+             if (response.status == 200){
+              
+              isBusy.deactivate();
+              }
+            if (response.status >= 300){
+              MusicMessageError();
+              isBusy.deactivate();
+            }
             return response.json();
         }).then(function(responseObject) {
           debug_log('Das ist der FavResponse: ' + JSON.stringify(responseObject));
@@ -489,7 +515,8 @@ function likeImage(a){
 
 function dislikeImage(a){
 
-var ImageID = a.data.id;
+  isLoading();
+  var ImageID = a.data.id;
   debug_log(JSON.stringify(a.data));
 
   debug_log('Schicke Request mit ImageID ' + ImageID + ' und UserID: ' + userID.value);
@@ -501,6 +528,13 @@ var ImageID = a.data.id;
  .then(function(response) {
             console.log("FavIcon entfernt!");
             console.log(response.status);
+            if (response.status == 200){
+              
+              isBusy.deactivate();
+              }
+            if (response.status >= 300){
+              MusicMessageError();
+              isBusy.deactivate();}
    /*         if (response.status == 200) {
               pictures[a.data.id].heartByCurrentUser = "Visible"
             } */
@@ -550,6 +584,7 @@ function disableQuestion() {
     clearInterval(myvar);
     checkQuestions.value = false;}
     debug_log("++++++++++++++++PRÜFEN+++++++++" + checkQuestions.value);
+    stopLoading();
 }
 
 function quizQuestion () {
