@@ -60,7 +60,7 @@ function selectedMusic(){
     debug_log("UserID: " + userID.value);
   })
  isLoading(); 
-fetch("https://weddingfun-cookingtest.rhcloud.com/songs/api/withUser/",
+fetch("http://app.ak8o.com/songs/api/withUser/",
    { method: "GET", 
                   headers: {"Data-User-Id": userID.value},
                   })
@@ -153,7 +153,7 @@ function addMusic(b){
   debug_log('User: ' + userID.value);
   //var bodyText = '{"key": "' + key.value + '", "showName": "' + showname.value + '"}';
   var body_Music = '{"name":"' + music_name +'", "artist": "' + music_artist + '", "imageUrl": "' + music_imageUrl + '", "mbid":"' + music_mbid + '"}'
-    fetch('http://weddingfun-cookingtest.rhcloud.com/songs/api/addSongWish/',
+    fetch('http://app.ak8o.com/songs/api/addSongWish/',
      { method: "POST", 
          headers: {"Data-User-Id": userID.value, 
         "Content-Type": "application/json"},
@@ -195,7 +195,7 @@ function likeMusic(a) {
 
   debug_log('Schicke Request mit MusicID ' + MusicID + ' und UserID: ' + userID.value);
   isLoading();
-  fetch('https://weddingfun-cookingtest.rhcloud.com/songs/api/heart/'+ MusicID +'/',
+  fetch('http://app.ak8o.com/songs/api/heart/'+ MusicID +'/',
      { method: "POST", 
          headers: {"Data-User-Id": userID.value, 
       "Content-Type": "text/plain"}})
@@ -224,7 +224,7 @@ function dislikeMusic(a) {
 
   debug_log('Schicke Request mit MusicID ' + MusicID + ' und UserID: ' + userID.value);
   isLoading();
-  fetch('https://weddingfun-cookingtest.rhcloud.com/songs/api/heart/'+ MusicID +'/',
+  fetch('http://app.ak8o.com/songs/api/heart/'+ MusicID +'/',
      { method: "DELETE", 
          headers: {"Data-User-Id": userID.value, 
       "Content-Type": "text/plain"}})
@@ -324,7 +324,7 @@ function CameraRollWedding ()
   isLoading();
    CameraRoll.getImage(1920,1080).then(function(image) {
             return ImageTools.getBase64FromImage(image).then(function(buffer) {
-                return fetch('https://weddingfun-cookingtest.rhcloud.com/images/api/uploadImage/base64/body/', 
+                return fetch('http://app.ak8o.com/images/api/uploadImage/base64/body/', 
                   { method: "POST", 
                   headers: {"Data-User-Id": userID.value},
                   body: "data:image/jpeg;base64,"+ buffer
@@ -400,7 +400,7 @@ function PictureWedding ()
             return ImageTools.getBase64FromImage(image).then(function(buffer) {
               debug_log("Schicke an Backend");
               isLoading ();
-                return fetch('https://weddingfun-cookingtest.rhcloud.com/images/api/uploadImage/base64/body/', 
+                return fetch('http://app.ak8o.com/images/api/uploadImage/base64/body/', 
                   { method: "POST", 
                   headers: {"Data-User-Id": userID.value},
                   body: "data:image/jpeg;base64,"+ buffer
@@ -446,7 +446,7 @@ function thumbnails(){
     debug_log("UserID: " + userID.value);
   })
   
-fetch("https://weddingfun-cookingtest.rhcloud.com/images/api/withUser/",
+fetch("http://app.ak8o.com/images/api/withUser/",
    { method: "GET", 
                   headers: {"Data-User-Id": userID.value},
                   })
@@ -487,7 +487,7 @@ function likeImage(a){
 
   debug_log('Schicke Request mit ImageID ' + ImageID + ' und UserID: ' + userID.value);
   isLoading();
-  fetch('https://weddingfun-cookingtest.rhcloud.com/images/api/heart/'+ ImageID +'/',
+  fetch('http://app.ak8o.com/images/api/heart/'+ ImageID +'/',
      { method: "POST", 
          headers: {"Data-User-Id": userID.value, 
       "Content-Type": "text/plain"}})
@@ -521,7 +521,7 @@ function dislikeImage(a){
 
   debug_log('Schicke Request mit ImageID ' + ImageID + ' und UserID: ' + userID.value);
 
-  fetch('https://weddingfun-cookingtest.rhcloud.com/images/api/heart/'+ ImageID +'/',
+  fetch('http://app.ak8o.com/images/api/heart/'+ ImageID +'/',
      { method: "DELETE", 
          headers: {"Data-User-Id": userID.value, 
       "Content-Type": "text/plain"}})
@@ -609,7 +609,7 @@ function GetQuestion() {
     debug_log("UserID: " + userID.value);
   })
   
-fetch("https://weddingfun-cookingtest.rhcloud.com/game/api/activeQuestion/",
+fetch("http://app.ak8o.com/game/api/activeQuestion/",
    { method: "GET", 
                   headers: {'Content-Type': "text/plain",
                   "Data-User-Id": userID.value},
@@ -635,7 +635,7 @@ fetch("https://weddingfun-cookingtest.rhcloud.com/game/api/activeQuestion/",
 });
 });
 
-  fetch('https://weddingfun-cookingtest.rhcloud.com/game/api/activeQuestion/',
+  fetch('http://app.ak8o.com/game/api/activeQuestion/',
     {method: "GET",
     headers: {"Data-User-Id": userID.value, 
       "Content-Type": "text/plain"}
@@ -682,7 +682,7 @@ fetch("https://weddingfun-cookingtest.rhcloud.com/game/api/activeQuestion/",
    
   //debug_log('Schicke Request mit ImageID ' + ImageID + ' und UserID: ' + userID.value);
 
-  fetch('https://weddingfun-cookingtest.rhcloud.com/game/api/response/'+ QuestionID.value +'/',
+  fetch('http://app.ak8o.com/game/api/response/'+ QuestionID.value +'/',
      { method: "POST", 
          headers: {"Data-User-Id": userID.value, 
       "Content-Type": "text/plain",
@@ -710,7 +710,7 @@ fetch("https://weddingfun-cookingtest.rhcloud.com/game/api/activeQuestion/",
  function teamUser () {
     teams.replaceAll([]);
     debug_log("Prüfe das Team des Users.......");
-    fetch('https://weddingfun-cookingtest.rhcloud.com/game/api/teamOfUser/',
+    fetch('http://app.ak8o.com/game/api/teamOfUser/',
     {method: "GET",
     headers: {"Data-User-Id": userID.value, 
       "Content-Type": "text/plain"}})
@@ -719,7 +719,7 @@ fetch("https://weddingfun-cookingtest.rhcloud.com/game/api/activeQuestion/",
         if (response._bodyText === "") {
           question.replaceAll([]);
           debug_log("Hole mir die möglichen Teams.......");
-           fetch('https://weddingfun-cookingtest.rhcloud.com/game/api/team/')
+           fetch('http://app.ak8o.com/game/api/team/')
            .then(function(response){
             debug_log('Mögliche Teams: ' + JSON.stringify(response._bodyText));
             return response.json();
@@ -745,7 +745,7 @@ fetch("https://weddingfun-cookingtest.rhcloud.com/game/api/activeQuestion/",
     debug_log(JSON.stringify(a.data));
     var teamId = a.data.id;
     debug_log('Choosen team: ' + teamId);
-    fetch('https://weddingfun-cookingtest.rhcloud.com/game/api/team/join/' + teamId + '/',
+    fetch('http://app.ak8o.com/game/api/team/join/' + teamId + '/',
     {method: "PUT",
     headers: {
       "Data-User-Id": userID.value,
@@ -780,7 +780,7 @@ function login_clicked()
 
   debug_log(bodyText);
 
-  fetch('https://weddingfun-cookingtest.rhcloud.com/users/api/registerUser/', 
+  fetch('http://app.ak8o.com/users/api/registerUser/', 
                   {method: "POST", 
                   headers: {
                   "Content-type": "application/json",
