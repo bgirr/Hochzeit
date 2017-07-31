@@ -502,7 +502,7 @@
 								<Each Items="{pictures}">
 									<Rectangle Margin="0,10,20,0" Color="White" CornerRadius="2">
 										<StackPanel>
-											<Image Url="https://weddingfun-cookingtest.rhcloud.com/images/static/{imageUrl}" />
+											<Image Url="http://app.ak8o.com/images/static/{imageUrl}" />
 											<DockPanel>
 												<Text Value="{user.showName} |   {numberOfHearts}"  Margin="16, 33, 0, 0"  FontSize="20" Font="Archer" Dock="Left"/>
 												<HeartIcon Color="#000000" Dock="Left" Height="40" Width="40" Margin="4,28,0,0"/>
