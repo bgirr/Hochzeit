@@ -6,7 +6,7 @@
 		<Text ux:Class="WhiteText" TextColor="#ffffff" />
 		<Grid Rows="1*,1*">
 			<StackPanel Alignment="VerticalCenter">
-				<Image File="images/logo_v02.png" Alignment="HorizontalCenter" Margin="50,200,50,0"/>
+				<Image File="Assets/images/bg.jpg" Alignment="HorizontalCenter" Margin="50,200,50,0"/>
 				 <WhilePressed>
             		<Rotate Degrees="100" Duration="2" Easing="BounceOut" EasingBack="BounceIn"/>
         		</WhilePressed>

@@ -22,13 +22,13 @@
 <TextInputHint ux:Property="InputHint" />	
 <Panel Dock="Top">
 		<!--Rectangle Fill="#FFFFFF" Height="20"/-->
-		<Text ux:Name="labeltop" Value="{Property PlaceholderText}" Color="#F23363" Visibility="Hidden" Font="MainFont" FontSize="18"/>
+		<Text ux:Name="labeltop" Value="{Property PlaceholderText}" Color="#4CAF50" Visibility="Hidden" Font="MainFont" FontSize="18"/>
 	</Panel>
 <Panel Dock="Bottom">
 	
 	<TextInput ux:Name="input" Value="{Property this.Value}" Width="100%" MaxLength="{Property this.MaxLength}" InputHint="{Property this.InputHint}" Font="MainFont" FontSize="22" >
 
-		<Text ux:Name="label" Value="{Property PlaceholderText}" Color="#F23363" Font="MainFont" FontSize="22" />
+		<Text ux:Name="label" Value="{Property PlaceholderText}" Color="#4CAF50" Font="MainFont" FontSize="22" />
 		<Rectangle ux:Name="bottomLine" Fill="#9E9E9E" Height="5%" Alignment="Bottom" Layer="Background"/> 
 
 		<WhileContainsText>
@@ -38,8 +38,8 @@
 		</WhileContainsText>
 
 		<WhileFocused>
-		<Change bottomLine.Fill="#F23363" />
-		<Change label.Color="#F23363" />
+		<Change bottomLine.Fill="#4CAF50" />
+		<Change label.Color="#4CAF50" />
 		<Change label.FontSize="18" />
 		<Move X="0" Y="-22" Target="label" Duration="0.3" />	
 	</WhileFocused>
@@ -109,7 +109,8 @@
 	<Icon ux:Class="HeartIconFilled" File="Assets/Icons/like2.png" />
 
 
-	<Font ux:Global="Archer" File="Assets/Fonts/Archer-Book-Pro.otf" />
+	<Font ux:Global="Headline" File="Assets/Fonts/built_titling_rg.otf" />
+	<Font ux:Global="Archer" File="Assets/Fonts/Ubuntu-C.ttf" />
 
 	<Font ux:Global="RobotoThin" File="Assets/FOnts/built_titling_rg.otf" />
 	<Font ux:Global="RobotoLight" File="Assets/FOnts/built_titling_rg.otf" />
@@ -119,7 +120,7 @@
 	<BodyText ux:Class="MuteText" Color="#eee" />
 
 	<Text ux:Class="DefaultText" Color="#ffff">
-		<Font File="Assets/FOnts/built_titling_lt.otf" />
+		<Font File="Assets/FOnts/built_titling_rg.otf" />
 	</Text>
 
 	<Text ux:Class="MutedText" Color="#fffd" >
@@ -127,15 +128,15 @@
 	</Text>
 	
 	<Text ux:Class="StampText" Color="#ffff">
-		<Font File="Assets/FOnts/Font2_AK8O.ttf" />
+		<Font File="Assets/FOnts/built_titling_rg.otf" />
 	</Text>
 
 	<Text ux:Class="MainText" Color="#ffff">
-		<Font File="Assets/FOnts/Font1_AK8O.ttf" />
+		<Font File="Assets/FOnts/built_titling_rg.otf" />
 	</Text>
 	
 	<Text ux:Class="MenuText" Color="#676565">
-		<Font File="Assets/FOnts/ArcherPro-Book_0.otf" />
+		<Font File="Assets/FOnts/built_titling_rg.otf" />
 	</Text>
 
 

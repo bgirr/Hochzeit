@@ -49,7 +49,7 @@ function login_clicked()
 
 	debug_log(bodyText);
 
-	fetch('http://app.ak8o.com/users/api/registerUser/', 
+	fetch('https://weddingfun-cookingtest.rhcloud.com/users/api/registerUser/', 
                   {method: "POST", 
                   headers: {
                   "Content-type": "application/json",

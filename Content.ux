@@ -1,6 +1,8 @@
 <Panel>
 	<ClientPanel>
-	<ImageFill File="Assets/background_osman.jpg" StretchMode="UniformToFill" WrapMode="ClampToEdge" Opacity="1.0"/>
+	<ImageFill File="Assets/bg.jpg" StretchMode="UniformToFill" WrapMode="ClampToEdge" Opacity="1.0" />
+
+
 
 		<Fuse.iOS.StatusBarConfig Style="Light" />
 
@@ -126,34 +128,34 @@
 		</Clicked>
 	</StackPanel>
 	<StackPanel Alignment="Top" Layer="Background">
-	<Panel  Color="#E91E63" Height="75" >
-		<MenuText Value="{Headline}" Color="#ffff" Alignment="Center" FontSize="20" Margin="0,15,0,0" />
-		<MenuText Value="{userName}" Color="#ffff" Alignment="CenterRight" Margin="0,15,10,0"/>
+	<Panel  Color="#4CAF50" Height="75" >
+		<MenuText Value="{Headline}" Color="#ffff" Alignment="Center" FontSize="40" Margin="0,15,0,0" />
+		<Text Value="{userName}" Color="#ffff" Alignment="CenterRight" Font="Archer" Margin="0,15,10,0"/>
 	</Panel>
-	<Panel ux:Name="panel1" Color="#E91E63" Height="5" Width="100%">
+	<Panel ux:Name="panel1" Color="#4CAF50" Height="5" Width="100%">
 		<Busy ux:Name="isBusy" IsActive="false" />
 			<WhileBusy>
 				<Cycle Target="panel1.Width" Low="0" High="120" Frequency="0.5" Waveform="Sawtooth"/>
 			</WhileBusy>
 	</Panel>
+	<!-- Hier Wimpelkette einsetzen   !-->
+	<Image File="Assets/wimpelkette.png" Alignment="TopRight" Margin="0,0,0,0" Height="40%" Width="40%" Opacity="1.0" Layer="Layout" />
 	</StackPanel>
-
+	<Panel  Color="#ffffff" Layer="Background" Visibility="{WhiteBackground}"/>
 			
 		<StackPanel ux:Name="MenuItem">
 			<Clicked>
 				<Toggle Target="hideHeadlines" />
 				<Scale Factor="0.9" Duration="0.05" Easing="QuadraticInOut" />
 			</Clicked>
-			<Panel Color="#E91E63" Width="250" Alignment="TopLeft">
+			<Panel Color="#4CAF50" Width="250" Alignment="TopLeft">
 
 			</Panel>
 			<Panel>
-				<Rectangle Padding="10,50,0,0" Background="#E91E63" Width="250" Alignment="Left">
+				<Rectangle Padding="10,50,0,0" Background="#4CAF50" Width="250" Alignment="Left">
 					<DropShadow/>
 					<StackPanel>
-						<StampText Value="Ann-Kathrin" FontSize="45" Alignment="Center" />
-						<StampText Value="&amp; Osman" FontSize="45" Alignment="Center" />
-						<MainText Value="  22.07.2017" FontSize="30" Alignment="Center" />
+						<Image File="Assets/Ursi+Beeni_white.png" Alignment="TopRight" Margin="10,10,15,10"  Opacity="1.0"/>
 					</StackPanel>
 				</Rectangle>
 			</Panel>
@@ -170,7 +172,7 @@
 					<Set showMusics.Value="false" />
 					<Set showSelectMusic.Value="false" />
 				</Clicked>
-				<MenuText ux:Name="MenuItem1" FontSize="20.3" Value="Ablaufplan" Margin="20,20,0,0" Clicked="{disableQuestion}"/>
+				<MenuText ux:Name="MenuItem1" FontSize="35" Value="Ablaufplan" Margin="20,20,0,0" Clicked="{getSchedule}"/>
 			</Panel>
 
 			
@@ -185,7 +187,7 @@
 					<Set showMusics.Value="false" />
 					<Set showSelectMusic.Value="false" />
 				</Clicked>
-				<MenuText ux:Name="MenuItem3" FontSize="20.3" Value="Info" Margin="20,20,0,0" Clicked="{disableQuestion}" />
+				<MenuText ux:Name="MenuItem3" FontSize="35" Value="Info" Margin="20,20,0,0" Clicked="{disableQuestion}" />
 			</Panel>
 			<Panel Clicked="{setPage4Headline}" Dock="Top">
 				<Clicked>
@@ -198,7 +200,7 @@
 					<Set showMusics.Value="false" />
 					<Set showSelectMusic.Value="false" />
 				</Clicked>
-				<MenuText ux:Name="MenuItem4" FontSize="20.3" Value="Fotos" Margin="20,20,0,0" Clicked="{thumbnails}"/>
+				<MenuText ux:Name="MenuItem4" FontSize="35" Value="Fotos" Margin="20,20,0,0" Clicked="{thumbnails}"/>
 			</Panel>
 			<Panel Clicked="{setPage5Headline}" Dock="Top">
 				<Clicked>
@@ -211,7 +213,7 @@
 					<Set showMusics.Value="false" />
 					<Set showSelectMusic.Value="false" />
 				</Clicked>
-				<MenuText ux:Name="MenuItem5" FontSize="20.3" Value="Quiz" Margin="20,20,0,0" Clicked="{quizQuestion}"/>
+				<MenuText ux:Name="MenuItem5" FontSize="35" Value="Quiz" Margin="20,20,0,0" Clicked="{quizQuestion}"/>
 			</Panel>
 			<Panel Clicked="{setPage6Headline}" Dock="Top">
 				<Clicked>
@@ -224,11 +226,12 @@
 					<Set showContactForm.Value="false" />
 					<Set showMusics.Value="false" />
 				</Clicked>
-				<MenuText ux:Name="MenuItem6" FontSize="20.3" Value="Musik" Margin="20,20,0,0" Clicked="{selectedMusic}"/>
+				<MenuText ux:Name="MenuItem6" FontSize="35" Value="Musik" Margin="20,20,0,0" Clicked="{selectedMusic}"/>
 			</Panel>
 			<Panel Clicked="{LogOut}" Dock="Top">
-				<MenuText Value="Ausloggen" FontSize="12.5" Margin="20,10,0,0" />
+				<MenuText Value="Ausloggen" FontSize="25" Margin="20,10,0,0" />
 			</Panel>
+			<Image File="Assets/wimpel_slider.png" Alignment="Left" Margin="0,0,0,0" Height="40%" Width="40%" Opacity="1.0" Layer="Layout" />
 		</DockPanel>
 	</ScrollView>
 		</StackPanel>
@@ -280,7 +283,7 @@
 					<Toggle Target="expanded" />
 				</Clicked>
 			</Circle>
-			<Circle ux:Name="circle" Color="#F23363" Width="20%" Height="20%" >
+			<Circle ux:Name="circle" Color="#4CAF50" Width="20%" Height="20%" >
 
 			</Circle>
 
@@ -315,91 +318,29 @@
 			
 
 
-				<Panel Margin="10,100,10,0" Padding="0,80,0,0">
+				<Panel Margin="10,100,10,0" Padding="0,70,0,0" >
 					<WhileTrue ux:Name="showItems">
 						<ScrollView ux:Name="itemsScrollView">
 							<RemovingAnimation>
 								<Change itemsScrollView.Opacity="0" Duration="0.6" Easing="ExponentialOut" />
 							</RemovingAnimation>
 							<StackPanel>
-								<Rectangle Margin="10" Color="White" CornerRadius="2">
-									<StackPanel>
-										<Grid Columns="2">
-											<Image File="Assets/Images/pfaffenwinkel.png"  Margin="0,10,10,10" Column="2"/>
-											<StackPanel Column="1" >
-												<Text Value="Samstag, ab 16:00 Uhr" Font="Archer" Margin="16, 8, 16, 0"  FontSize="14"  TextWrapping="Wrap"/>
-												<Text Alignment="Left" Value="Empfang im Restaurant Pfaffenwinkel" Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="20" />
-											</StackPanel>
-										</Grid>
-									</StackPanel>
-									<DropShadow />
-								</Rectangle>
+								<Each Items="{scheduleList}">
+									<Rectangle Margin="10" Color="White" CornerRadius="2">
+										<StackPanel>
+											<Grid Columns="2">
+												<Image Url="{contentImageUrl}"  Margin="0,10,10,10" Column="2"/>
+												<StackPanel Column="1" >
+													<Text Value="{time}" Font="Archer" Margin="16, 8, 16, 0"  FontSize="14"  TextWrapping="Wrap"/>
+													<Text Value="{contentHeader}" Font="Archer" Margin="16, 8, 16, 0"  FontSize="14"  TextWrapping="Wrap"/>
+													<Text Alignment="Left" Value="{contentText}" Margin="16, 5, 0, 0" Font="Headline" TextWrapping="Wrap" FontSize="20" />
+												</StackPanel>
+											</Grid>
+										</StackPanel>
+										<DropShadow />
+									</Rectangle>
+								</Each>
 
-								<Rectangle Margin="10" Color="White" CornerRadius="2">
-									<StackPanel>
-										<Grid Columns="2">
-											<Image File="Assets/Images/fotos.png"  Margin="0,10,10,10" Column="2"/>
-											<StackPanel Column="1" >
-												<Text Value="ab 17:00 Uhr" Font="Archer" Margin="16, 8, 16, 0"  FontSize="14"  TextWrapping="Wrap"/>
-												<Text Alignment="Left" Value="Gemeinsame Fotos und erstes Spiel" Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="20" />
-											</StackPanel>
-										</Grid>
-									</StackPanel>
-									<DropShadow />
-								</Rectangle>
-
-								<Rectangle Margin="10" Color="White" CornerRadius="2">
-									<StackPanel>
-										<Grid Columns="2">
-											<Image File="Assets/Images/grillbuffet.png"  Margin="0,10,10,10" Column="2"/>
-											<StackPanel Column="1" >
-												<Text Value="ab 19:00 Uhr" Font="Archer" Margin="16, 8, 16, 0"  FontSize="14"  TextWrapping="Wrap"/>
-												<Text Alignment="Left" Value="Eröffnung des Grillbuffets" Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="20" />
-											</StackPanel>
-										</Grid>
-									</StackPanel>
-									<DropShadow />
-								</Rectangle>
-
-								<Rectangle Margin="10" Color="White" CornerRadius="2">
-									<StackPanel>
-										<Grid Columns="2">
-											<Image File="Assets/Images/spiele.png"  Margin="0,10,10,10" Column="2"/>
-											<StackPanel Column="1" >
-												<Text Value="ab 20:00 Uhr" Font="Archer" Margin="16, 8, 16, 0"  FontSize="14"  TextWrapping="Wrap"/>
-												<Text Alignment="Left" Value="Spiele" Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="20" />
-											</StackPanel>
-										</Grid>
-									</StackPanel>
-									<DropShadow />
-								</Rectangle>
-
-
-								<Rectangle Margin="10" Color="White" CornerRadius="2">
-									<StackPanel>
-										<Grid Columns="2">
-											<Image File="Assets/Images/nachtisch.png"  Margin="0,10,10,10" Column="2"/>
-											<StackPanel Column="1" >
-												<Text Value="ab 21:00 Uhr" Font="Archer" Margin="16, 8, 16, 0"  FontSize="14"  TextWrapping="Wrap"/>
-												<Text Alignment="Left" Value="Hochzeitstorte und Nachtisch" Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="20" />
-											</StackPanel>
-										</Grid>
-									</StackPanel>
-									<DropShadow />
-								</Rectangle>
-
-								<Rectangle Margin="10" Color="White" CornerRadius="2">
-									<StackPanel>
-										<Grid Columns="2">
-											<Image File="Assets/Images/party.png"  Margin="0,10,10,10" Column="2"/>
-											<StackPanel Column="1" >
-												<Text Value="bis Open End" Font="Archer" Margin="16, 8, 16, 0"  FontSize="14"  TextWrapping="Wrap"/>
-												<Text Alignment="Left" Value="Eröffnungstanz und Party" Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="20" Padding="0,0,0,50"/>
-											</StackPanel>
-										</Grid>
-									</StackPanel>
-									<DropShadow />
-								</Rectangle>
 							</StackPanel>
 						</ScrollView>
 					</WhileTrue>
@@ -418,12 +359,12 @@
 								<Rectangle Margin="10" Color="White" CornerRadius="2">
 									<StackPanel>
 											<StackPanel>
-												<Text Alignment="Left" Value="Transfer nach München" Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="35" />
-												<Text Value="Wir möchten Euch zur leichteren An- und Abreise Shuttles anbieten. Bitte schreibt uns in der Antwortkarte, ob Ihr ein Shuttle wünscht und welcher Abfahrts-/Anfahrtsort Euch am besten passten würde. – Wir können nicht alles möglich machen, aber versuchen es   ; ) " Font="Archer" Margin="16, 8, 16, 0"  FontSize="14"  TextWrapping="Wrap"/>
-												<Text Alignment="Left" Value="München ⇒ Pähl" Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="20" />
-												<Text Value="Shuttle-Fahrt von München Zentrum (z.B. Wahl zwischen Ost- und Hauptbahnhof) um 15:15 Uhr direkt zum Restaurant Pfaffenwinkel. Für alle, die mit der S-Bahn fahren, werden wir auch sicherstellen, dass am S-Bahnhof Tutzing ausreichend Taxis sind. " Font="Archer" Margin="16, 8, 16, 0"  FontSize="14"  TextWrapping="Wrap"/>
-												<Text Alignment="Left" Value="Pähl ⇒ München:" Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="20" />
-												<Text Value="Shuttle-Fahrten vom Restaurant nach München Zentrum (z.B. Wahl zwischen Ost- und Hauptbahnhof). Idealerweise organisiert Ihr Euch spontan in Fahrgemeinschaften und wir rufen dann ein Shuttle." Font="Archer" Margin="16, 8, 16, 3"  FontSize="14"  TextWrapping="Wrap"/>
+												<Text Alignment="Left" Value="Transfer nach München" Margin="16, 5, 0, 0" Font="Headline" TextWrapping="Wrap" FontSize="35" />
+												<Text Value="Wir möchten Euch zur leichteren An- und Abreise Shuttles anbieten. Bitte schreibt uns in der Antwortkarte, ob Ihr ein Shuttle wünscht und welcher Abfahrts-/Anfahrtsort Euch am besten passten würde. – Wir können nicht alles möglich machen, aber versuchen es   ; ) " Font="Archer" Margin="16, 8, 16, 0"  FontSize="18"  TextWrapping="Wrap"/>
+												<Text Alignment="Left" Value="München ⇒ Pähl" Margin="16, 5, 0, 0" Font="Headline" TextWrapping="Wrap" FontSize="20" />
+												<Text Value="Shuttle-Fahrt von München Zentrum (z.B. Wahl zwischen Ost- und Hauptbahnhof) um 15:15 Uhr direkt zum Restaurant Pfaffenwinkel. Für alle, die mit der S-Bahn fahren, werden wir auch sicherstellen, dass am S-Bahnhof Tutzing ausreichend Taxis sind. " Font="Archer" Margin="16, 8, 16, 0"  FontSize="18"  TextWrapping="Wrap"/>
+												<Text Alignment="Left" Value="Pähl ⇒ München:" Margin="16, 5, 0, 0" Font="Headline" TextWrapping="Wrap" FontSize="20" />
+												<Text Value="Shuttle-Fahrten vom Restaurant nach München Zentrum (z.B. Wahl zwischen Ost- und Hauptbahnhof). Idealerweise organisiert Ihr Euch spontan in Fahrgemeinschaften und wir rufen dann ein Shuttle." Font="Archer" Margin="16, 8, 16, 3"  FontSize="18"  TextWrapping="Wrap"/>
 											</StackPanel>
 									</StackPanel>
 									<DropShadow />
@@ -432,7 +373,7 @@
 								<Rectangle Margin="10" Color="White" CornerRadius="2">
 									<StackPanel>
 											<StackPanel>
-												<Text Alignment="Left" Value="Spiele und Programm" Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="35" />
+												<Text Alignment="Left" Value="Spiele und Programm" Margin="16, 5, 0, 0" Font="Headline" TextWrapping="Wrap" FontSize="35" />
 												<Text Value="Wir möchten vor allem einen gemütlichen und lustigen Abend mit Euch verbringen und haben selbst ein paar kleine Spiele vorbereitet. Ihr müsst nichts mitbringen – nur gute Laune ; )" Font="Archer" Margin="16, 8, 16, 3"  FontSize="14"  TextWrapping="Wrap"/>
 											</StackPanel>
 									</StackPanel>
@@ -441,15 +382,15 @@
 
 								<Rectangle Margin="10" Color="White" CornerRadius="2">
 									<StackPanel>
-										<Text Alignment="Left" Value="Geschenke" Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="35" />
+										<Text Alignment="Left" Value="Geschenke" Margin="16, 5, 0, 0" Font="Headline" TextWrapping="Wrap" FontSize="35" />
 										<Text Value="Wir haben zwei besondere Gäste dabei, die die Frage nach dem Geschenk vielleicht vereinfachen. Jeder kann, wenn er möchte diese beiden Gäste füttern." Font="Archer" Margin="16, 8, 16, 0"  FontSize="14"  TextWrapping="Wrap"/>
 										<Image File="Assets/Images/rudi_bruno.png"  Margin="0,10,10,10" Column="2"/>
 											<StackPanel Column="1" >
-												<Text Value="Rudi Rundreise" Font="Archer" Margin="16, 8, 16, 3"  FontSize="20"  TextWrapping="Wrap"/>
+												<Text Value="Rudi Rundreise" Font="Headline" Margin="16, 8, 16, 3"  FontSize="20"  TextWrapping="Wrap"/>
 												<Text Alignment="Left" Value="der Gönner unserer Flitterwochen." Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="14" />
 											</StackPanel>
 											<StackPanel Column="1" >
-												<Text Value="Bruno Benefiz" Font="Archer" Margin="16, 8, 16, 0"  FontSize="20"  TextWrapping="Wrap"/>
+												<Text Value="Bruno Benefiz" Font="Headline" Margin="16, 8, 16, 0"  FontSize="20"  TextWrapping="Wrap"/>
 												<Text Alignment="Left" Value="der Unterstützer von Unicef, Wikipedia, Ärzte ohne Grenzen, Studieren ohne Grenzen." Margin="16, 5, 0, 3" Font="Archer" TextWrapping="Wrap" FontSize="14" />
 											</StackPanel>
 									</StackPanel>
@@ -502,7 +443,7 @@
 								<Each Items="{pictures}">
 									<Rectangle Margin="0,10,20,0" Color="White" CornerRadius="2">
 										<StackPanel>
-											<Image Url="http://app.ak8o.com/images/static/{imageUrl}" />
+											<Image Url="https://weddingfun-cookingtest.rhcloud.com/images/static/{imageUrl}" />
 											<DockPanel>
 												<Text Value="{user.showName} |   {numberOfHearts}"  Margin="16, 33, 0, 0"  FontSize="20" Font="Archer" Dock="Left"/>
 												<HeartIcon Color="#000000" Dock="Left" Height="40" Width="40" Margin="4,28,0,0"/>
@@ -601,7 +542,7 @@
 									<Each Items="{question.responseOptionsList}">
 								<Rectangle ux:Name="Antwort" Margin="0,10,10,10" Color="White" CornerRadius="2" Clicked="{answerQuestion}" Visibility="{questionVisible}">
 									<WhilePressed>
-										<Change Antwort.Color="#F23363" />
+										<Change Antwort.Color="#4CAF50" />
 									</WhilePressed>
 								<StackPanel>
 									<Grid Columns="10, auto">
@@ -669,7 +610,7 @@
 												<Text Dock="Left" Value="{artist} - " Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="15" Alignment="CenterLeft"/>
 												<Text Dock="Left" Value="{name}" Margin="16, 5, 0, 0" Font="Archer" TextWrapping="Wrap" FontSize="20" Alignment="CenterLeft"/>
 											</StackPanel>
-											<MiniFloatingButton BtnColor="#F23363" BtnIcon="&#xE145;" BtnTextColor="#ffff" Dock="Right" Clicked="{addMusic}"/>
+											<MiniFloatingButton BtnColor="#4CAF50" BtnIcon="&#xE145;" BtnTextColor="#ffff" Dock="Right" Clicked="{addMusic}"/>
 										</DockPanel>
 									</Grid>
 								</StackPanel>	

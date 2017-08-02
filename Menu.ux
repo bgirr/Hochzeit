@@ -12,9 +12,18 @@
 					<Set showLocations.Value="false" />
 					<Set showImages.Value="false" />
 				</Clicked>
-				<MenuText ux:Name="MenuItem1" FontSize="20.3" Value="Ablaufplan" Margin="20,100,0,0" />
+				<MenuText ux:Name="MenuItem1" FontSize="40" Value="Ablaufplan" Margin="20,100,0,0" />
 			</Panel>
-			
+			<Panel>
+				<Clicked>
+					<Toggle Target="showLocations" />
+					<Set showItems.Value="false" />
+					<Set showInfos.Value="false" />
+					<Set showContact.Value="false" />
+					<Set showImages.Value="false" />
+				</Clicked>
+				<MenuText ux:Name="MenuItem2" FontSize="40" Value="Locations" Margin="20,20,0,0" />
+			</Panel>
 			<Panel>
 				<Clicked>
 					<Toggle Target="showInfos" />
@@ -23,7 +32,7 @@
 					<Set showLocations.Value="false" />
 					<Set showImages.Value="false" />
 				</Clicked>
-				<MenuText ux:Name="MenuItem3" FontSize="20.3" Value="Info" Margin="20,20,0,0" />
+				<MenuText ux:Name="MenuItem3" FontSize="40" Value="Info" Margin="20,20,0,0" />
 			</Panel>
 			<Panel>
 				<Clicked>
@@ -33,7 +42,7 @@
 					<Set showContact.Value="false" />
 					<Set showLocations.Value="false" />
 				</Clicked>
-				<MenuText ux:Name="MenuItem4" FontSize="20.3" Value="Fotos" Margin="20,20,0,0" />
+				<MenuText ux:Name="MenuItem4" FontSize="40" Value="Fotos" Margin="20,20,0,0" />
 			</Panel>
 			<Panel>
 				<Clicked>
@@ -43,7 +52,7 @@
 					<Set showLocations.Value="false" />
 					<Set showImages.Value="false" />
 				</Clicked>
-				<MenuText ux:Name="MenuItem5" FontSize="20.3" Value="Quiz" Margin="20,20,0,0" />
+				<MenuText ux:Name="MenuItem5" FontSize="40" Value="Quiz" Margin="20,20,0,0" />
 			</Panel>
 		</StackPanel>
 </Panel>

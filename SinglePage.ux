@@ -246,7 +246,7 @@
 					<Toggle Target="expanded" />
 				</Clicked>
 			</Circle>
-			<Circle ux:Name="circle" Color="#F23363" Width="20%" Height="20%" >
+			<Circle ux:Name="circle" Color="#4CAF50" Width="20%" Height="20%" >
 
 			</Circle>
 
