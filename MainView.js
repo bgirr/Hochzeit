@@ -5,7 +5,7 @@ var SAVEUSER = "localStorage.json";
 
 var userName = Observable("");
 var userID = Observable("");
-var Headline=Observable("Ursi & Beeni");
+
 
 
 Storage.read(SAVEUSER).then(function(content) {
@@ -27,49 +27,6 @@ function Item(time, ampm, title, project, people){
 	this.title = title;
 	this.project = project;
 	this.people = people;
-}
-
-
-
-
-function setPage1Headline(){
-	Headline.value = "Ablaufplan";
-}
-
-function setPage2Headline(){
-	Headline.value = "Location";
-}
-
-function setPage3Headline(){
-	Headline.value = "Info";
-}
-
-function setPage4Headline(){
-	Headline.value = "Alle Fotos";
-}
-
-function setPage5Headline(){
-	Headline.value = "Quiz";
-}
-
-function setPage6Headline(){
-	Headline.value = "Alle Lieder";
-}
-
-function setPage7Headline(){
-	Headline.value = "Info";
-}
-
-function setPage8Headline(){
-	Headline.value = "Info";
-}
-
-function setPage9Headline(){
-	Headline.value = "Info";
-}
-
-function setPage10Headline(){
-	Headline.value = "Info";
 }
 
 
@@ -111,17 +68,6 @@ var img_opacity = '0.8'
 module.exports =  {
 	items: itemsView,
 	img_opacity: img_opacity,
-	userName: userName,
-	Headline: Headline,
-	setPage1Headline: setPage1Headline,
-	setPage2Headline: setPage2Headline,
-	setPage3Headline: setPage3Headline,
-	setPage4Headline: setPage4Headline,
-	setPage5Headline: setPage5Headline,
-	setPage6Headline: setPage6Headline,
-	setPage7Headline: setPage7Headline,
-	setPage8Headline: setPage8Headline,
-	setPage9Headline: setPage9Headline,
-	setPage10Headline: setPage10Headline
+	userName: userName
 
 };

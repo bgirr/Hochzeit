@@ -22,6 +22,8 @@ var checkQuestions = Observable();
 var teams = Observable();
 var chooseTeam = Observable();
 var WhiteBackground = Observable("Hidden");
+var SAVESCHEDULE = "localSchedule.txt";
+var Headline=Observable("Ursi & Beeni");
 
 key = Observable("");
 showname = Observable("");
@@ -48,6 +50,18 @@ var music_urL = 'https://ws.audioscrobbler.com/2.0/?method=track.search&track=' 
 var musicLength = music_user_value.length;
 
 
+checkUser();
+
+function checkUser(){
+Storage.read(SAVEUSER).then(function(content) {
+    var data = JSON.parse(content);
+    savePage.value = data.startPage;
+    debug_log("Aus dem LocalStorage: " + JSON.stringify(data));
+    debug_log("Startwert: " + savePage.value);
+    if (data.id == "") {router.goto("LoginPage")};
+    })
+  }
+
 
 music_user_value.onValueChanged(function () {
         musicList();
@@ -57,6 +71,9 @@ function setWhiteBackground() {
   WhiteBackground.value = "Visible";
 }
 
+function setPhotoBackground() {
+  WhiteBackground.value = "Hidden";
+}
 
 function selectedMusic(){
 
@@ -67,7 +84,7 @@ function selectedMusic(){
     debug_log("UserID: " + userID.value);
   })
  isLoading(); 
-fetch("https://weddingfun-cookingtest.rhcloud.com/songs/api/withUser/",
+fetch("http://app.ursiundbeeni.com/songs/api/withUser/",
    { method: "GET", 
                   headers: {"Data-User-Id": userID.value},
                   })
@@ -161,7 +178,7 @@ function addMusic(b){
   debug_log('User: ' + userID.value);
   //var bodyText = '{"key": "' + key.value + '", "showName": "' + showname.value + '"}';
   var body_Music = '{"name":"' + music_name +'", "artist": "' + music_artist + '", "imageUrl": "' + music_imageUrl + '", "mbid":"' + music_mbid + '"}'
-    fetch('https://weddingfun-cookingtest.rhcloud.com/songs/api/addSongWish/',
+    fetch('http://app.ursiundbeeni.com/songs/api/addSongWish/',
      { method: "POST", 
          headers: {"Data-User-Id": userID.value, 
         "Content-Type": "application/json"},
@@ -173,6 +190,9 @@ function addMusic(b){
             if (response.status == 200){
               MusicMessageDone();
               music_user_value.value =" ";
+            }
+            else {
+              MusicMessageError();
             }
             return response.json();
         }).then(function(responseObject) {
@@ -204,7 +224,7 @@ function likeMusic(a) {
 
   debug_log('Schicke Request mit MusicID ' + MusicID + ' und UserID: ' + userID.value);
   isLoading();
-  fetch('https://weddingfun-cookingtest.rhcloud.com/songs/api/heart/'+ MusicID +'/',
+  fetch('http://app.ursiundbeeni.com/songs/api/heart/'+ MusicID +'/',
      { method: "POST", 
          headers: {"Data-User-Id": userID.value, 
       "Content-Type": "text/plain"}})
@@ -233,7 +253,7 @@ function dislikeMusic(a) {
 
   debug_log('Schicke Request mit MusicID ' + MusicID + ' und UserID: ' + userID.value);
   isLoading();
-  fetch('https://weddingfun-cookingtest.rhcloud.com/songs/api/heart/'+ MusicID +'/',
+  fetch('http://app.ursiundbeeni.com/songs/api/heart/'+ MusicID +'/',
      { method: "DELETE", 
          headers: {"Data-User-Id": userID.value, 
       "Content-Type": "text/plain"}})
@@ -333,7 +353,7 @@ function CameraRollWedding ()
   isLoading();
    CameraRoll.getImage(1280,960).then(function(image) {
             return ImageTools.getBase64FromImage(image).then(function(buffer) {
-                return fetch('https://weddingfun-cookingtest.rhcloud.com/images/api/uploadImage/base64/body/', 
+                return fetch('http://app.ursiundbeeni.com/images/api/uploadImage/base64/body/', 
                   { method: "POST", 
                   headers: {"Data-User-Id": userID.value},
                   body: "data:image/jpeg;base64,"+ buffer
@@ -409,7 +429,7 @@ function PictureWedding ()
             return ImageTools.getBase64FromImage(image).then(function(buffer) {
               debug_log("Schicke an Backend");
               isLoading ();
-                return fetch('https://weddingfun-cookingtest.rhcloud.com/images/api/uploadImage/base64/body/', 
+                return fetch('http://app.ursiundbeeni.com/images/api/uploadImage/base64/body/', 
                   { method: "POST", 
                   headers: {"Data-User-Id": userID.value},
                   body: "data:image/jpeg;base64,"+ buffer
@@ -455,7 +475,7 @@ function thumbnails(){
     debug_log("UserID: " + userID.value);
   })
   
-fetch("https://weddingfun-cookingtest.rhcloud.com/images/api/withUser/",
+fetch("http://app.ursiundbeeni.com/images/api/withUser/",
    { method: "GET", 
                   headers: {"Data-User-Id": userID.value},
                   })
@@ -496,7 +516,7 @@ function likeImage(a){
 
   debug_log('Schicke Request mit ImageID ' + ImageID + ' und UserID: ' + userID.value);
   isLoading();
-  fetch('https://weddingfun-cookingtest.rhcloud.com/images/api/heart/'+ ImageID +'/',
+  fetch('http://app.ursiundbeeni.com/images/api/heart/'+ ImageID +'/',
      { method: "POST", 
          headers: {"Data-User-Id": userID.value, 
       "Content-Type": "text/plain"}})
@@ -530,7 +550,7 @@ function dislikeImage(a){
 
   debug_log('Schicke Request mit ImageID ' + ImageID + ' und UserID: ' + userID.value);
 
-  fetch('https://weddingfun-cookingtest.rhcloud.com/images/api/heart/'+ ImageID +'/',
+  fetch('http://app.ursiundbeeni.com/images/api/heart/'+ ImageID +'/',
      { method: "DELETE", 
          headers: {"Data-User-Id": userID.value, 
       "Content-Type": "text/plain"}})
@@ -557,21 +577,11 @@ function dislikeImage(a){
 
 
 
-Storage.read(SAVEUSER).then(function(content) {
-    var data = JSON.parse(content);
-    savePage.value = data.startPage;
-    debug_log("Aus dem LocalStorage: " + JSON.stringify(data));
-    debug_log("Startwert: " + savePage.value);
-    if (data.id == "") {router.goto("LoginPage")};
-
-
-  })
-
 
 function getSchedule () {
 disableQuestion();
 isLoading();
-fetch("https://weddingfun-cookingtest.rhcloud.com/appContent/api/schedule/",
+fetch("http://app.ursiundbeeni.com/appContent/api/schedule/",
    { method: "GET", 
                   headers: {"Data-User-Id": userID.value},
                   })
@@ -582,7 +592,7 @@ fetch("https://weddingfun-cookingtest.rhcloud.com/appContent/api/schedule/",
       debug_log(result.status);
       isBusy.deactivate();
     }
-  scheduleList.replaceAll([]);
+  //scheduleList.replaceAll([]);
   result.json().then(function(data) {
   debug_log("Übersicht ist da!");
   debug_log(JSON.stringify(data));
@@ -591,6 +601,8 @@ fetch("https://weddingfun-cookingtest.rhcloud.com/appContent/api/schedule/",
   for (i=0; i<laenge; i++){
   var item = data[i];
   scheduleList.add(item);}
+ // debug_log('Hier die Schedule Einträge: ' + scheduleList.value);
+    //Storage.write(SAVESCHEDULE, scheduleList);
   isBusy.deactivate();
   //pictures.sort(function(a, b){return new Date(b.dateAdded) - new Date(a.dateAdded)});
     })
@@ -601,7 +613,7 @@ fetch("https://weddingfun-cookingtest.rhcloud.com/appContent/api/schedule/",
 function getInfos () {
 disableQuestion();
 isLoading();
-fetch("https://weddingfun-cookingtest.rhcloud.com/appContent/api/schedule/",
+fetch("http://app.ursiundbeeni.com/appContent/api/schedule/",
    { method: "GET", 
                   headers: {"Data-User-Id": userID.value},
                   })
@@ -676,7 +688,7 @@ function GetQuestion() {
     debug_log("UserID: " + userID.value);
   })
   
-fetch("https://weddingfun-cookingtest.rhcloud.com/game/api/activeQuestion/",
+fetch("http://app.ursiundbeeni.com/game/api/activeQuestion/",
    { method: "GET", 
                   headers: {'Content-Type': "text/plain",
                   "Data-User-Id": userID.value},
@@ -702,7 +714,7 @@ fetch("https://weddingfun-cookingtest.rhcloud.com/game/api/activeQuestion/",
 });
 });
 
-  fetch('https://weddingfun-cookingtest.rhcloud.com/game/api/activeQuestion/',
+  fetch('http://app.ursiundbeeni.com/game/api/activeQuestion/',
     {method: "GET",
     headers: {"Data-User-Id": userID.value, 
       "Content-Type": "text/plain"}
@@ -749,7 +761,7 @@ fetch("https://weddingfun-cookingtest.rhcloud.com/game/api/activeQuestion/",
    
   //debug_log('Schicke Request mit ImageID ' + ImageID + ' und UserID: ' + userID.value);
 
-  fetch('https://weddingfun-cookingtest.rhcloud.com/game/api/response/'+ QuestionID.value +'/',
+  fetch('http://app.ursiundbeeni.com/game/api/response/'+ QuestionID.value +'/',
      { method: "POST", 
          headers: {"Data-User-Id": userID.value, 
       "Content-Type": "text/plain",
@@ -777,7 +789,7 @@ fetch("https://weddingfun-cookingtest.rhcloud.com/game/api/activeQuestion/",
  function teamUser () {
     teams.replaceAll([]);
     debug_log("Prüfe das Team des Users.......");
-    fetch('https://weddingfun-cookingtest.rhcloud.com/game/api/teamOfUser/',
+    fetch('http://app.ursiundbeeni.com/game/api/teamOfUser/',
     {method: "GET",
     headers: {"Data-User-Id": userID.value, 
       "Content-Type": "text/plain"}})
@@ -786,7 +798,7 @@ fetch("https://weddingfun-cookingtest.rhcloud.com/game/api/activeQuestion/",
         if (response._bodyText === "") {
           question.replaceAll([]);
           debug_log("Hole mir die möglichen Teams.......");
-           fetch('https://weddingfun-cookingtest.rhcloud.com/game/api/team/')
+           fetch('http://app.ursiundbeeni.com/game/api/team/')
            .then(function(response){
             debug_log('Mögliche Teams: ' + JSON.stringify(response._bodyText));
             return response.json();
@@ -812,7 +824,7 @@ fetch("https://weddingfun-cookingtest.rhcloud.com/game/api/activeQuestion/",
     debug_log(JSON.stringify(a.data));
     var teamId = a.data.id;
     debug_log('Choosen team: ' + teamId);
-    fetch('https://weddingfun-cookingtest.rhcloud.com/game/api/team/join/' + teamId + '/',
+    fetch('http://app.ursiundbeeni.com/game/api/team/join/' + teamId + '/',
     {method: "PUT",
     headers: {
       "Data-User-Id": userID.value,
@@ -847,7 +859,7 @@ function login_clicked()
 
   debug_log(bodyText);
 
-  fetch('https://weddingfun-cookingtest.rhcloud.com/users/api/registerUser/', 
+  fetch('http://app.ursiundbeeni.com/users/api/registerUser/', 
                   {method: "POST", 
                   headers: {
                   "Content-type": "application/json",
@@ -910,6 +922,49 @@ router.goto("firstPage");
   };
 
 
+
+function setPage1Headline(){
+  Headline.value = "Ablaufplan";
+}
+
+function setPage2Headline(){
+  Headline.value = "Location";
+}
+
+function setPage3Headline(){
+  Headline.value = "Info";
+}
+
+function setPage4Headline(){
+  Headline.value = "Alle Fotos";
+}
+
+function setPage5Headline(){
+  Headline.value = "Quiz";
+}
+
+function setPage6Headline(){
+  Headline.value = "Alle Lieder";
+  setWhiteBackground();
+}
+
+function setPage7Headline(){
+  Headline.value = "Info";
+}
+
+function setPage8Headline(){
+  Headline.value = "Info";
+}
+
+function setPage9Headline(){
+  Headline.value = "Info";
+}
+
+function setPage10Headline(){
+  Headline.value = "Info";
+}
+
+
     module.exports = {
     pictures: pictures,
     thumbnails: thumbnails,
@@ -953,5 +1008,18 @@ router.goto("firstPage");
     getSchedule: getSchedule,
     scheduleList: scheduleList,
     InfoList: InfoList,
-    getInfos: getInfos
+    getInfos: getInfos,
+    setPhotoBackground: setPhotoBackground,
+    setWhiteBackground: setWhiteBackground,
+    setPage1Headline: setPage1Headline,
+    setPage2Headline: setPage2Headline,
+    setPage3Headline: setPage3Headline,
+    setPage4Headline: setPage4Headline,
+    setPage5Headline: setPage5Headline,
+    setPage6Headline: setPage6Headline,
+    setPage7Headline: setPage7Headline,
+    setPage8Headline: setPage8Headline,
+    setPage9Headline: setPage9Headline,
+    setPage10Headline: setPage10Headline,
+    Headline: Headline
     }
