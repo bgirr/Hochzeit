@@ -592,7 +592,7 @@ fetch("http://app.ursiundbeeni.com/appContent/api/schedule/",
       debug_log(result.status);
       isBusy.deactivate();
     }
-  //scheduleList.replaceAll([]);
+  scheduleList.replaceAll([]);
   result.json().then(function(data) {
   debug_log("Übersicht ist da!");
   debug_log(JSON.stringify(data));
