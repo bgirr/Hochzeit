@@ -53,12 +53,17 @@ var musicLength = music_user_value.length;
 checkUser();
 
 function checkUser(){
-Storage.read(SAVEUSER).then(function(content) {
+  debug_log('Prüfe User...........................................................');
+  Storage.read(SAVEUSER).then(function(content) {
+    debug_log('STORAGE gelesen');
     var data = JSON.parse(content);
     savePage.value = data.startPage;
     debug_log("Aus dem LocalStorage: " + JSON.stringify(data));
     debug_log("Startwert: " + savePage.value);
     if (data.id == "") {router.goto("LoginPage")};
+    }, function(error){
+      debug_log("ERRRRRRRORRRRRRRRR");
+      router.goto("LoginPage");
     })
   }
 
@@ -97,7 +102,7 @@ fetch("http://app.ursiundbeeni.com/songs/api/withUser/",
   result.json().then(function(data) {
   debug_log("Übersicht ist da!");
   debug_log(JSON.stringify(data));
-  data.sort(function(a, b){return new Date(b.dateAdded) - new Date(a.dateAdded)});
+  data.sort(function(a, b){return new Date(b.numberOfHearts) - new Date(a.numberOfHearts)});
   var laenge = 0;
   var laenge = data.length;
 
